@@ -17,11 +17,11 @@ Pod::Spec.new do |s|
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!  
   s.description      = "A library that handles Swift serialization and deserialization into/from JSON."
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/sgy-swift-json"
+  s.homepage         = "https://github.com/sean915213/sgy-swift-json"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "Sean G Young" => "syoung@jarustech.com" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/sgy-swift-json.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/sean915213/sgy-swift-json.git", :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.platform     = :ios, '8.0'
