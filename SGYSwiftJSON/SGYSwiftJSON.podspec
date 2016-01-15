@@ -9,29 +9,27 @@
 Pod::Spec.new do |s|
   s.name             = "SGYSwiftJSON"
   s.version          = "0.1.0"
-  s.summary          = "A short description of SGYSwiftJSON."
+  s.summary          = "A library that largely automates Swift/JSON conversion."
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
 #   * Try to keep it short, snappy and to the point.
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!  
-  s.description      = <<-DESC
-                       DESC
-
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/SGYSwiftJSON"
+  s.description      = "A library that handles Swift serialization and deserialization into/from JSON."
+  s.homepage         = "https://github.com/<GITHUB_USERNAME>/sgy-swift-json"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "Sean G Young" => "syoung@jarustech.com" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/SGYSwiftJSON.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/sgy-swift-json.git", :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.platform     = :ios, '8.0'
   s.requires_arc = true
 
-  s.source_files = 'Pod/Classes/**/*'
+  s.source_files = 'SGYSwiftJSON/Pod/Classes/**/*'
   s.resource_bundles = {
-    'SGYSwiftJSON' => ['Pod/Assets/*.png']
+    'SGYSwiftJSON' => ['SGYSwiftJSON/Pod/Assets/*.png']
   }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
