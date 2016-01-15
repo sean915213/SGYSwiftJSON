@@ -36,7 +36,7 @@
 		63CE8A63387986FC383509B246D50507 /* Quick-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 616BFD5BF73AEF373E5250D05560A338 /* Quick-dummy.m */; };
 		6A744FAF5A30054678B3EB3CB9FE2C0F /* QuickSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 62241019A9DFE31F82A2CDF8690A163C /* QuickSpec.m */; };
 		6AE6AC91EF20839C5E16CA71E6287EEC /* World+DSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDA3CDE7515A11BE56C6C2FE5FB65D8 /* World+DSL.swift */; };
-		6B59478C622C19EBC3136475C8DD3D3A /* ReplaceMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = C510B2829159AF794FB8EFEC2DD506CD /* ReplaceMe.swift */; };
+		6B59478C622C19EBC3136475C8DD3D3A /* TestClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C510B2829159AF794FB8EFEC2DD506CD /* TestClass.swift */; };
 		73695FA6A6CDFBB13C0CC73C2E5126C0 /* Nimble-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C8E9634CF58B22F95DF5AA222CDAF9B8 /* Nimble-dummy.m */; };
 		7680F08C43B965EC873D26E6AD854C9F /* BeIdenticalTo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A1AA2E4CDFA7B6FD9B4F253CAF481F /* BeIdenticalTo.swift */; };
 		77128C0365A98E3BAC038A915B38791C /* BeAKindOf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53DF3C5B85F993313E9FA09386C167 /* BeAKindOf.swift */; };
@@ -195,7 +195,7 @@
 		BEA1EFFE836005E11B9D420692E9E50C /* Example.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Example.swift; path = Quick/Example.swift; sourceTree = "<group>"; };
 		BF4AE1E80CC4EA4F2E1FF17CA10A3D26 /* Nimble-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Nimble-umbrella.h"; sourceTree = "<group>"; };
 		C03BB6589A73F51F073DF050F55D7F41 /* BeGreaterThanOrEqualTo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeGreaterThanOrEqualTo.swift; path = Nimble/Matchers/BeGreaterThanOrEqualTo.swift; sourceTree = "<group>"; };
-		C510B2829159AF794FB8EFEC2DD506CD /* ReplaceMe.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReplaceMe.swift; sourceTree = "<group>"; };
+		C510B2829159AF794FB8EFEC2DD506CD /* TestClass.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TestClass.swift; sourceTree = "<group>"; };
 		C8E9634CF58B22F95DF5AA222CDAF9B8 /* Nimble-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Nimble-dummy.m"; sourceTree = "<group>"; };
 		CB88D200DC80E6521F031A0EE472080E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB8FCD2020E03B3971E108226E624243 /* Pods-SGYSwiftJSON_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SGYSwiftJSON_Tests-umbrella.h"; sourceTree = "<group>"; };
@@ -274,7 +274,7 @@
 		035A5A35109DF564BAA9BA130AE82760 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				C510B2829159AF794FB8EFEC2DD506CD /* ReplaceMe.swift */,
+				C510B2829159AF794FB8EFEC2DD506CD /* TestClass.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -704,7 +704,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6B59478C622C19EBC3136475C8DD3D3A /* ReplaceMe.swift in Sources */,
+				6B59478C622C19EBC3136475C8DD3D3A /* TestClass.swift in Sources */,
 				CAA71510B34E84DD54A6196D6DC34620 /* SGYSwiftJSON-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
