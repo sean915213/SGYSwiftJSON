@@ -1,0 +1,20 @@
+PODS:
+  - Nimble (3.0.0)
+  - Quick (0.8.0)
+  - SGYSwiftJSON (0.1.0)
+
+DEPENDENCIES:
+  - Nimble (= 3.0.0)
+  - Quick (~> 0.8.0)
+  - SGYSwiftJSON (from `../`)
+
+EXTERNAL SOURCES:
+  SGYSwiftJSON:
+    :path: ../
+
+SPEC CHECKSUMS:
+  Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
+  Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
+  SGYSwiftJSON: eb7bf55360822dc5168cfd123b04f3e69946c5c7
+
+COCOAPODS: 0.39.0

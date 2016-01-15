@@ -1,0 +1,6 @@
+framework module Pods_SGYSwiftJSON_Tests {
+  umbrella header "Pods-SGYSwiftJSON_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

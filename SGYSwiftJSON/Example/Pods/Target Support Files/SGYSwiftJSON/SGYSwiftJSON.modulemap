@@ -1,0 +1,6 @@
+framework module SGYSwiftJSON {
+  umbrella header "SGYSwiftJSON-umbrella.h"
+
+  export *
+  module * { export * }
+}
