@@ -17,10 +17,12 @@ public class SGYJSONSerializer {
     
     // MARK: - Initialization
     
+    public init() { }
+    
     // MARK: - Properties
     
     public var strictMode = true
-    public var convertNullToNil: Bool = true
+    public var convertNullToNil = true
     public var writingOptions = NSJSONWritingOptions()
     
     public var dateConversionBlock: ((date: NSDate) -> AnyObject?)?

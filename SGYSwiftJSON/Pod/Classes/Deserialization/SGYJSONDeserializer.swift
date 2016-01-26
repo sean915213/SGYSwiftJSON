@@ -18,6 +18,10 @@ public enum SGYJSONErrors : ErrorType {
 }
 
 public class SGYJSONDeserializer {
+    
+    // MARK: - Initialization
+    
+    public init() { }
 
     // MARK: - Properties
     
