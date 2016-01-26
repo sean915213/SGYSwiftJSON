@@ -13,7 +13,7 @@ public class SGYDeserializableNSObject: NSObject, SGYKeyValueCreatable {
     // Deserialization requires a parameterless initalizer
     public required override init() { super.init() }
     
-    func setValue(value: AnyObject?, property: String) throws {
+    public func setValue(value: AnyObject?, property: String) throws {
         var error: NSError?
         trySetValue(value, forKey: property, error: &error)
         // Throw error if populated
