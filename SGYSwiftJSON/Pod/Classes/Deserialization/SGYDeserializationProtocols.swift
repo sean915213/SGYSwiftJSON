@@ -1,6 +1,6 @@
 //
 //  SGYSwiftProtocols.swift
-//  SGYSwiftConverterTest
+//  SGYSwiftJSON
 //
 //  Created by Sean Young on 8/29/15.
 //  Copyright © 2015 Sean Young. All rights reserved.
@@ -11,7 +11,7 @@ import Foundation
 /**
 *  The most basic protocol for any type that can be created from serialized JSON.
 */
-protocol SGYJSONCreatable {
+public protocol SGYJSONCreatable {
     /**
     A required parameterless initializer.
     
@@ -23,7 +23,7 @@ protocol SGYJSONCreatable {
 /**
 *  The protocol a class must adhere to in-order to be creatable from a JSON dictionary.
 */
-protocol SGYKeyValueCreatable: class, SGYJSONCreatable {
+public protocol SGYKeyValueCreatable: class, SGYJSONCreatable {
     /**
     The basic function facilitating an object's creation from a dictionary.
     
@@ -41,7 +41,7 @@ protocol SGYKeyValueCreatable: class, SGYJSONCreatable {
 /**
 *  Defined to allow attempting the assignment of a deserialized array.
 */
-protocol SGYCollectionCreatable: SGYJSONCreatable, SGYCollectionReflection {
+public protocol SGYCollectionCreatable: SGYJSONCreatable, SGYCollectionReflection {
 
     /**
     Attempts appending the contents of an untyped AnyObject array.
@@ -54,7 +54,7 @@ protocol SGYCollectionCreatable: SGYJSONCreatable, SGYCollectionReflection {
 /**
 *  Defined to allow attempting the assignment of a deserialized dictionary.
 */
-protocol SGYDictionaryCreatable: SGYJSONCreatable, SGYDictionaryReflection {
+public protocol SGYDictionaryCreatable: SGYJSONCreatable, SGYDictionaryReflection {
 
     /**
     Attempts merging the contents of a [String: AnyObject] dictionary.

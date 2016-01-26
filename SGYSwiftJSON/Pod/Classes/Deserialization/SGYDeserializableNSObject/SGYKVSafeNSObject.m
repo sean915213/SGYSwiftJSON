@@ -1,6 +1,6 @@
 //
 //  SGYDeserializableNSObject.m
-//  SGYSwiftConverterTest
+//  SGYSwiftJSON
 //
 //  Created by Sean Young on 9/17/15.
 //  Copyright © 2015 Sean Young. All rights reserved.

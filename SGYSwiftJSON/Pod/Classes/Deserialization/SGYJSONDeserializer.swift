@@ -1,6 +1,6 @@
 //
 //  SGYJSONSerialization.swift
-//  SGYSwiftConverterTest
+//  SGYSwiftJSON
 //
 //  Created by Sean Young on 9/11/15.
 //  Copyright © 2015 Sean Young. All rights reserved.
@@ -8,26 +8,26 @@
 
 import Foundation
 
-typealias SGYJSONDateConversionBlock = (input: AnyObject) -> NSDate?
-typealias SGYJSONUnsupportedConversionBlock = (deserializedValue: AnyObject, toType: Any.Type) -> Void
+public typealias SGYJSONDateConversionBlock = (input: AnyObject) -> NSDate?
+public typealias SGYJSONUnsupportedConversionBlock = (deserializedValue: AnyObject, toType: Any.Type) -> Void
 
-enum SGYJSONErrors : ErrorType {
+public enum SGYJSONErrors : ErrorType {
     case InvalidJSONString,
     InvalidDeserializedObject,
     KeyValueException(NSError)
 }
 
-class SGYJSONDeserializer {
+public class SGYJSONDeserializer {
 
     // MARK: - Properties
     
-    var dateConversionBlock: SGYJSONDateConversionBlock?
-    var unsupportedConversionBlock: SGYJSONUnsupportedConversionBlock?
+    public var dateConversionBlock: SGYJSONDateConversionBlock?
+    public var unsupportedConversionBlock: SGYJSONUnsupportedConversionBlock?
     
     // MARK: - Methods
     // MARK: Public
     
-    func deserialize<T: SGYKeyValueCreatable>(jsonData: NSData) throws -> T {
+    public func deserialize<T: SGYKeyValueCreatable>(jsonData: NSData) throws -> T {
         // Deserialize data
         let jsonObject = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions())
         // Result can only be a dictionary or an array, and we only expect a dictionary in this scenario
@@ -39,7 +39,7 @@ class SGYJSONDeserializer {
         return instance
     }
     
-    func deserialize(jsonData: NSData, intoInstance instance: SGYKeyValueCreatable) throws {
+    public func deserialize(jsonData: NSData, intoInstance instance: SGYKeyValueCreatable) throws {
         // Deserialize data
         let jsonObject = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions())
         // Result can only be a dictionary or an array, and we only expect a dictionary in this scenario
@@ -48,7 +48,7 @@ class SGYJSONDeserializer {
         try assignInstanceProperties(instance, dictionary: dictionary)
     }
     
-    func deserialize<T: SGYCollectionCreatable>(jsonData: NSData) throws -> T {
+    public func deserialize<T: SGYCollectionCreatable>(jsonData: NSData) throws -> T {
         // Deserialize data
         let jsonObject = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions())
         // Result can only be a dictionary or an array, and we only expect an array in this scenario
@@ -57,7 +57,7 @@ class SGYJSONDeserializer {
         return try convertCollection(array, toCollectionType: T.self) as! T
     }
     
-    func deserialize<T: SGYKeyValueCreatable>(jsonData: NSData) throws -> [String: T] {
+    public func deserialize<T: SGYKeyValueCreatable>(jsonData: NSData) throws -> [String: T] {
         // Deserialize data
         let jsonObject = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions())
         // Result can only be a dictionary or an array, and we only expect a dictionary in this scenario

@@ -1,6 +1,6 @@
 //
 //  SGYJSONSerializer.swift
-//  SGYSwiftConverterTest
+//  SGYSwiftJSON
 //
 //  Created by Sean Young on 9/25/15.
 //  Copyright © 2015 Sean Young. All rights reserved.
@@ -8,37 +8,37 @@
 
 import Foundation
 
-enum SGYSerializationError: ErrorType {
+public enum SGYSerializationError: ErrorType {
     case InvalidDictionaryKeyType(Any.Type),
     InvalidObject(Any)
 }
 
-class SGYJSONSerializer {
+public class SGYJSONSerializer {
     
     // MARK: - Initialization
     
     // MARK: - Properties
     
-    var strictMode = true
-    var convertNullToNil: Bool = true
-    var writingOptions = NSJSONWritingOptions()
+    public var strictMode = true
+    public var convertNullToNil: Bool = true
+    public var writingOptions = NSJSONWritingOptions()
     
-    var dateConversionBlock: ((date: NSDate) -> AnyObject?)?
+    public var dateConversionBlock: ((date: NSDate) -> AnyObject?)?
     
     // MARK: - Methods
     // MARK: Public
     
-    func serialize(collection: SGYCollectionReflection) throws -> NSData {
+    public func serialize(collection: SGYCollectionReflection) throws -> NSData {
         let array = try convertToValidCollection(collection)
         return try NSJSONSerialization.dataWithJSONObject(array, options: writingOptions)
     }
     
-    func serialize(dictionary: SGYDictionaryReflection) throws -> NSData {
+    public func serialize(dictionary: SGYDictionaryReflection) throws -> NSData {
         let dictionary = try convertToValidDictionary(dictionary)
         return try NSJSONSerialization.dataWithJSONObject(dictionary, options: writingOptions)
     }
     
-    func serialize(object: AnyObject) throws -> NSData {
+    public func serialize(object: AnyObject) throws -> NSData {
         // Attempt converting object to dictionary
         let dictionary = try convertToValidDictionary(object)
         return try NSJSONSerialization.dataWithJSONObject(dictionary, options: writingOptions)

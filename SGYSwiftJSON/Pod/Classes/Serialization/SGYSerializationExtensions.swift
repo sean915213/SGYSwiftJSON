@@ -1,6 +1,6 @@
 //
 //  SGYSerializationExtensions.swift
-//  SGYSwiftConverterTest
+//  SGYSwiftJSON
 //
 //  Created by Sean Young on 9/25/15.
 //  Copyright © 2015 Sean Young. All rights reserved.
@@ -11,29 +11,29 @@ import Foundation
 // MARK: - Number Conversion
 
 extension NSNumber: SGYJSONNumberConvertible {
-    var jsonNumber: NSNumber { return self }
+    public var jsonNumber: NSNumber { return self }
 }
 
 extension Double: SGYJSONNumberConvertible {
-    var jsonNumber: NSNumber { return self }
+    public var jsonNumber: NSNumber { return self }
 }
 
 extension Int: SGYJSONNumberConvertible {
-    var jsonNumber: NSNumber { return self }
+    public var jsonNumber: NSNumber { return self }
 }
 
 // MARK: - String Conversion
 
 extension String: SGYJSONStringConvertible {
-    var jsonString: String { return self }
+    public var jsonString: String { return self }
 }
 
 extension NSString: SGYJSONStringConvertible {
-    var jsonString: String { return self as String }
+    public var jsonString: String { return self as String }
 }
 
 extension SGYJSONNumberConvertible where Self: SGYJSONStringConvertible  {
-    var jsonString: String { return jsonNumber.description }
+    public var jsonString: String { return jsonNumber.description }
 }
 
 extension NSNumber: SGYJSONStringConvertible { }

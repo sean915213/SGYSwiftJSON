@@ -1,6 +1,6 @@
 //
 //  SGYJSONSerializableNSObject.swift
-//  SGYSwiftConverterTest
+//  SGYSwiftJSON
 //
 //  Created by Sean Young on 9/17/15.
 //  Copyright © 2015 Sean Young. All rights reserved.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class SGYDeserializableNSObject: NSObject, SGYKeyValueCreatable {
+public class SGYDeserializableNSObject: NSObject, SGYKeyValueCreatable {
     
     // Deserialization requires a parameterless initalizer
-    required override init() { super.init() }
+    public required override init() { super.init() }
     
     func setValue(value: AnyObject?, property: String) throws {
         var error: NSError?
