@@ -8,15 +8,16 @@
 
 import UIKit
 
-//public class SGYDeserializableNSObject: NSObject, SGYKeyValueCreatable {
-//    
-//    // Deserialization requires a parameterless initalizer
-//    public required override init() { super.init() }
-//    
-//    public func setValue(value: AnyObject?, property: String) throws {
-//        var error: NSError?
-//        trySetValue(value, forKey: property, error: &error)
-//        // Throw error if populated
-//        if let e = error { throw e }
-//    }
-//}
+// Cannot blindly extend NSObject for its setValue function because that affects NSDictionary, NSArray, etc.  Instead it is much simpler to simply inherit for this functionality.
+public class SGYDeserializableNSObject: NSObject, SGYKeyValueCreatable {
+    
+    // Deserialization requires a parameterless initalizer
+    public required override init() { super.init() }
+    
+    public func setValue(value: AnyObject?, property: String) throws {
+        var error: NSError?
+        trySetValue(value, forKey: property, error: &error)
+        // Throw error if populated
+        if let e = error { throw e }
+    }
+}
