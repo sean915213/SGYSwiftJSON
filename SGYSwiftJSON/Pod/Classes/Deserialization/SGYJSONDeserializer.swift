@@ -11,7 +11,7 @@ import Foundation
 public typealias SGYJSONDateConversionBlock = (input: AnyObject) -> NSDate?
 public typealias SGYJSONUnsupportedConversionBlock = (deserializedValue: AnyObject, toType: Any.Type) -> Void
 
-public enum SGYJSONErrors : ErrorType {
+public enum SGYJSONErrors: ErrorType {
     case InvalidJSONString,
     InvalidDeserializedObject,
     KeyValueException(NSError)
@@ -67,14 +67,6 @@ public class SGYJSONDeserializer {
         // Result can only be a dictionary or an array, and we only expect a dictionary in this scenario
         guard let dictionary = jsonObject as? [String: AnyObject] else { throw SGYJSONErrors.InvalidDeserializedObject }
         return try convertDictionary(dictionary, toDictionaryType: T.self) as! T
-    }
-    
-    public func deserialize<T: SGYKeyValueCreatable>(jsonData: NSData) throws -> [String: T] {
-        // Deserialize data
-        let jsonObject = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions())
-        // Result can only be a dictionary or an array, and we only expect a dictionary in this scenario
-        guard let dictionary = jsonObject as? [String: AnyObject] else { throw SGYJSONErrors.InvalidDeserializedObject }
-        return try convertDictionary(dictionary, toDictionaryType: [String: T].self) as! [String: T]
     }
     
     // MARK: Private
