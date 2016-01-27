@@ -61,6 +61,14 @@ public class SGYJSONDeserializer {
         return try convertCollection(array, toCollectionType: T.self) as! T
     }
     
+    public func deserialize<T: SGYDictionaryCreatable>(jsonData: NSData) throws -> T {
+        // Deserialize data
+        let jsonObject = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions())
+        // Result can only be a dictionary or an array, and we only expect a dictionary in this scenario
+        guard let dictionary = jsonObject as? [String: AnyObject] else { throw SGYJSONErrors.InvalidDeserializedObject }
+        return try convertDictionary(dictionary, toDictionaryType: T.self) as! T
+    }
+    
     public func deserialize<T: SGYKeyValueCreatable>(jsonData: NSData) throws -> [String: T] {
         // Deserialize data
         let jsonObject = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions())
@@ -96,10 +104,8 @@ public class SGYJSONDeserializer {
     private func convertValue(value: AnyObject, var toType type: Any.Type) throws -> Any? {
         // Unwrap all optional nesting on the type
         type = unwrap(type)
-        // Check whether types are already equal
-        guard value.dynamicType != type else { return value }
-        // Block that logs this conversion as invalid
-        let unsupportedConversion: () -> () = { self.unsupportedConversionBlock?(deserializedValue: value, toType: type) }
+        // If requested type is already AnyObject or both types are explicitly equal return raw value
+        guard type != AnyObject.self && type != value.dynamicType else { return value }
         
         // Since NSDate conversion is supplied via a block check for this property type first and pass to block.
         // 99% of the time a JSON date is a number or string, but checking this first is trivial performance-wise and allows conversions to date with all types produced by NSJSONSerialization.
@@ -110,6 +116,9 @@ public class SGYJSONDeserializer {
             // If the declared type is also NSNull then return null directly, otherwise return nil
             return type is NSNull.Type ? nullValue : nil
         }
+        
+        // Block that logs this conversion as invalid
+        let unsupportedConversion = { self.unsupportedConversionBlock?(deserializedValue: value, toType: type) }
         
         // ARRAY. Check whether the returned value is an NSArray (always the case from NSJSONSerialization for any collection type)
         if let arrayValue = value as? [AnyObject] {
