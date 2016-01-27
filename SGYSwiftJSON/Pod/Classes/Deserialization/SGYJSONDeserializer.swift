@@ -11,10 +11,10 @@ import Foundation
 public typealias SGYJSONDateConversionBlock = (input: AnyObject) -> NSDate?
 public typealias SGYJSONUnsupportedConversionBlock = (deserializedValue: AnyObject, toType: Any.Type) -> Void
 
-public enum SGYJSONErrors: ErrorType {
-    case InvalidJSONString,
-    InvalidDeserializedObject,
-    KeyValueException(NSError)
+public enum JSONDeserializationError: ErrorType {
+    case InvalidDeserializedObject,
+    KeyValueError(NSError),
+    NSJSONDeserializationError(NSError)
 }
 
 public class SGYJSONDeserializer {
@@ -27,49 +27,51 @@ public class SGYJSONDeserializer {
     
     public var dateConversionBlock: SGYJSONDateConversionBlock?
     public var unsupportedConversionBlock: SGYJSONUnsupportedConversionBlock?
+    public var readingOptions = NSJSONReadingOptions()
     
     // MARK: - Methods
     // MARK: Public
     
     public func deserialize<T: SGYKeyValueCreatable>(jsonData: NSData) throws -> T {
-        // Deserialize data
-        let jsonObject = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions())
-        // Result can only be a dictionary or an array, and we only expect a dictionary in this scenario
-        guard let dictionary = jsonObject as? [String: AnyObject] else { throw SGYJSONErrors.InvalidDeserializedObject }
         // Create an instance
         let instance = T()
-        // Assign properties from dictionary and return
-        try assignInstanceProperties(instance, dictionary: dictionary)
+        // Deserialize properties into object and return
+        try deserialize(jsonData, intoInstance: instance)
         return instance
     }
     
     public func deserialize(jsonData: NSData, intoInstance instance: SGYKeyValueCreatable) throws {
         // Deserialize data
-        let jsonObject = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions())
+        let jsonObject = try deserializeData(jsonData)
         // Result can only be a dictionary or an array, and we only expect a dictionary in this scenario
-        guard let dictionary = jsonObject as? [String: AnyObject] else { throw SGYJSONErrors.InvalidDeserializedObject }
+        guard let dictionary = jsonObject as? [String: AnyObject] else { throw JSONDeserializationError.InvalidDeserializedObject }
         // Assign properties from dictionary and return
         try assignInstanceProperties(instance, dictionary: dictionary)
     }
     
     public func deserialize<T: SGYCollectionCreatable>(jsonData: NSData) throws -> T {
         // Deserialize data
-        let jsonObject = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions())
+        let jsonObject = try deserializeData(jsonData)
         // Result can only be a dictionary or an array, and we only expect an array in this scenario
-        guard let array = jsonObject as? [AnyObject] else { throw SGYJSONErrors.InvalidDeserializedObject }
+        guard let array = jsonObject as? [AnyObject] else { throw JSONDeserializationError.InvalidDeserializedObject }
         // Return converted collection
         return try convertCollection(array, toCollectionType: T.self) as! T
     }
     
     public func deserialize<T: SGYDictionaryCreatable>(jsonData: NSData) throws -> T {
         // Deserialize data
-        let jsonObject = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions())
+        let jsonObject = try deserializeData(jsonData)
         // Result can only be a dictionary or an array, and we only expect a dictionary in this scenario
-        guard let dictionary = jsonObject as? [String: AnyObject] else { throw SGYJSONErrors.InvalidDeserializedObject }
+        guard let dictionary = jsonObject as? [String: AnyObject] else { throw JSONDeserializationError.InvalidDeserializedObject }
         return try convertDictionary(dictionary, toDictionaryType: T.self) as! T
     }
     
     // MARK: Private
+    
+    private func deserializeData(data: NSData) throws -> AnyObject {
+        do { return try NSJSONSerialization.JSONObjectWithData(data, options: readingOptions) }
+        catch let e as NSError { throw JSONDeserializationError.NSJSONDeserializationError(e) }
+    }
     
     private func convertCollection(values: [AnyObject], toCollectionType type: SGYCollectionCreatable.Type) throws -> SGYCollectionCreatable {
         // First collect all converted values.  MUST collect into an array typed of [AnyObject] because in the end that's what we must return from this function.  Returning [Any] completely breaks the ability to assign the resultant objects.
@@ -118,7 +120,6 @@ public class SGYJSONDeserializer {
             if let collectionType = type as? SGYCollectionCreatable.Type {
                 // Return converted collection
                 return try convertCollection(arrayValue, toCollectionType: collectionType)
-                
             } else {
                 // JSON value was an array but property does not adhere to sequence protocol.
                 unsupportedConversion()
@@ -168,7 +169,7 @@ public class SGYJSONDeserializer {
             guard let converted = try convertValue(propertyValue, toType: propertyType) as? AnyObject else { continue }
             // Try setting the value
             do { try instance.setValue(converted, property: name) }
-            catch let e as NSError { throw SGYJSONErrors.KeyValueException(e) }
+            catch let e as NSError { throw JSONDeserializationError.KeyValueError(e) }
         }
     }
     
@@ -176,13 +177,4 @@ public class SGYJSONDeserializer {
         if let optionalType = type as? SGYOptionalReflection.Type { return unwrap(optionalType.wrappedType) }
         return type
     }
-}
-
-extension SGYJSONDeserializer {
-    
-    func deserialize<T: SGYKeyValueCreatable>(jsonString: String, encoding: NSStringEncoding = NSUTF8StringEncoding) throws -> T {
-        guard let data = jsonString.dataUsingEncoding(encoding) else { throw SGYJSONErrors.InvalidJSONString }
-        return try deserialize(data)
-    }
-    
 }

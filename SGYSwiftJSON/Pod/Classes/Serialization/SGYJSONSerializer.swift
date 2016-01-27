@@ -8,9 +8,10 @@
 
 import Foundation
 
-public enum SGYSerializationError: ErrorType {
+public enum JSONSerializationError: ErrorType {
     case InvalidDictionaryKeyType(Any.Type),
-    InvalidObject(Any)
+    InvalidObject(Any),
+    NSJSONSerializationError(NSError)
 }
 
 public class SGYJSONSerializer {
@@ -32,21 +33,26 @@ public class SGYJSONSerializer {
     
     public func serialize(collection: SGYCollectionReflection) throws -> NSData {
         let array = try convertToValidCollection(collection)
-        return try NSJSONSerialization.dataWithJSONObject(array, options: writingOptions)
+        return try serializeObject(array)
     }
     
     public func serialize(dictionary: SGYDictionaryReflection) throws -> NSData {
         let dictionary = try convertToValidDictionary(dictionary)
-        return try NSJSONSerialization.dataWithJSONObject(dictionary, options: writingOptions)
+        return try serializeObject(dictionary)
     }
     
     public func serialize(object: AnyObject) throws -> NSData {
         // Attempt converting object to dictionary
         let dictionary = try convertToValidDictionary(object)
-        return try NSJSONSerialization.dataWithJSONObject(dictionary, options: writingOptions)
+        return try serializeObject(dictionary)
     }
     
     // MARK: Private
+    
+    private func serializeObject(object: AnyObject) throws -> NSData {
+        do { return try NSJSONSerialization.dataWithJSONObject(object, options: writingOptions) }
+        catch let e as NSError { throw JSONSerializationError.NSJSONSerializationError(e) }
+    }
     
     private func convertToValidDictionary(object: AnyObject) throws -> [String: AnyObject] {
         // Converted dictionary
@@ -87,7 +93,7 @@ public class SGYJSONSerializer {
             let tuplePair = Mirror(reflecting: kvp).children.map { $0.value }
             // Make sure key can be converted to a string
             guard let key = (tuplePair[0] as? SGYJSONStringConvertible)?.jsonString else {
-                if strictMode { throw SGYSerializationError.InvalidDictionaryKeyType(tuplePair[0].dynamicType) }
+                if strictMode { throw JSONSerializationError.InvalidDictionaryKeyType(tuplePair[0].dynamicType) }
                 return validDict
             }
             
@@ -97,7 +103,6 @@ public class SGYJSONSerializer {
         
         return validDict
     }
-    
     
     private func convertToValidObject(any: Any) throws -> AnyObject? {
         // Any could be optional but is not recognized as being able to be cast as such.  So unwrap using the protocol.
@@ -131,21 +136,21 @@ public class SGYJSONSerializer {
         if let dictionary = object as? SGYDictionaryReflection {
             // Skip empty dictionaries
             let validDict = try convertToValidDictionary(dictionary)
-            return validDict.count > 0 ? validDict : nil
+            return validDict.isEmpty ? nil : validDict
         }
         
         // Collection
         if let collection = object as? SGYCollectionReflection {
             // Skip empty collections
             let array = try convertToValidCollection(collection)
-            return array.count > 0 ? array : nil
+            return array.isEmpty ? nil : array
         }
         
         // Complex object
         if let serializable = object as? AnyObject {
             // Skip empty dictionaries
             let objDict = try convertToValidDictionary(serializable)
-            return objDict.count > 0 ? objDict : nil
+            return objDict.isEmpty ? nil : objDict
         }
         
         // -- Otherwise invalid
@@ -157,7 +162,7 @@ public class SGYJSONSerializer {
         }
         
         // Fell through.  If strict mode throw.
-        if strictMode { throw SGYSerializationError.InvalidObject(object) }
+        if strictMode { throw JSONSerializationError.InvalidObject(object) }
         return nil
     }
 
