@@ -37,7 +37,6 @@ public protocol SGYKeyValueCreatable: class, SGYJSONCreatable {
 
 // Utility protocols
 
-
 /**
 *  Defined to allow attempting the assignment of a deserialized array.
 */
