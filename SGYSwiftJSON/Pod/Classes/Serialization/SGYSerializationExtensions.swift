@@ -22,6 +22,21 @@ extension Int: SGYJSONNumberConvertible {
     public var jsonNumber: NSNumber { return self }
 }
 
+// --------
+
+extension NSNumber: JSONLeafRepresentable {
+    public var jsonLeafValue: JSONLeafValue? { return JSONLeafValue(self) }
+}
+
+extension Double: JSONLeafRepresentable {
+    public var jsonLeafValue: JSONLeafValue? { return JSONLeafValue(self) }
+}
+
+extension Int: JSONLeafRepresentable {
+    public var jsonLeafValue: JSONLeafValue? { return JSONLeafValue(self) }
+}
+
+
 // MARK: - String Conversion
 
 extension String: SGYJSONStringConvertible {
@@ -40,7 +55,21 @@ extension NSNumber: SGYJSONStringConvertible { }
 extension Double: SGYJSONStringConvertible { }
 extension Int: SGYJSONStringConvertible { }
 
+// --------
 
+extension String: JSONLeafRepresentable {
+    public var jsonLeafValue: JSONLeafValue? { return JSONLeafValue(self) }
+}
+
+extension NSString: JSONLeafRepresentable {
+    public var jsonLeafValue: JSONLeafValue? { return JSONLeafValue(self) }
+}
+
+// MARK: - NSNull Conversion
+
+extension NSNull: JSONLeafRepresentable {
+    public var jsonLeafValue: JSONLeafValue? { return JSONLeafValue(self) }
+}
 
 
 

@@ -28,3 +28,9 @@ public protocol SGYJSONStringConvertible {
 public protocol SGYJSONNumberConvertible {
     var jsonNumber: NSNumber { get }
 }
+
+
+
+public protocol JSONLeafRepresentable {
+    var jsonLeafValue: JSONLeafValue? { get }
+}

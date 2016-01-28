@@ -74,6 +74,7 @@
 		C47FCDAA1C48856B006F4DF3 /* SGYReflectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FCD9E1C48856B006F4DF3 /* SGYReflectionExtensions.swift */; };
 		C47FCDAB1C48856B006F4DF3 /* SGYReflectionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FCD9F1C48856B006F4DF3 /* SGYReflectionProtocols.swift */; };
 		C480B50103AE726037CD7F34F9E36CEF /* QCKDSL.h in Headers */ = {isa = PBXBuildFile; fileRef = E41A31E4949F1319040B8D2BBBF2B5D6 /* QCKDSL.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4AA3D141C5AD49A0077BF8D /* JSONLeafValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AA3D131C5AD49A0077BF8D /* JSONLeafValue.swift */; };
 		C63AB521EA514A811A167E507C0CF9AD /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227AD60FAC82B3DEDDBB09BAEE052647 /* Expression.swift */; };
 		C9AC658F3FCB67B50E96313C2687B33D /* MatcherProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D0DF7E7A59098355B7877A39D254B6 /* MatcherProtocols.swift */; };
 		CAA71510B34E84DD54A6196D6DC34620 /* SGYSwiftJSON-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D87B80245E817ECB02159F0E595C348B /* SGYSwiftJSON-dummy.m */; };
@@ -218,6 +219,7 @@
 		C47FCD9D1C48856B006F4DF3 /* SGYJSONSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGYJSONSerialization.h; sourceTree = "<group>"; };
 		C47FCD9E1C48856B006F4DF3 /* SGYReflectionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SGYReflectionExtensions.swift; sourceTree = "<group>"; };
 		C47FCD9F1C48856B006F4DF3 /* SGYReflectionProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SGYReflectionProtocols.swift; sourceTree = "<group>"; };
+		C4AA3D131C5AD49A0077BF8D /* JSONLeafValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONLeafValue.swift; sourceTree = "<group>"; };
 		C8E9634CF58B22F95DF5AA222CDAF9B8 /* Nimble-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Nimble-dummy.m"; sourceTree = "<group>"; };
 		CB88D200DC80E6521F031A0EE472080E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB8FCD2020E03B3971E108226E624243 /* Pods-SGYSwiftJSON_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SGYSwiftJSON_Tests-umbrella.h"; sourceTree = "<group>"; };
@@ -499,6 +501,7 @@
 				C47FCD9A1C48856B006F4DF3 /* SGYJSONSerializer.swift */,
 				C47FCD9B1C48856B006F4DF3 /* SGYSerializationExtensions.swift */,
 				C47FCD9C1C48856B006F4DF3 /* SGYSerializationProtocols.swift */,
+				C4AA3D131C5AD49A0077BF8D /* JSONLeafValue.swift */,
 			);
 			path = Serialization;
 			sourceTree = "<group>";
@@ -831,6 +834,7 @@
 				3A92AEE86034356AF8987F20EE1F82DF /* EndWith.swift in Sources */,
 				FB1347627E64CA7E98C19DC985E13D95 /* Equal.swift in Sources */,
 				E2FBD93D72DF01427486D1A6853FC689 /* Expectation.swift in Sources */,
+				C4AA3D141C5AD49A0077BF8D /* JSONLeafValue.swift in Sources */,
 				C63AB521EA514A811A167E507C0CF9AD /* Expression.swift in Sources */,
 				0492354DA7EF0C9068F7B4E8F74001B0 /* FailureMessage.swift in Sources */,
 				C47FCDAA1C48856B006F4DF3 /* SGYReflectionExtensions.swift in Sources */,

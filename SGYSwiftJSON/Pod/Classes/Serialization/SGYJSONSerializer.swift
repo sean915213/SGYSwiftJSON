@@ -26,10 +26,12 @@ public class SGYJSONSerializer {
     public var convertNullToNil = true
     public var writingOptions = NSJSONWritingOptions()
     
-    public var dateConversionBlock: ((date: NSDate) -> AnyObject?)?
+    public var dateConversionBlock: ((date: NSDate) -> JSONLeafValue?)?
     
     // MARK: - Methods
     // MARK: Public
+    
+    // TODO: This
     
     public func serialize(collection: SGYCollectionReflection) throws -> NSData {
         let array = try convertToValidCollection(collection)
@@ -82,7 +84,7 @@ public class SGYJSONSerializer {
         for (_, value) in Mirror(reflecting: collection).children {
             if let validObj = try convertToValidObject(value) { validCollection.append(validObj) }
         }
-        // Return collection even if empty, caller determines what to do
+        // Return collection even if empty. Caller determines what to do.
         return validCollection
     }
     
@@ -104,28 +106,33 @@ public class SGYJSONSerializer {
         return validDict
     }
     
+    
     private func convertToValidObject(any: Any) throws -> AnyObject? {
         // Any could be optional but is not recognized as being able to be cast as such.  So unwrap using the protocol.
         guard let object = unwrap(any) else { return nil }
         
         // -- Check leaf objects first
         
-        // Null
-        if let nullObject = object as? NSNull {
-            return convertNullToNil ? nil : nullObject
+        if let leafObject = object as? JSONLeafRepresentable {
+            return leafObject.jsonLeafValue?.value
         }
+        
+        
+        
+        // Null
+//        if let nullObject = object as? NSNull {
+//            return convertNullToNil ? nil : nullObject
+//        }
         
         // Number
         // IMPORTANT: Check number before string since numbers always have a string representation, whereas strings do not always represent a valid number.  Checking number first prevents objects that should be serialized as numbers becoming strings.
-        if let number = object as? SGYJSONNumberConvertible { return number.jsonNumber }
+//        if let number = object as? SGYJSONNumberConvertible { return number.jsonNumber }
         // String
-        if let string = object as? SGYJSONStringConvertible { return string.jsonString }
+//        if let string = object as? SGYJSONStringConvertible { return string.jsonString }
         
         // Date
         if let date = object as? NSDate {
-            guard let dateVal = dateConversionBlock?(date: date) else { return nil }
-            // Recursively pass through result
-            return try convertToValidObject(dateVal)
+            return dateConversionBlock?(date: date)?.value
         }
         
         // -- Array, Dictionary, or Complex
@@ -165,6 +172,70 @@ public class SGYJSONSerializer {
         if strictMode { throw JSONSerializationError.InvalidObject(object) }
         return nil
     }
+    
+    
+//    
+//    private func convertToValidObject(any: Any) throws -> AnyObject? {
+//        // Any could be optional but is not recognized as being able to be cast as such.  So unwrap using the protocol.
+//        guard let object = unwrap(any) else { return nil }
+//        
+//        // -- Check leaf objects first
+//        
+//        // Null
+//        if let nullObject = object as? NSNull {
+//            return convertNullToNil ? nil : nullObject
+//        }
+//        
+//        // Number
+//        // IMPORTANT: Check number before string since numbers always have a string representation, whereas strings do not always represent a valid number.  Checking number first prevents objects that should be serialized as numbers becoming strings.
+//        if let number = object as? SGYJSONNumberConvertible { return number.jsonNumber }
+//        // String
+//        if let string = object as? SGYJSONStringConvertible { return string.jsonString }
+//        
+//        // Date
+//        if let date = object as? NSDate {
+//            guard let dateVal = dateConversionBlock?(date: date) else { return nil }
+//            // Recursively pass through result
+//            return try convertToValidObject(dateVal)
+//        }
+//        
+//        // -- Array, Dictionary, or Complex
+//        // Objects represented as dictionary or array.
+//        
+//        // Dictionary
+//        // IMPORTANT: Check dictionary first since both Dictionary and Array adhere to SGYCollectionReflection due to the SequenceType extension.
+//        if let dictionary = object as? SGYDictionaryReflection {
+//            // Skip empty dictionaries
+//            let validDict = try convertToValidDictionary(dictionary)
+//            return validDict.isEmpty ? nil : validDict
+//        }
+//        
+//        // Collection
+//        if let collection = object as? SGYCollectionReflection {
+//            // Skip empty collections
+//            let array = try convertToValidCollection(collection)
+//            return array.isEmpty ? nil : array
+//        }
+//        
+//        // Complex object
+//        if let serializable = object as? AnyObject {
+//            // Skip empty dictionaries
+//            let objDict = try convertToValidDictionary(serializable)
+//            return objDict.isEmpty ? nil : objDict
+//        }
+//        
+//        // -- Otherwise invalid
+//        // The object cannot be converted as-is.  Check for a proxy or fallthrough to alternative.
+//        
+//        // Proxy object
+//        if let proxy = object as? SGYJSONProxyConvertible {
+//            return try convertToValidObject(proxy.jsonProxy)
+//        }
+//        
+//        // Fell through.  If strict mode throw.
+//        if strictMode { throw JSONSerializationError.InvalidObject(object) }
+//        return nil
+//    }
 
     private func unwrap(any: Any) -> Any? {
         // If not optional return value
