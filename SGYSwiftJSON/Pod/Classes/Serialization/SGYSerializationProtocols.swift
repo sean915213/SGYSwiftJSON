@@ -16,21 +16,8 @@ public protocol JSONProxyProvider {
 }
 
 /**
-*  A protocol any value may adhere to in-order to provide a string for JSON representation.
-*/
-//public protocol SGYJSONStringConvertible {
-//    var jsonString: String { get }
-//}
-
-/**
-*  A protocol any value may adhere to in-order to provide a number for JSON representation.
-*/
-//public protocol SGYJSONNumberConvertible {
-//    var jsonNumber: NSNumber { get }
-//}
-
-
-
+ *  A protocol any object may adhere to in-order to provide a valid JSON leaf value representation.
+ */
 public protocol JSONLeafRepresentable {
     var jsonLeafValue: JSONLeafValue? { get }
 }

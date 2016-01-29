@@ -10,7 +10,7 @@ import UIKit
 
 // Cannot blindly extend NSObject for its setValue function because that affects NSDictionary, NSArray, etc.  Instead it is much simpler inherit for this functionality.
 
-
+/// A class provided for simple implementation of SGYKeyValueCreatable via inheritence.
 public class SGYDeserializableNSObject: NSObject, SGYKeyValueCreatable {
     
     // Deserialization requires a parameterless initalizer

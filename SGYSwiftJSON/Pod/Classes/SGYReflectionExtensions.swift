@@ -19,11 +19,21 @@ extension Optional: SGYOptionalReflection {
     }
 }
 
+// MARK: - Collection Extensions
+
 // Extending SequenceType requires this to auto-implement the property.  Cannot do simple extension on SequenceType.
 extension SequenceType where Self: SGYCollectionReflection {
     // Auto-implementation of protocol for all SequenceTypes
     public static var elementType: Any.Type { return Generator.Element.self }
 }
+
+extension NSArray: SGYCollectionReflection { }
+
+extension Array: SGYCollectionReflection { }
+
+extension Set: SGYCollectionReflection { }
+
+// MARK: - Dictionary Extensions
 
 extension Dictionary: SGYDictionaryReflection {
     public static var keyValueTypes: (key: Any.Type, value: Any.Type) { return (key: Key.self, value: Value.self) }
@@ -33,8 +43,3 @@ extension NSDictionary: SGYDictionaryReflection  {
     public static var keyValueTypes: (key: Any.Type, value: Any.Type) { return (key: Key.self, value: Value.self) }
 }
 
-extension NSArray: SGYCollectionReflection { }
-
-extension Array: SGYCollectionReflection { }
-
-extension Set: SGYCollectionReflection { }

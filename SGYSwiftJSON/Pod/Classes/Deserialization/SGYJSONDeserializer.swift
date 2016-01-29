@@ -11,6 +11,7 @@ import Foundation
 public typealias SGYJSONDateConversionBlock = (input: AnyObject) -> NSDate?
 public typealias SGYJSONUnsupportedConversionBlock = (deserializedValue: AnyObject, toType: Any.Type) -> Void
 
+/// A JSON deserializer.
 public class SGYJSONDeserializer {
     
     /**
