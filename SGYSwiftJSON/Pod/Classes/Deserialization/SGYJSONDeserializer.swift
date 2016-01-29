@@ -11,6 +11,7 @@ import Foundation
 public typealias SGYJSONDateConversionBlock = (input: AnyObject) -> NSDate?
 public typealias SGYJSONUnsupportedConversionBlock = (deserializedValue: AnyObject, toType: Any.Type) -> Void
 
+/// Errors thown during deserialization
 public enum JSONDeserializationError: ErrorType {
     case InvalidDeserializedObject,
     KeyValueError(NSError),

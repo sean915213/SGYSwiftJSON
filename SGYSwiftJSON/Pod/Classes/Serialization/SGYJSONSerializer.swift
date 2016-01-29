@@ -6,8 +6,12 @@
 //  Copyright © 2015 Sean Young. All rights reserved.
 //
 
-import Foundation
+/**
+Errors thrown during serialization.
 
+- InvalidDictionaryKeyType: Description 1
+- :                         Description 2
+*/
 public enum JSONSerializationError: ErrorType {
     case InvalidDictionaryKeyType(Any.Type),
     InvalidObject(Any),
@@ -23,7 +27,6 @@ public class SGYJSONSerializer {
     // MARK: - Properties
     
     public var strictMode = true
-    public var convertNullToNil = true
     public var writingOptions = NSJSONWritingOptions()
     
     public var dateConversionBlock: ((date: NSDate) -> JSONLeafValue?)?
@@ -31,9 +34,10 @@ public class SGYJSONSerializer {
     // MARK: - Methods
     // MARK: Public
     
-    // TODO: This
-    
     public func serialize(collection: SGYCollectionReflection) throws -> NSData {
+        
+        var ggg: JSONDeserializationError
+        
         let array = try convertToValidCollection(collection)
         return try serializeObject(array)
     }
@@ -93,14 +97,20 @@ public class SGYJSONSerializer {
         // Get child key-value tuples
         for (_, kvp) in Mirror(reflecting: dictionary).children {
             let tuplePair = Mirror(reflecting: kvp).children.map { $0.value }
-            // Make sure key can be converted to a string
-            guard let key = (tuplePair[0] as? SGYJSONStringConvertible)?.jsonString else {
+            // A string key is required so attempt deriving one
+            var key: String? = tuplePair[0] as? String
+            // If not immediately a string try CustomStringConvertible
+            if let stringObj = tuplePair[0] as? CustomStringConvertible where key == nil { key = stringObj.description }
+            // If still nil cannot continue
+            guard let validKey = key else {
+                // If in strict mode throw
                 if strictMode { throw JSONSerializationError.InvalidDictionaryKeyType(tuplePair[0].dynamicType) }
-                return validDict
+                //. Otherwise simply skip
+                continue
             }
             
             // Assign if we receive valid result
-            if let value = try convertToValidObject(tuplePair[1]) { validDict[key] = value }
+            if let validValue = try convertToValidObject(tuplePair[1]) { validDict[validKey] = validValue }
         }
         
         return validDict
@@ -111,24 +121,16 @@ public class SGYJSONSerializer {
         // Any could be optional but is not recognized as being able to be cast as such.  So unwrap using the protocol.
         guard let object = unwrap(any) else { return nil }
         
-        // -- Check leaf objects first
+        // Any object could implement JSONProxyProvider to provide an alternate representation so check this first.
+        if let proxyProvider = object as? JSONProxyProvider {
+            // This protocol only requires AnyObject so recursively attempt conversion on proxy object
+            return try convertToValidObject(proxyProvider.jsonProxy)
+        }
         
+        // Similarly any object may implement JSONLeafRepresentable so check this next
         if let leafObject = object as? JSONLeafRepresentable {
             return leafObject.jsonLeafValue?.value
         }
-        
-        
-        
-        // Null
-//        if let nullObject = object as? NSNull {
-//            return convertNullToNil ? nil : nullObject
-//        }
-        
-        // Number
-        // IMPORTANT: Check number before string since numbers always have a string representation, whereas strings do not always represent a valid number.  Checking number first prevents objects that should be serialized as numbers becoming strings.
-//        if let number = object as? SGYJSONNumberConvertible { return number.jsonNumber }
-        // String
-//        if let string = object as? SGYJSONStringConvertible { return string.jsonString }
         
         // Date
         if let date = object as? NSDate {
@@ -136,107 +138,34 @@ public class SGYJSONSerializer {
         }
         
         // -- Array, Dictionary, or Complex
-        // Objects represented as dictionary or array.
-        
+
         // Dictionary
         // IMPORTANT: Check dictionary first since both Dictionary and Array adhere to SGYCollectionReflection due to the SequenceType extension.
         if let dictionary = object as? SGYDictionaryReflection {
-            // Skip empty dictionaries
             let validDict = try convertToValidDictionary(dictionary)
+            // Skip empty dictionaries
             return validDict.isEmpty ? nil : validDict
         }
         
         // Collection
         if let collection = object as? SGYCollectionReflection {
-            // Skip empty collections
             let array = try convertToValidCollection(collection)
+            // Skip empty collections
             return array.isEmpty ? nil : array
         }
         
         // Complex object
         if let serializable = object as? AnyObject {
-            // Skip empty dictionaries
             let objDict = try convertToValidDictionary(serializable)
+            // Skip empty dictionaries
             return objDict.isEmpty ? nil : objDict
         }
         
-        // -- Otherwise invalid
-        // The object cannot be converted as-is.  Check for a proxy or fallthrough to alternative.
-        
-        // Proxy object
-        if let proxy = object as? SGYJSONProxyConvertible {
-            return try convertToValidObject(proxy.jsonProxy)
-        }
-        
-        // Fell through.  If strict mode throw.
+        // -- Otherwise invalid.  The object cannot be converted as-is.
         if strictMode { throw JSONSerializationError.InvalidObject(object) }
         return nil
     }
     
-    
-//    
-//    private func convertToValidObject(any: Any) throws -> AnyObject? {
-//        // Any could be optional but is not recognized as being able to be cast as such.  So unwrap using the protocol.
-//        guard let object = unwrap(any) else { return nil }
-//        
-//        // -- Check leaf objects first
-//        
-//        // Null
-//        if let nullObject = object as? NSNull {
-//            return convertNullToNil ? nil : nullObject
-//        }
-//        
-//        // Number
-//        // IMPORTANT: Check number before string since numbers always have a string representation, whereas strings do not always represent a valid number.  Checking number first prevents objects that should be serialized as numbers becoming strings.
-//        if let number = object as? SGYJSONNumberConvertible { return number.jsonNumber }
-//        // String
-//        if let string = object as? SGYJSONStringConvertible { return string.jsonString }
-//        
-//        // Date
-//        if let date = object as? NSDate {
-//            guard let dateVal = dateConversionBlock?(date: date) else { return nil }
-//            // Recursively pass through result
-//            return try convertToValidObject(dateVal)
-//        }
-//        
-//        // -- Array, Dictionary, or Complex
-//        // Objects represented as dictionary or array.
-//        
-//        // Dictionary
-//        // IMPORTANT: Check dictionary first since both Dictionary and Array adhere to SGYCollectionReflection due to the SequenceType extension.
-//        if let dictionary = object as? SGYDictionaryReflection {
-//            // Skip empty dictionaries
-//            let validDict = try convertToValidDictionary(dictionary)
-//            return validDict.isEmpty ? nil : validDict
-//        }
-//        
-//        // Collection
-//        if let collection = object as? SGYCollectionReflection {
-//            // Skip empty collections
-//            let array = try convertToValidCollection(collection)
-//            return array.isEmpty ? nil : array
-//        }
-//        
-//        // Complex object
-//        if let serializable = object as? AnyObject {
-//            // Skip empty dictionaries
-//            let objDict = try convertToValidDictionary(serializable)
-//            return objDict.isEmpty ? nil : objDict
-//        }
-//        
-//        // -- Otherwise invalid
-//        // The object cannot be converted as-is.  Check for a proxy or fallthrough to alternative.
-//        
-//        // Proxy object
-//        if let proxy = object as? SGYJSONProxyConvertible {
-//            return try convertToValidObject(proxy.jsonProxy)
-//        }
-//        
-//        // Fell through.  If strict mode throw.
-//        if strictMode { throw JSONSerializationError.InvalidObject(object) }
-//        return nil
-//    }
-
     private func unwrap(any: Any) -> Any? {
         // If not optional return value
         guard let optional = any as? SGYOptionalReflection else { return any }

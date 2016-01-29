@@ -9,25 +9,25 @@
 import Foundation
 
 /**
-*  A protocol any struct may adhere to in-order to provide a valid JSON representation.
+*  A protocol any object may adhere to in-order to provide a valid JSON representation.
 */
-public protocol SGYJSONProxyConvertible {
+public protocol JSONProxyProvider {
     var jsonProxy: AnyObject { get }
 }
 
 /**
 *  A protocol any value may adhere to in-order to provide a string for JSON representation.
 */
-public protocol SGYJSONStringConvertible {
-    var jsonString: String { get }
-}
+//public protocol SGYJSONStringConvertible {
+//    var jsonString: String { get }
+//}
 
 /**
 *  A protocol any value may adhere to in-order to provide a number for JSON representation.
 */
-public protocol SGYJSONNumberConvertible {
-    var jsonNumber: NSNumber { get }
-}
+//public protocol SGYJSONNumberConvertible {
+//    var jsonNumber: NSNumber { get }
+//}
 
 
 
