@@ -6,47 +6,75 @@
 //  Copyright © 2015 Sean Young. All rights reserved.
 //
 
-/**
-Errors thrown during serialization.
-
-- InvalidDictionaryKeyType: Description 1
-- :                         Description 2
-*/
-public enum JSONSerializationError: ErrorType {
-    case InvalidDictionaryKeyType(Any.Type),
-    InvalidObject(Any),
-    NSJSONSerializationError(NSError)
-}
-
+/// A JSON serialization class.
 public class SGYJSONSerializer {
     
+    /**
+     Errors thrown during serialization.
+     
+     - InvalidDictionaryKeyType(`Any.Type`): A dictionary key encountered could not be cast to `String` and does not implement the `CustomStringConvertible` protocol.
+     - InvalidObject(`Any`): An object could not be converted to a valid JSON value via any of the provided protocols.
+     - NSJSONSerializationError(`NSError`): An error occurred seralizing the resulting (supposedly safe) object graph.  This should probably be considered a bug.
+     */
+    public enum Error: ErrorType {
+        case InvalidDictionaryKeyType(Any.Type),
+        InvalidObject(Any),
+        NSJSONSerializationError(NSError)
+    }
+
     // MARK: - Initialization
     
     public init() { }
     
     // MARK: - Properties
     
+    /// Determines whether InvalidDictionaryKeyType and InvalidObject errors are thrown.
     public var strictMode = true
+    /// The writing options used during serialization.
     public var writingOptions = NSJSONWritingOptions()
-    
+    /// The block this instance will call in order to convert NSDate values to a valid JSON leaf value.
     public var dateConversionBlock: ((date: NSDate) -> JSONLeafValue?)?
     
     // MARK: - Methods
     // MARK: Public
+
+    /**
+    Attempts serializing all the elements within a collection implementing SGYCollectionReflection.
     
+    - parameter collection: An object implementing SGYCollectionReflection.
+    
+    - throws: All SGYJSONSerializer.Error types.
+    
+    - returns: Serialized JSON as NSData.
+    */
     public func serialize(collection: SGYCollectionReflection) throws -> NSData {
-        
-        var ggg: JSONDeserializationError
-        
         let array = try convertToValidCollection(collection)
         return try serializeObject(array)
     }
     
+    /**
+     Attempts serializing all the elements within a dictionary implementing SGYDictionaryReflection.
+     
+     - parameter dictionary: An object implementing SGYDictionaryReflection.
+     
+     - throws: All SGYJSONSerializer.Error types.
+     
+     - returns: Serialized JSON as NSData.
+     */
     public func serialize(dictionary: SGYDictionaryReflection) throws -> NSData {
         let dictionary = try convertToValidDictionary(dictionary)
         return try serializeObject(dictionary)
     }
     
+    /**
+     Attempts serializing an instance of AnyObject.
+     
+     - parameter object: An instance of AnyObject.
+     
+     - throws: All SGYJSONSerializer.Error types.
+     
+     - returns: Serialized JSON as NSData.
+     */
     public func serialize(object: AnyObject) throws -> NSData {
         // Attempt converting object to dictionary
         let dictionary = try convertToValidDictionary(object)
@@ -57,7 +85,7 @@ public class SGYJSONSerializer {
     
     private func serializeObject(object: AnyObject) throws -> NSData {
         do { return try NSJSONSerialization.dataWithJSONObject(object, options: writingOptions) }
-        catch let e as NSError { throw JSONSerializationError.NSJSONSerializationError(e) }
+        catch let e as NSError { throw Error.NSJSONSerializationError(e) }
     }
     
     private func convertToValidDictionary(object: AnyObject) throws -> [String: AnyObject] {
@@ -104,7 +132,7 @@ public class SGYJSONSerializer {
             // If still nil cannot continue
             guard let validKey = key else {
                 // If in strict mode throw
-                if strictMode { throw JSONSerializationError.InvalidDictionaryKeyType(tuplePair[0].dynamicType) }
+                if strictMode { throw Error.InvalidDictionaryKeyType(tuplePair[0].dynamicType) }
                 //. Otherwise simply skip
                 continue
             }
@@ -162,7 +190,7 @@ public class SGYJSONSerializer {
         }
         
         // -- Otherwise invalid.  The object cannot be converted as-is.
-        if strictMode { throw JSONSerializationError.InvalidObject(object) }
+        if strictMode { throw Error.InvalidObject(object) }
         return nil
     }
     
