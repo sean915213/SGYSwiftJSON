@@ -32,7 +32,7 @@ public protocol SGYKeyValueCreatable: class, SGYJSONCreatable {
     
     - throws: Throws an SGYJSONErrors case.
     */
-    func setValue(value: Any?, property: String) throws
+    func setValue(value: Any, property: String) throws
 }
 
 // Utility protocols

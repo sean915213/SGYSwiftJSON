@@ -153,15 +153,15 @@ public class SGYJSONDeserializer {
         
         // Check where value is a leaf value
         if let leafValue = JSONLeafValue(object: value) {
+            // Check special cases
+            switch leafValue {
+            case .String(let string): if type is NSString.Type { return string }
+            case .Number(let number): if type is NSNumber.Type { return number }
+            case .Null(_): return nil
+            }
             // Type must support conversion from leaf value or return nil
             guard let leafCreatable = type as? JSONLeafCreatable.Type else { return nil }
             return leafCreatable.init(jsonValue: leafValue)
-        }
-        
-        // NULL. Return nil if null.
-        if let nullValue = value as? NSNull {
-            // If the declared type is also NSNull then return null directly, otherwise return nil
-            return type is NSNull.Type ? nullValue : nil
         }
         
         // Block that logs this conversion as invalid
