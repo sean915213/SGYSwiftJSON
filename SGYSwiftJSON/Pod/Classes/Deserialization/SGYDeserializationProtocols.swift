@@ -65,7 +65,9 @@ public protocol SGYDictionaryCreatable: SGYJSONCreatable, SGYDictionaryReflectio
 
 
 
-
+public protocol JSONLeafCreatable {
+    init?(jsonValue: JSONLeafValue)
+}
 
 
 

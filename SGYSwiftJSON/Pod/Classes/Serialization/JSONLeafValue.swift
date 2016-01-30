@@ -21,14 +21,14 @@ public enum JSONLeafValue {
         self = Number(number)
     }
     
-    public init?(object: AnyObject) {
+    init?(object: AnyObject) {
         if let string = object as? NSString { self.init(string) }
         else if let number = object as? NSNumber { self.init(number) }
         else if let null = object as? NSNull { self.init(null) }
-        return nil
+        else { return nil }
     }
     
-    public var value: AnyObject {
+    var value: AnyObject {
         switch self {
         case String(let string): return string
         case Number(let number): return number

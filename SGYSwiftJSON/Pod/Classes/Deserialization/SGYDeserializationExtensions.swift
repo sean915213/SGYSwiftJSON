@@ -33,4 +33,43 @@ extension Set: SGYCollectionCreatable {
 }
 
 
+extension String: JSONLeafCreatable {
+    public init?(jsonValue: JSONLeafValue) {
+        switch jsonValue {
+        case .String(let string as String): self = string
+        case .Number(let number): self = "\(number)"
+        default: return nil
+        }
+    }
+}
+
+extension Double: JSONLeafCreatable {
+    public init?(jsonValue: JSONLeafValue) {
+        switch jsonValue {
+        case .String(let string as String):
+            guard let double = Double(string) else { return nil }
+            self = double
+        case .Number(let number):
+            self = number.doubleValue
+        default:
+            return nil
+        }
+    }
+}
+
+extension Int: JSONLeafCreatable {
+    public init?(jsonValue: JSONLeafValue) {
+        switch jsonValue {
+        case .String(let string as String):
+            guard let int = Int(string) else { return nil }
+            self = int
+        case .Number(let number):
+            self = number.integerValue
+        default:
+            return nil
+        }
+    }
+}
+
+
 

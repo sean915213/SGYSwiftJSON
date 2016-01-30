@@ -151,7 +151,14 @@ public class SGYJSONDeserializer {
         // 99% of the time a JSON date is a number or string, but checking this first is trivial performance-wise and allows conversions to date with all types produced by NSJSONSerialization.
         if type is NSDate.Type { return dateConversionBlock?(input: value) }
         
-        // NULL. Check whether value is NSNull
+        // Check where value is a leaf value
+        if let leafValue = JSONLeafValue(object: value) {
+            // Type must support conversion from leaf value or return nil
+            guard let leafCreatable = type as? JSONLeafCreatable.Type else { return nil }
+            return leafCreatable.init(jsonValue: leafValue)
+        }
+        
+        // NULL. Return nil if null.
         if let nullValue = value as? NSNull {
             // If the declared type is also NSNull then return null directly, otherwise return nil
             return type is NSNull.Type ? nullValue : nil
@@ -195,8 +202,8 @@ public class SGYJSONDeserializer {
         
         // The only remaining objects that could have been produced by NSJSONSerialization are NSNumber or NSString.
         // If types match return the original type
-        if value is NSNumber && type is NSNumber.Type { return value }
-        if value is String && (type is String.Type || type is NSString.Type) { return value }
+//        if value is NSNumber && type is NSNumber.Type { return value }
+//        if value is String && (type is String.Type || type is NSString.Type) { return value }
         
         // Execute unsupported conversion block
         unsupportedConversion()
