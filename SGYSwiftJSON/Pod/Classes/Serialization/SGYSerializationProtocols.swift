@@ -12,7 +12,7 @@ import Foundation
 *  A protocol any object may adhere to in-order to provide a valid JSON representation.
 */
 public protocol JSONProxyProvider {
-    var jsonProxy: AnyObject { get }
+    var jsonProxy: Any { get }
 }
 
 /**

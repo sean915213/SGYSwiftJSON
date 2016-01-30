@@ -149,7 +149,7 @@ public class SGYJSONSerializer {
         
         // Any object could implement JSONProxyProvider to provide an alternate representation so check this first.
         if let proxyProvider = object as? JSONProxyProvider {
-            // This protocol only requires AnyObject so recursively attempt conversion on proxy object
+            // This protocol only requires Any so recursively attempt conversion on proxy object
             return try convertToValidObject(proxyProvider.jsonProxy)
         }
         
