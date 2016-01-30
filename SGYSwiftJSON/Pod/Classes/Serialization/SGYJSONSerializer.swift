@@ -13,12 +13,10 @@ public class SGYJSONSerializer {
      Errors thrown during serialization.
      
      - InvalidDictionaryKeyType(`Any.Type`): A dictionary key encountered could not be cast to `String` and does not implement the `CustomStringConvertible` protocol.
-     - InvalidObject(`Any`): An object could not be converted to a valid JSON value via any of the provided protocols.
      - NSJSONSerializationError(`NSError`): An error occurred seralizing the resulting (supposedly safe) object graph.  This should probably be considered a bug.
      */
     public enum Error: ErrorType {
         case InvalidDictionaryKeyType(Any.Type),
-        InvalidObject(Any),
         NSJSONSerializationError(NSError)
     }
 
@@ -28,7 +26,7 @@ public class SGYJSONSerializer {
     
     // MARK: - Properties
     
-    /// Determines whether InvalidDictionaryKeyType and InvalidObject errors are thrown.
+    /// Determines whether InvalidDictionaryKeyType errors are thrown.
     public var strictMode = true
     /// The writing options used during serialization.
     public var writingOptions = NSJSONWritingOptions()
@@ -75,7 +73,7 @@ public class SGYJSONSerializer {
      
      - returns: Serialized JSON as NSData.
      */
-    public func serialize(object: AnyObject) throws -> NSData {
+    public func serialize(object: Any) throws -> NSData {
         // Attempt converting object to dictionary
         let dictionary = try convertToValidDictionary(object)
         return try serializeObject(dictionary)
@@ -88,7 +86,7 @@ public class SGYJSONSerializer {
         catch let e as NSError { throw Error.NSJSONSerializationError(e) }
     }
     
-    private func convertToValidDictionary(object: AnyObject) throws -> [String: AnyObject] {
+    private func convertToValidDictionary(object: Any) throws -> [String: AnyObject] {
         // Converted dictionary
         var jsonDictionary = [String: AnyObject]()
         
@@ -183,15 +181,9 @@ public class SGYJSONSerializer {
         }
         
         // Complex object
-        if let serializable = object as? AnyObject {
-            let objDict = try convertToValidDictionary(serializable)
-            // Skip empty dictionaries
-            return objDict.isEmpty ? nil : objDict
-        }
-        
-        // -- Otherwise invalid.  The object cannot be converted as-is.
-        if strictMode { throw Error.InvalidObject(object) }
-        return nil
+        let objDict = try convertToValidDictionary(object)
+        // Skip empty dictionaries
+        return objDict.isEmpty ? nil : objDict
     }
     
     private func unwrap(any: Any) -> Any? {
