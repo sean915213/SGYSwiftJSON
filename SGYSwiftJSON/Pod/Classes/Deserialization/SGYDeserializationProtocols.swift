@@ -30,7 +30,7 @@ public protocol SGYKeyValueCreatable: class, SGYJSONCreatable {
     - parameter value:    The object to set.
     - parameter property: The name of the property to assign the provided value.
     
-    - throws: Throws an SGYJSONErrors case.
+    - throws: Throws an SGYDeserializableNSObject.Error case.
     */
     func setValue(value: Any, property: String) throws
 }
@@ -63,8 +63,9 @@ public protocol SGYDictionaryCreatable: SGYJSONCreatable, SGYDictionaryReflectio
     mutating func mergeContentsOf(dictionary: [String: AnyObject])
 }
 
-
-
+/**
+ *  Defined to allow creation of types from JSONLeafValues (`NSString`, `NSNumber`, or `NSNull`).
+ */
 public protocol JSONLeafCreatable {
     init?(jsonValue: JSONLeafValue)
 }
