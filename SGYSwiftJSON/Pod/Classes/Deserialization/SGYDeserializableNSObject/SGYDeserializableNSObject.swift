@@ -13,12 +13,16 @@ import UIKit
 /// A class provided for simple implementation of SGYKeyValueCreatable via inheritence.
 public class SGYDeserializableNSObject: NSObject, SGYKeyValueCreatable {
     
+    public enum Error: ErrorType { case InvalidSetValueObject }
+    
     // Deserialization requires a parameterless initalizer
     public required override init() { super.init() }
     
-    public func setValue(value: AnyObject?, property: String) throws {
+    public func setValue(value: Any?, property: String) throws {
+        // Since we're utilizing our category on NSObject we can only accept AnyObject
+        guard let objectValue = value as? AnyObject else { throw Error.InvalidSetValueObject }
         var error: NSError?
-        trySetValue(value, forKey: property, error: &error)
+        trySetValue(objectValue, forKey: property, error: &error)
         // Throw error if populated
         if let e = error { throw e }
     }

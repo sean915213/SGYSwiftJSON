@@ -212,7 +212,7 @@ public class SGYJSONDeserializer {
             let propertyType: Any.Type = Mirror(reflecting: property.value).subjectType
             
             // Attempt converting the property's value
-            guard let converted = try convertValue(propertyValue, toType: propertyType) as? AnyObject else { continue }
+            guard let converted = try convertValue(propertyValue, toType: propertyType) else { continue }
             // Try setting the value
             do { try instance.setValue(converted, property: name) }
             catch let e as NSError { throw Error.KeyValueError(name, propertyValue, e) }
