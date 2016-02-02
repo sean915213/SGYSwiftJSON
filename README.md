@@ -25,11 +25,8 @@ Deserialization is considerably more difficult than serialization as it requires
   *  If the object conforms to `SGYKeyValueCreatable` the object's properties and type values are determined using `Mirror`.  The object produced by `NSJSONSerialization` must be an `NSDictionary`or an error is thrown.
   *  If the object conforms to `SGYDictionaryCreatable` the object's key and value type are retrieved using the protocol's *keyValueTypes* property. The object produced by `NSJSONSerialization` must be an `NSDictionary`or an error is thrown.
   *  If the object conforms to `SGYCollectionCreatable` the object's element type is retrieved using the protocol's *elementType* property. The object produced by `NSJSONSerialization` must be an `NSArray`or an error is thrown.
- 2. Once the type to deserialize the values into is determined several chec
-
-
-* **Creatable** - All objects/collections/dictionaries being applied from a deserialized value must adhere to SGYJSONCreatable.  Ie. must provide a parameterless initializer.  Extensions are provided which meet this requirement for the most commonly used collections and dictionaries, as well as an NSObject subclass provided for custom classes to adhere to.
-* **Classes** - Any custom class meant to be deserialized from a JSON dictionary must provide a function to set values via keys.  A subclass of NSObject is already provided which adheres to this (and the above) requirement (* SGYDeserializableNSObject*).
-* **Collections** - Any collection meant to be deserialized from a JSON collection must expose a method which allows appending an array of [AnyObject]. Extensions are included covering common collections.
-* **Dictionaries** - Any dictionary meant to be deserialized from a JSON dictionary must expose a method which allows merging a dictionary of [String: AnyObject]. Extensions are inluced covering common dictionaries.
-* **Dates** - A conversion block must be supplied in-order to convert AnyObject to NSDate.
+ 2. If the value to be deserialized into is an array then all values will be converted to the array's containing `Element` type.  Similarly, dictionaries have the containing values converted to their `Value` type.  For complex objects the value is converted using its `Mirror` property representation.  This conversion is done using the following logic:
+  1. If the declared type is `AnyObject` or the declared type matches the deserialized type then the deserialized type is assigned directly.
+  2. If the deserialized value is a leaf value then the deserialized type must conform to `JSONLeafConvertable` and will be constructed using the leaf value and assigned.  Otherwise the deserialized value is skipped.
+  3. If the deserialized value is the `[AnyObject]` type and the declared type is `SGYCollectionCreatable` an array will be initialized and returned using the array conversion logic.  Otherwise the deserialized value is skipped.
+  4. If the deserialized value is the `[String: AnyObject]` type and the declared type is `SGYDictionaryCreatable` an array will be initialized and returned using the dictionary conversion logic.  Otherwise the deserialized value is skipped.
