@@ -4,6 +4,17 @@ An iOS Swift JSON serialization and deserialization library.
 ## Summary
 The SGYSwiftJSON library is a library that dramatically simplifies serialization and deserialization of **Swift only** models. The primary goal of this library is to eliminate the majority of the code required to convert arbitrary objects into JSON and vice versa. Out-of-the-box functionality supports conversion of most common objects, collections, and dictionaries.  Protocols are provided which allow extending functionality to unusual objects.
 
+## Quick Start
+The majority of models written with JSON serialization in mind are already supported.  Any object graph that conforms to the following should work out-of-the-box:
+* All collections are the  `Array`, `Set`, `NSArray`, or `NSMutableArray` types with an element type that adheres to this collection of rules.
+* All dictionaries have a `String` or `NSString` key type and a value type which adheres to this collection of rules.
+* All complex types conform to `SGYKeyValueCreatable`.  This is most easily achieved by using `SGYDeserializableNSObject` as the base class.
+* All numeric types are `NSNumber`, `NSDecimalNumber` or can be bridged to `NSNumber` and are not declared optional.
+
+If you do not wish to have to adhere to the above limitations then it is possible to extend most other types using the defined protocols. Details on these protocols and how they're evaluated during serialization and deserialization can be found below.
+
+*Note: Several of the above limitations do not apply or are much more lenient if you do not wish to implement deserialization.*
+
 ### Serialization
 Serialization is supported via protocols and the use of Swift's `Mirror`. Any object passed to be serialized is checked for the following conditions:
  1. Conforms to `JSONProxyProvider` - The *jsonProxy* property of the object will be retrieved and passed through this same logic tree.
