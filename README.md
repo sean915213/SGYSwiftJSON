@@ -5,11 +5,11 @@ An iOS Swift JSON serialization and deserialization library.
 The SGYSwiftJSON library is a library that dramatically simplifies serialization and deserialization of **Swift only** models. The primary goal of this library is to eliminate the majority of the code required to convert arbitrary objects into JSON and vice versa. Out-of-the-box functionality supports conversion of most common objects, collections, and dictionaries.  Protocols are provided which allow extending functionality to unusual objects.
 
 ### Serialization
-Serialization is supported via protocols and the use of Swift's `Mirror`. Any object passed to be deserialized is checked for the following conditions:
+Serialization is supported via protocols and the use of Swift's `Mirror`. Any object passed to be serialized is checked for the following conditions:
  1. Conforms to `JSONProxyProvider` - The *jsonProxy* property of the object will be retrieved and passed through this same logic tree.
  2. Conforms to `JSONLeafRepresentable` - Objects adhering to this protocol can be represented as a JSON leaf object.  I.e `NSString`, `NSNumber`, or `NSNull`.  Beyond the 3 leaf values accepted the structs `String`, `Bool`, `Int`, `Float`, and `Double` conform to this protocol.
  3. Is an `NSDate` -  If the object is an `NSDate` and does not conform to any of the above protocols then the *dateConversionBlock*, if provided, is used to convert to `JSONLeafRepresentable` or the property is skipped if no block exists.
- 4. Conforms to `SGYDictionaryReflection` - The object will be converted to a dictionary of strings keys and object values. The genneric `Dictionary` and `NSDictionary` both adhere to this protocol.
+ 4. Conforms to `SGYDictionaryReflection` - The object will be converted to a dictionary of strings keys and object values. The generic `Dictionary` and `NSDictionary` both adhere to this protocol.
  5. Conforms to `SGYCollectionReflection` - The object's contained elements will be converted and put into an array. `Array`, `NSArray`, and `Set` adhere to this protocol.
  6. None of the above - The object's property's and values will be enumerated using `Mirror` and converted to a dictionary.
  
