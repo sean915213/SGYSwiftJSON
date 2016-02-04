@@ -70,7 +70,6 @@
 		C47FCDA61C48856B006F4DF3 /* SGYJSONSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FCD9A1C48856B006F4DF3 /* SGYJSONSerializer.swift */; };
 		C47FCDA71C48856B006F4DF3 /* SGYSerializationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FCD9B1C48856B006F4DF3 /* SGYSerializationExtensions.swift */; };
 		C47FCDA81C48856B006F4DF3 /* SGYSerializationProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FCD9C1C48856B006F4DF3 /* SGYSerializationProtocols.swift */; };
-		C47FCDA91C48856B006F4DF3 /* SGYJSONSerialization.h in Headers */ = {isa = PBXBuildFile; fileRef = C47FCD9D1C48856B006F4DF3 /* SGYJSONSerialization.h */; };
 		C47FCDAA1C48856B006F4DF3 /* SGYReflectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FCD9E1C48856B006F4DF3 /* SGYReflectionExtensions.swift */; };
 		C47FCDAB1C48856B006F4DF3 /* SGYReflectionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FCD9F1C48856B006F4DF3 /* SGYReflectionProtocols.swift */; };
 		C480B50103AE726037CD7F34F9E36CEF /* QCKDSL.h in Headers */ = {isa = PBXBuildFile; fileRef = E41A31E4949F1319040B8D2BBBF2B5D6 /* QCKDSL.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -216,7 +215,6 @@
 		C47FCD9A1C48856B006F4DF3 /* SGYJSONSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SGYJSONSerializer.swift; sourceTree = "<group>"; };
 		C47FCD9B1C48856B006F4DF3 /* SGYSerializationExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SGYSerializationExtensions.swift; sourceTree = "<group>"; };
 		C47FCD9C1C48856B006F4DF3 /* SGYSerializationProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SGYSerializationProtocols.swift; sourceTree = "<group>"; };
-		C47FCD9D1C48856B006F4DF3 /* SGYJSONSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGYJSONSerialization.h; sourceTree = "<group>"; };
 		C47FCD9E1C48856B006F4DF3 /* SGYReflectionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SGYReflectionExtensions.swift; sourceTree = "<group>"; };
 		C47FCD9F1C48856B006F4DF3 /* SGYReflectionProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SGYReflectionProtocols.swift; sourceTree = "<group>"; };
 		C4AA3D131C5AD49A0077BF8D /* JSONLeafValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONLeafValue.swift; sourceTree = "<group>"; };
@@ -300,7 +298,6 @@
 			children = (
 				C47FCD911C48856B006F4DF3 /* Deserialization */,
 				C47FCD991C48856B006F4DF3 /* Serialization */,
-				C47FCD9D1C48856B006F4DF3 /* SGYJSONSerialization.h */,
 				C47FCD9E1C48856B006F4DF3 /* SGYReflectionExtensions.swift */,
 				C47FCD9F1C48856B006F4DF3 /* SGYReflectionProtocols.swift */,
 			);
@@ -604,7 +601,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C47FCDA11C48856B006F4DF3 /* SGYKVSafeNSObject.h in Headers */,
-				C47FCDA91C48856B006F4DF3 /* SGYJSONSerialization.h in Headers */,
 				9341B96D63EF6C54A1F906A1BBAEAF46 /* DSL.h in Headers */,
 				0F49254A4C560DD4696936F6080756DC /* Nimble-umbrella.h in Headers */,
 				512DFAE728521F02AF225F0082195DCC /* Nimble.h in Headers */,
