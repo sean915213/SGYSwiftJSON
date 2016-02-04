@@ -6,9 +6,9 @@
 //  Copyright © 2015 Sean Young. All rights reserved.
 //
 
-#ifndef SGYJSONSerialization_h
-#define SGYJSONSerialization_h
-
-#import "SGYKVSafeNSObject.h"
-
-#endif /* SGYJSONSerialization_h */
+//#ifndef SGYJSONSerialization_h
+//#define SGYJSONSerialization_h
+//
+//#import "SGYKVSafeNSObject.h"
+//
+//#endif /* SGYJSONSerialization_h */
