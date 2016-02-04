@@ -9,7 +9,6 @@
 import Foundation
 
 public enum JSONLeafValue {
-
     case String(NSString), Number(NSNumber), Null(NSNull)
     
     public init(_ string: NSString) { self = String(string) }

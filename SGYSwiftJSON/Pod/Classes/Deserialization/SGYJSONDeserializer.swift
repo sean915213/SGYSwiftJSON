@@ -200,11 +200,6 @@ public class SGYJSONDeserializer {
             }
         }
         
-        // The only remaining objects that could have been produced by NSJSONSerialization are NSNumber or NSString.
-        // If types match return the original type
-//        if value is NSNumber && type is NSNumber.Type { return value }
-//        if value is String && (type is String.Type || type is NSString.Type) { return value }
-        
         // Execute unsupported conversion block
         unsupportedConversion()
         return nil

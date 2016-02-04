@@ -9,14 +9,14 @@
 import Foundation
 
 /**
-*  A protocol any object may adhere to in-order to provide a valid JSON representation.
+*  A protocol any type may adhere to in-order to provide a valid JSON representation.
 */
 public protocol JSONProxyProvider {
     var jsonProxy: Any { get }
 }
 
 /**
- *  A protocol any object may adhere to in-order to provide a valid JSON leaf value representation.
+ *  A protocol any type may adhere to in-order to provide a valid JSON leaf value representation.
  */
 public protocol JSONLeafRepresentable {
     var jsonLeafValue: JSONLeafValue? { get }
