@@ -12,10 +12,6 @@ Pod::Spec.new do |s|
   s.summary          = "A library seeking to provide an automatic and type-safe approach to converting Swift types to and from JSON."
 
 # This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!  
   s.description      = "SGYSwiftJSON is a library that seeks to dramatically simplify serialization and deserialization of Swift only models. The primary goal of this library is to eliminate the majority of the code required to convert arbitrary objects into JSON and vice versa. This includes recursive conversion of types contained in collections, dictionaries, and complex objects. Out-of-the-box functionality includes support for the majority of common Foundation types and a ready to inherit base class for complex types (not required, but easier). Protocols are provided which allow extending functionality to unusual objects."
   s.homepage         = "https://github.com/sean915213/SGYSwiftJSON"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
