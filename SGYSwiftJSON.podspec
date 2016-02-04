@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "SGYSwiftJSON"
-  s.version          = "0.1.2"
+  s.version          = "0.1.3"
   s.summary          = "A library seeking to provide an automatic and type-safe approach to converting Swift types to and from JSON."
 
 # This description is used to generate tags and improve search results.
