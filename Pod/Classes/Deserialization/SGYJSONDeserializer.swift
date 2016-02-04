@@ -124,10 +124,8 @@ public class SGYJSONDeserializer {
         let convertedValues: [AnyObject?] = try values.map { try self.convertValue($0, toType: type.elementType) as? AnyObject }
         // Create a filtered list of non-nil, unwrapped values
         let realValues = (convertedValues.filter { $0 != nil }).map { $0! }
-        // Create an instance of the protocol's class and append the contents before returning
-        var sequenceInstance = type.init()
-        sequenceInstance.appendContentsOf(realValues)
-        return sequenceInstance
+        // Return a type instance initialized with the contents
+        return type.init(array: realValues)
     }
     
     private func convertDictionary(dictionary: [String: AnyObject], toDictionaryType type: SGYDictionaryCreatable.Type) throws -> SGYDictionaryCreatable {
@@ -135,10 +133,8 @@ public class SGYJSONDeserializer {
         for (key, value) in dictionary {
             if let typedValue = try convertValue(value, toType: type.keyValueTypes.value) as? AnyObject { typedDictionary[key] = typedValue }
         }
-        // Create an instance of the type and merge the contents before returning
-        var dictionaryInstance = type.init()
-        dictionaryInstance.mergeContentsOf(typedDictionary)
-        return dictionaryInstance
+        // Return a type instance initialized with the contents
+        return type.init(dictionary: typedDictionary)
     }
 
     private func convertValue(value: AnyObject, var toType type: Any.Type) throws -> Any? {
@@ -169,6 +165,12 @@ public class SGYJSONDeserializer {
         
         // ARRAY. Check whether the returned value is an NSArray (always the case from NSJSONSerialization for any collection type)
         if let arrayValue = value as? [AnyObject] {
+            // Limited backwards compatibility
+            if type is NSArray.Type {
+                if type is NSMutableArray.Type { return (arrayValue as NSArray).mutableCopy() }
+                return arrayValue
+            }
+            
             // Check whether property adheres to our collection protocol
             if let collectionType = type as? SGYCollectionCreatable.Type {
                 // Return converted collection
@@ -182,6 +184,12 @@ public class SGYJSONDeserializer {
         
         // DICTIONARY. Check whether the returned value is an NSDictionary (always the case from NSJSONSerialization for any dictionary/complex type).
         if let dictionaryValue = value as? [String: AnyObject] {
+            // Limited backwards compatibility
+            if type is NSDictionary.Type {
+                if type is NSMutableDictionary.Type { return (dictionaryValue as NSDictionary).mutableCopy() }
+                return dictionaryValue
+            }
+            
             // Check whether property type adheres to our protocol
             if let assignableType = type as? SGYKeyValueCreatable.Type {
                 let instance = assignableType.init()

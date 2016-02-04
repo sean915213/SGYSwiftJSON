@@ -40,27 +40,29 @@ public protocol SGYKeyValueCreatable: class, SGYJSONCreatable {
 /**
 *  Defined to allow attempting the assignment of a deserialized array.
 */
-public protocol SGYCollectionCreatable: SGYJSONCreatable, SGYCollectionReflection {
-
+public protocol SGYCollectionCreatable: SGYCollectionReflection {
     /**
-    Attempts appending the contents of an untyped AnyObject array.
-    
-    - parameter array: An array of AnyObject.
-    */
-    mutating func appendContentsOf(array: [AnyObject])
+     Initializes a type from a deserialized collection.
+     
+     - parameter array: An array of deserialized and converted values.
+     
+     - returns: A type initialized from the collection.
+     */
+    init(array: [AnyObject])
 }
 
 /**
 *  Defined to allow attempting the assignment of a deserialized dictionary.
 */
-public protocol SGYDictionaryCreatable: SGYJSONCreatable, SGYDictionaryReflection {
-
+public protocol SGYDictionaryCreatable: SGYDictionaryReflection {
     /**
-    Attempts merging the contents of a [String: AnyObject] dictionary.
-    
-    - parameter dictionary: A [String: AnyObject] dictionary to attempt merging.
-    */
-    mutating func mergeContentsOf(dictionary: [String: AnyObject])
+     Initializes an object from a deserialized collection.
+     
+     - parameter array: A dictionary of deserialized and converted values.
+     
+     - returns: A type initialized from the dictionary.
+     */
+    init(dictionary: [String: AnyObject])
 }
 
 /**

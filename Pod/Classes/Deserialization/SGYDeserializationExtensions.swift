@@ -11,16 +11,20 @@ import Foundation
 // MARK: SGYCollectionCreatable Conformance -
 
 extension RangeReplaceableCollectionType where Self: SGYCollectionCreatable {
-    public mutating func appendContentsOf(array: [AnyObject]) {
+    public init(array: [AnyObject]) {
+        self.init()
         array.forEach { if let e = $0 as? Generator.Element { append(e) } }
+        
     }
 }
 
 extension Array: SGYCollectionCreatable { }
 
 extension Set: SGYCollectionCreatable {
-    public mutating func appendContentsOf(array: [AnyObject]) {
-        array.forEach { if let e = $0 as? Element { insert(e) } }
+    public init(array: [AnyObject]) {
+        self.init()
+        array.forEach { if let e = $0 as? Generator.Element { insert(e) } }
+        
     }
 }
 
@@ -28,7 +32,8 @@ extension Set: SGYCollectionCreatable {
 // MARK: SGYDictionaryCreatable Conformance -
 
 extension Dictionary: SGYDictionaryCreatable {
-    public mutating func mergeContentsOf(dictionary: [String: AnyObject]) {
+    public init(dictionary: [String: AnyObject]) {
+        self.init()
         dictionary.forEach {
             if let k = $0 as? Key, v = $1 as? Value { self[k] = v }
         }
