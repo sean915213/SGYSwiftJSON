@@ -1,5 +1,5 @@
 //
-//  SGYSwiftProtocols.swift
+//  DeserializationProtocols.swift
 //  SGYSwiftJSON
 //
 //  Created by Sean Young on 8/29/15.
@@ -9,28 +9,23 @@
 import Foundation
 
 /**
-*  The most basic protocol for any type that can be created from serialized JSON.
-*/
-public protocol SGYJSONCreatable {
-    /**
-    A required parameterless initializer.
-    
-    - returns: An initialized object.
-    */
-    init()
-}
-
-/**
 *  The protocol a class must adhere to in-order to be creatable from a JSON dictionary.
 */
-public protocol SGYKeyValueCreatable: class, SGYJSONCreatable {
+public protocol JSONKeyValueCreatable: class {
+    /**
+     A required parameterless initializer.
+     
+     - returns: An initialized object.
+     */
+    init()
+    
     /**
     The basic function facilitating an object's creation from a dictionary.
     
     - parameter value:    The object to set.
     - parameter property: The name of the property to assign the provided value.
     
-    - throws: Throws an SGYDeserializableNSObject.Error case.
+    - throws: Throws an JSONCreatableObject.Error case.
     */
     func setValue(value: Any, property: String) throws
 }
@@ -40,9 +35,9 @@ public protocol SGYKeyValueCreatable: class, SGYJSONCreatable {
 /**
 *  Defined to allow attempting the assignment of a deserialized array.
 */
-public protocol SGYCollectionCreatable: SGYCollectionReflection {
+public protocol JSONCollectionCreatable: SGYCollectionReflection {
     /**
-     Initializes a type from a deserialized collection.
+     Initializes the type from a deserialized collection.
      
      - parameter array: An array of deserialized and converted values.
      
@@ -54,9 +49,9 @@ public protocol SGYCollectionCreatable: SGYCollectionReflection {
 /**
 *  Defined to allow attempting the assignment of a deserialized dictionary.
 */
-public protocol SGYDictionaryCreatable: SGYDictionaryReflection {
+public protocol JSONDictionaryCreatable: SGYDictionaryReflection {
     /**
-     Initializes an object from a deserialized collection.
+     Initializes the type from a deserialized dictionary.
      
      - parameter array: A dictionary of deserialized and converted values.
      
@@ -69,6 +64,13 @@ public protocol SGYDictionaryCreatable: SGYDictionaryReflection {
  *  Defined to allow creation of types from JSONLeafValues (`NSString`, `NSNumber`, or `NSNull`).
  */
 public protocol JSONLeafCreatable {
+    /**
+     Initializes the type from a deserialized JSON leaf value.
+     
+     - parameter jsonValue: An enumeration describing the JSON leaf value.
+     
+     - returns: The initialized type or nil.
+     */
     init?(jsonValue: JSONLeafValue)
 }
 

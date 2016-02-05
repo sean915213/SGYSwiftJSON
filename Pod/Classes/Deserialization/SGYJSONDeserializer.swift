@@ -44,15 +44,15 @@ public class SGYJSONDeserializer {
     // MARK: Public
     
     /**
-    Creates an instance of the provided SGYKeyValueCreatable type and attempts assigning its properties using the provided JSON data.
+    Creates an instance of the provided JSONKeyValueCreatable type and attempts assigning its properties using the provided JSON data.
     
     - parameter jsonData: JSON data.
     
     - throws: All SGYJSONDeserializer.Error types.
     
-    - returns: An instance of the provided SGYKeyValueCreatable type with the associated deserialized properties assigned.
+    - returns: An instance of the provided JSONKeyValueCreatable type with the associated deserialized properties assigned.
     */
-    public func deserialize<T: SGYKeyValueCreatable>(jsonData: NSData) throws -> T {
+    public func deserialize<T: JSONKeyValueCreatable>(jsonData: NSData) throws -> T {
         // Create an instance
         let instance = T()
         // Deserialize properties into object and return
@@ -61,14 +61,14 @@ public class SGYJSONDeserializer {
     }
     
     /**
-     Attempts assigning properties to the provided SGYKeyValueCreatable instance using the provided JSON data.
+     Attempts assigning properties to the provided JSONKeyValueCreatable instance using the provided JSON data.
      
      - parameter jsonData: JSON data.
-     - parameter instance: An object instance conforming to SGYKeyValueCreatable.
+     - parameter instance: An object instance conforming to JSONKeyValueCreatable.
      
      - throws: All SGYJSONDeserializer.Error types.
      */
-    public func deserialize(jsonData: NSData, intoInstance instance: SGYKeyValueCreatable) throws {
+    public func deserialize(jsonData: NSData, intoInstance instance: JSONKeyValueCreatable) throws {
         // Deserialize data
         let jsonObject = try deserializeData(jsonData)
         // Result can only be a dictionary or an array, and we only expect a dictionary in this scenario
@@ -78,15 +78,15 @@ public class SGYJSONDeserializer {
     }
     
     /**
-     Creates an instance of the provided SGYCollectionCreatable type and attempts assigning its elements using the provided JSON data.
+     Creates an instance of the provided JSONCollectionCreatable type and attempts assigning its elements using the provided JSON data.
      
      - parameter jsonData: JSON data.
      
      - throws: All SGYJSONDeserializer.Error types.
      
-     - returns: An instance of the provided SGYCollectionCreatable type with the associated deserialized elements assigned.
+     - returns: An instance of the provided JSONCollectionCreatable type with the associated deserialized elements assigned.
      */
-    public func deserialize<T: SGYCollectionCreatable>(jsonData: NSData) throws -> T {
+    public func deserialize<T: JSONCollectionCreatable>(jsonData: NSData) throws -> T {
         // Deserialize data
         let jsonObject = try deserializeData(jsonData)
         // Result can only be a dictionary or an array, and we only expect an array in this scenario
@@ -96,15 +96,15 @@ public class SGYJSONDeserializer {
     }
     
     /**
-     Creates an instance of the provided SGYDictionaryCreatable type and attempts assigning its key-value pairs using the provided JSON data.
+     Creates an instance of the provided JSONDictionaryCreatable type and attempts assigning its key-value pairs using the provided JSON data.
      
      - parameter jsonData: JSON data.
      
      - throws: All SGYJSONDeserializer.Error types.
      
-     - returns: An instance of the provided SGYDictionaryCreatable type with the associated key-value pairs assigned.
+     - returns: An instance of the provided JSONDictionaryCreatable type with the associated key-value pairs assigned.
      */
-    public func deserialize<T: SGYDictionaryCreatable>(jsonData: NSData) throws -> T {
+    public func deserialize<T: JSONDictionaryCreatable>(jsonData: NSData) throws -> T {
         // Deserialize data
         let jsonObject = try deserializeData(jsonData)
         // Result can only be a dictionary or an array, and we only expect a dictionary in this scenario
@@ -119,7 +119,7 @@ public class SGYJSONDeserializer {
         catch let e as NSError { throw Error.NSJSONDeserializationError(e) }
     }
     
-    private func convertCollection(values: [AnyObject], toCollectionType type: SGYCollectionCreatable.Type) throws -> SGYCollectionCreatable {
+    private func convertCollection(values: [AnyObject], toCollectionType type: JSONCollectionCreatable.Type) throws -> JSONCollectionCreatable {
         // First collect all converted values.  MUST collect into an array typed of [AnyObject] because in the end that's what we must return from this function.  Returning [Any] completely breaks the ability to assign the resultant objects.
         let convertedValues: [AnyObject?] = try values.map { try self.convertValue($0, toType: type.elementType) as? AnyObject }
         // Create a filtered list of non-nil, unwrapped values
@@ -128,7 +128,7 @@ public class SGYJSONDeserializer {
         return type.init(array: realValues)
     }
     
-    private func convertDictionary(dictionary: [String: AnyObject], toDictionaryType type: SGYDictionaryCreatable.Type) throws -> SGYDictionaryCreatable {
+    private func convertDictionary(dictionary: [String: AnyObject], toDictionaryType type: JSONDictionaryCreatable.Type) throws -> JSONDictionaryCreatable {
         var typedDictionary = [String: AnyObject]()
         for (key, value) in dictionary {
             if let typedValue = try convertValue(value, toType: type.keyValueTypes.value) as? AnyObject { typedDictionary[key] = typedValue }
@@ -172,7 +172,7 @@ public class SGYJSONDeserializer {
             }
             
             // Check whether property adheres to our collection protocol
-            if let collectionType = type as? SGYCollectionCreatable.Type {
+            if let collectionType = type as? JSONCollectionCreatable.Type {
                 // Return converted collection
                 return try convertCollection(arrayValue, toCollectionType: collectionType)
             } else {
@@ -191,12 +191,12 @@ public class SGYJSONDeserializer {
             }
             
             // Check whether property type adheres to our protocol
-            if let assignableType = type as? SGYKeyValueCreatable.Type {
+            if let assignableType = type as? JSONKeyValueCreatable.Type {
                 let instance = assignableType.init()
                 try assignInstanceProperties(instance, dictionary: dictionaryValue)
                 // Return instance
                 return instance
-            } else if let dictionaryType = type as? SGYDictionaryCreatable.Type {
+            } else if let dictionaryType = type as? JSONDictionaryCreatable.Type {
                 // Currently only capable of converting dictionaries with string keys
                 if dictionaryType.keyValueTypes.key != String.self {
                     // Property is a dictionary type but key type is not string.  Do not have a good way to support this yet.
@@ -213,7 +213,7 @@ public class SGYJSONDeserializer {
         return nil
     }
     
-    private func assignInstanceProperties(instance: SGYKeyValueCreatable, dictionary: [String: AnyObject]) throws {
+    private func assignInstanceProperties(instance: JSONKeyValueCreatable, dictionary: [String: AnyObject]) throws {
         // Loop through the instance's property info
         for property in Mirror(reflecting: instance).children {
             // Check whether dictionary contains a value for this property

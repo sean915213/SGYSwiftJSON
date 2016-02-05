@@ -61,19 +61,19 @@
 		BB4F35062294C1A461DA3CEF6306A1DB /* HaveCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BC3268759E7DB38A0E192F06A1BD06 /* HaveCount.swift */; };
 		BCB53F24DCADF12601B8BA90AE3190AE /* BeLessThan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69578BBC16AAA12ED9630E2036580E94 /* BeLessThan.swift */; };
 		C150157922BAEB1F93635508FB59E618 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E351727CD07BB90B2A3CAE2C2433F6C5 /* Foundation.framework */; };
-		C47FCDA01C48856B006F4DF3 /* SGYDeserializableNSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FCD931C48856B006F4DF3 /* SGYDeserializableNSObject.swift */; };
+		C47FCDA01C48856B006F4DF3 /* JSONCreatableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FCD931C48856B006F4DF3 /* JSONCreatableObject.swift */; };
 		C47FCDA11C48856B006F4DF3 /* SGYKVSafeNSObject.h in Headers */ = {isa = PBXBuildFile; fileRef = C47FCD941C48856B006F4DF3 /* SGYKVSafeNSObject.h */; };
 		C47FCDA21C48856B006F4DF3 /* SGYKVSafeNSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C47FCD951C48856B006F4DF3 /* SGYKVSafeNSObject.m */; };
-		C47FCDA31C48856B006F4DF3 /* SGYDeserializationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FCD961C48856B006F4DF3 /* SGYDeserializationExtensions.swift */; };
-		C47FCDA41C48856B006F4DF3 /* SGYDeserializationProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FCD971C48856B006F4DF3 /* SGYDeserializationProtocols.swift */; };
+		C47FCDA31C48856B006F4DF3 /* DeserializationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FCD961C48856B006F4DF3 /* DeserializationExtensions.swift */; };
+		C47FCDA41C48856B006F4DF3 /* DeserializationProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FCD971C48856B006F4DF3 /* DeserializationProtocols.swift */; };
 		C47FCDA51C48856B006F4DF3 /* SGYJSONDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FCD981C48856B006F4DF3 /* SGYJSONDeserializer.swift */; };
 		C47FCDA61C48856B006F4DF3 /* SGYJSONSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FCD9A1C48856B006F4DF3 /* SGYJSONSerializer.swift */; };
-		C47FCDA71C48856B006F4DF3 /* SGYSerializationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FCD9B1C48856B006F4DF3 /* SGYSerializationExtensions.swift */; };
-		C47FCDA81C48856B006F4DF3 /* SGYSerializationProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FCD9C1C48856B006F4DF3 /* SGYSerializationProtocols.swift */; };
-		C47FCDAA1C48856B006F4DF3 /* SGYReflectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FCD9E1C48856B006F4DF3 /* SGYReflectionExtensions.swift */; };
-		C47FCDAB1C48856B006F4DF3 /* SGYReflectionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FCD9F1C48856B006F4DF3 /* SGYReflectionProtocols.swift */; };
+		C47FCDA71C48856B006F4DF3 /* SerializationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FCD9B1C48856B006F4DF3 /* SerializationExtensions.swift */; };
+		C47FCDA81C48856B006F4DF3 /* SerializationProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FCD9C1C48856B006F4DF3 /* SerializationProtocols.swift */; };
+		C47FCDAA1C48856B006F4DF3 /* ReflectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FCD9E1C48856B006F4DF3 /* ReflectionExtensions.swift */; };
+		C47FCDAB1C48856B006F4DF3 /* ReflectionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47FCD9F1C48856B006F4DF3 /* ReflectionProtocols.swift */; };
 		C480B50103AE726037CD7F34F9E36CEF /* QCKDSL.h in Headers */ = {isa = PBXBuildFile; fileRef = E41A31E4949F1319040B8D2BBBF2B5D6 /* QCKDSL.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C4AA3D141C5AD49A0077BF8D /* JSONLeafValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AA3D131C5AD49A0077BF8D /* JSONLeafValue.swift */; };
+		C4A2CD251C6538AD00781891 /* JSONLeafValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A2CD241C6538AD00781891 /* JSONLeafValue.swift */; };
 		C63AB521EA514A811A167E507C0CF9AD /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227AD60FAC82B3DEDDBB09BAEE052647 /* Expression.swift */; };
 		C9AC658F3FCB67B50E96313C2687B33D /* MatcherProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D0DF7E7A59098355B7877A39D254B6 /* MatcherProtocols.swift */; };
 		CAA71510B34E84DD54A6196D6DC34620 /* SGYSwiftJSON-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D87B80245E817ECB02159F0E595C348B /* SGYSwiftJSON-dummy.m */; };
@@ -206,18 +206,18 @@
 		BEA1EFFE836005E11B9D420692E9E50C /* Example.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Example.swift; path = Quick/Example.swift; sourceTree = "<group>"; };
 		BF4AE1E80CC4EA4F2E1FF17CA10A3D26 /* Nimble-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Nimble-umbrella.h"; sourceTree = "<group>"; };
 		C03BB6589A73F51F073DF050F55D7F41 /* BeGreaterThanOrEqualTo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeGreaterThanOrEqualTo.swift; path = Nimble/Matchers/BeGreaterThanOrEqualTo.swift; sourceTree = "<group>"; };
-		C47FCD931C48856B006F4DF3 /* SGYDeserializableNSObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SGYDeserializableNSObject.swift; sourceTree = "<group>"; };
+		C47FCD931C48856B006F4DF3 /* JSONCreatableObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONCreatableObject.swift; sourceTree = "<group>"; };
 		C47FCD941C48856B006F4DF3 /* SGYKVSafeNSObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGYKVSafeNSObject.h; sourceTree = "<group>"; };
 		C47FCD951C48856B006F4DF3 /* SGYKVSafeNSObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGYKVSafeNSObject.m; sourceTree = "<group>"; };
-		C47FCD961C48856B006F4DF3 /* SGYDeserializationExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SGYDeserializationExtensions.swift; sourceTree = "<group>"; };
-		C47FCD971C48856B006F4DF3 /* SGYDeserializationProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SGYDeserializationProtocols.swift; sourceTree = "<group>"; };
+		C47FCD961C48856B006F4DF3 /* DeserializationExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeserializationExtensions.swift; sourceTree = "<group>"; };
+		C47FCD971C48856B006F4DF3 /* DeserializationProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeserializationProtocols.swift; sourceTree = "<group>"; };
 		C47FCD981C48856B006F4DF3 /* SGYJSONDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SGYJSONDeserializer.swift; sourceTree = "<group>"; };
 		C47FCD9A1C48856B006F4DF3 /* SGYJSONSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SGYJSONSerializer.swift; sourceTree = "<group>"; };
-		C47FCD9B1C48856B006F4DF3 /* SGYSerializationExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SGYSerializationExtensions.swift; sourceTree = "<group>"; };
-		C47FCD9C1C48856B006F4DF3 /* SGYSerializationProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SGYSerializationProtocols.swift; sourceTree = "<group>"; };
-		C47FCD9E1C48856B006F4DF3 /* SGYReflectionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SGYReflectionExtensions.swift; sourceTree = "<group>"; };
-		C47FCD9F1C48856B006F4DF3 /* SGYReflectionProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SGYReflectionProtocols.swift; sourceTree = "<group>"; };
-		C4AA3D131C5AD49A0077BF8D /* JSONLeafValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONLeafValue.swift; sourceTree = "<group>"; };
+		C47FCD9B1C48856B006F4DF3 /* SerializationExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SerializationExtensions.swift; sourceTree = "<group>"; };
+		C47FCD9C1C48856B006F4DF3 /* SerializationProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SerializationProtocols.swift; sourceTree = "<group>"; };
+		C47FCD9E1C48856B006F4DF3 /* ReflectionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReflectionExtensions.swift; sourceTree = "<group>"; };
+		C47FCD9F1C48856B006F4DF3 /* ReflectionProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReflectionProtocols.swift; sourceTree = "<group>"; };
+		C4A2CD241C6538AD00781891 /* JSONLeafValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONLeafValue.swift; sourceTree = "<group>"; };
 		C8E9634CF58B22F95DF5AA222CDAF9B8 /* Nimble-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Nimble-dummy.m"; sourceTree = "<group>"; };
 		CB88D200DC80E6521F031A0EE472080E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB8FCD2020E03B3971E108226E624243 /* Pods-SGYSwiftJSON_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SGYSwiftJSON_Tests-umbrella.h"; sourceTree = "<group>"; };
@@ -296,10 +296,11 @@
 		035A5A35109DF564BAA9BA130AE82760 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				C47FCD911C48856B006F4DF3 /* Deserialization */,
 				C47FCD991C48856B006F4DF3 /* Serialization */,
-				C47FCD9E1C48856B006F4DF3 /* SGYReflectionExtensions.swift */,
-				C47FCD9F1C48856B006F4DF3 /* SGYReflectionProtocols.swift */,
+				C47FCD911C48856B006F4DF3 /* Deserialization */,
+				C4A2CD241C6538AD00781891 /* JSONLeafValue.swift */,
+				C47FCD9E1C48856B006F4DF3 /* ReflectionExtensions.swift */,
+				C47FCD9F1C48856B006F4DF3 /* ReflectionProtocols.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -474,21 +475,22 @@
 		C47FCD911C48856B006F4DF3 /* Deserialization */ = {
 			isa = PBXGroup;
 			children = (
-				C47FCD921C48856B006F4DF3 /* SGYDeserializableNSObject */,
-				C47FCD961C48856B006F4DF3 /* SGYDeserializationExtensions.swift */,
-				C47FCD971C48856B006F4DF3 /* SGYDeserializationProtocols.swift */,
+				C47FCD921C48856B006F4DF3 /* JSONCreatableObject */,
+				C47FCD961C48856B006F4DF3 /* DeserializationExtensions.swift */,
+				C47FCD971C48856B006F4DF3 /* DeserializationProtocols.swift */,
 				C47FCD981C48856B006F4DF3 /* SGYJSONDeserializer.swift */,
 			);
 			path = Deserialization;
 			sourceTree = "<group>";
 		};
-		C47FCD921C48856B006F4DF3 /* SGYDeserializableNSObject */ = {
+		C47FCD921C48856B006F4DF3 /* JSONCreatableObject */ = {
 			isa = PBXGroup;
 			children = (
-				C47FCD931C48856B006F4DF3 /* SGYDeserializableNSObject.swift */,
+				C47FCD931C48856B006F4DF3 /* JSONCreatableObject.swift */,
 				C47FCD941C48856B006F4DF3 /* SGYKVSafeNSObject.h */,
 				C47FCD951C48856B006F4DF3 /* SGYKVSafeNSObject.m */,
 			);
+			name = JSONCreatableObject;
 			path = SGYDeserializableNSObject;
 			sourceTree = "<group>";
 		};
@@ -496,9 +498,8 @@
 			isa = PBXGroup;
 			children = (
 				C47FCD9A1C48856B006F4DF3 /* SGYJSONSerializer.swift */,
-				C47FCD9B1C48856B006F4DF3 /* SGYSerializationExtensions.swift */,
-				C47FCD9C1C48856B006F4DF3 /* SGYSerializationProtocols.swift */,
-				C4AA3D131C5AD49A0077BF8D /* JSONLeafValue.swift */,
+				C47FCD9B1C48856B006F4DF3 /* SerializationExtensions.swift */,
+				C47FCD9C1C48856B006F4DF3 /* SerializationProtocols.swift */,
 			);
 			path = Serialization;
 			sourceTree = "<group>";
@@ -801,7 +802,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C47FCDAB1C48856B006F4DF3 /* SGYReflectionProtocols.swift in Sources */,
+				C47FCDAB1C48856B006F4DF3 /* ReflectionProtocols.swift in Sources */,
 				CAAED5FB81DB035A9EC080917C783FA6 /* AdapterProtocols.swift in Sources */,
 				C47FCDA21C48856B006F4DF3 /* SGYKVSafeNSObject.m in Sources */,
 				D429691F39B4C30A8993360FB8A3E334 /* AllPass.swift in Sources */,
@@ -820,7 +821,7 @@
 				BCB53F24DCADF12601B8BA90AE3190AE /* BeLessThan.swift in Sources */,
 				4E87C6AE24AB15700A39FC24A2F1C93B /* BeLessThanOrEqual.swift in Sources */,
 				02DF5BD2281BA10105A447F95FCF8CF3 /* BeLogical.swift in Sources */,
-				C47FCDA41C48856B006F4DF3 /* SGYDeserializationProtocols.swift in Sources */,
+				C47FCDA41C48856B006F4DF3 /* DeserializationProtocols.swift in Sources */,
 				F1D4A8A1FC68EFA7F45945908D70A352 /* BeNil.swift in Sources */,
 				B41E8E775408ACE233F29CE93388B270 /* Contain.swift in Sources */,
 				C47FCDA51C48856B006F4DF3 /* SGYJSONDeserializer.swift in Sources */,
@@ -830,12 +831,12 @@
 				3A92AEE86034356AF8987F20EE1F82DF /* EndWith.swift in Sources */,
 				FB1347627E64CA7E98C19DC985E13D95 /* Equal.swift in Sources */,
 				E2FBD93D72DF01427486D1A6853FC689 /* Expectation.swift in Sources */,
-				C4AA3D141C5AD49A0077BF8D /* JSONLeafValue.swift in Sources */,
+				C4A2CD251C6538AD00781891 /* JSONLeafValue.swift in Sources */,
 				C63AB521EA514A811A167E507C0CF9AD /* Expression.swift in Sources */,
 				0492354DA7EF0C9068F7B4E8F74001B0 /* FailureMessage.swift in Sources */,
-				C47FCDAA1C48856B006F4DF3 /* SGYReflectionExtensions.swift in Sources */,
+				C47FCDAA1C48856B006F4DF3 /* ReflectionExtensions.swift in Sources */,
 				D7B45D4600C6166C124C0A926EE65284 /* Functional.swift in Sources */,
-				C47FCDA01C48856B006F4DF3 /* SGYDeserializableNSObject.swift in Sources */,
+				C47FCDA01C48856B006F4DF3 /* JSONCreatableObject.swift in Sources */,
 				BB4F35062294C1A461DA3CEF6306A1DB /* HaveCount.swift in Sources */,
 				E36C5201AE7F1CBB25F9D2E7CBFC3C20 /* Match.swift in Sources */,
 				3AEAC447B09E7AABC140654C8529BC94 /* MatcherFunc.swift in Sources */,
@@ -844,11 +845,11 @@
 				831D33A4C5C5BBC1EC158D9A236C61D7 /* NimbleXCTestHandler.swift in Sources */,
 				9187EEC2982DB82AD8D3A7001AA647D6 /* NMBExceptionCapture.m in Sources */,
 				CD9D31B6063C50689EAC2A0745C282DC /* ObjCExpectation.swift in Sources */,
-				C47FCDA71C48856B006F4DF3 /* SGYSerializationExtensions.swift in Sources */,
+				C47FCDA71C48856B006F4DF3 /* SerializationExtensions.swift in Sources */,
 				7BFD25B1BB1116D8AC47E2C3874C5B76 /* ObjCMatcher.swift in Sources */,
 				8D0BF52FF564A170A3D1DE28C27B233E /* Poll.swift in Sources */,
-				C47FCDA81C48856B006F4DF3 /* SGYSerializationProtocols.swift in Sources */,
-				C47FCDA31C48856B006F4DF3 /* SGYDeserializationExtensions.swift in Sources */,
+				C47FCDA81C48856B006F4DF3 /* SerializationProtocols.swift in Sources */,
+				C47FCDA31C48856B006F4DF3 /* DeserializationExtensions.swift in Sources */,
 				FFC311AC1E19A23E0EB7B1B3A7A5A744 /* RaisesException.swift in Sources */,
 				7DA9FF8513AA48310B15A0744A541818 /* SourceLocation.swift in Sources */,
 				F10FD3129985704FA1610F84FB98EDF5 /* Stringers.swift in Sources */,

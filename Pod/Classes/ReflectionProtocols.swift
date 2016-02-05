@@ -1,5 +1,5 @@
 //
-//  SGYReflectionProtocols.swift
+//  ReflectionProtocols.swift
 //  SGYSwiftJSON
 //
 //  Created by Sean Young on 9/27/15.

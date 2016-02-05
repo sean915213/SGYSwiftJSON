@@ -8,9 +8,9 @@
 
 import Foundation
 
-// MARK: SGYCollectionCreatable Conformance -
+// MARK: JSONCollectionCreatable Conformance -
 
-extension RangeReplaceableCollectionType where Self: SGYCollectionCreatable {
+extension RangeReplaceableCollectionType where Self: JSONCollectionCreatable {
     public init(array: [AnyObject]) {
         self.init()
         array.forEach { if let e = $0 as? Generator.Element { append(e) } }
@@ -18,9 +18,9 @@ extension RangeReplaceableCollectionType where Self: SGYCollectionCreatable {
     }
 }
 
-extension Array: SGYCollectionCreatable { }
+extension Array: JSONCollectionCreatable { }
 
-extension Set: SGYCollectionCreatable {
+extension Set: JSONCollectionCreatable {
     public init(array: [AnyObject]) {
         self.init()
         array.forEach { if let e = $0 as? Generator.Element { insert(e) } }
@@ -29,9 +29,9 @@ extension Set: SGYCollectionCreatable {
 }
 
 
-// MARK: SGYDictionaryCreatable Conformance -
+// MARK: JSONDictionaryCreatable Conformance -
 
-extension Dictionary: SGYDictionaryCreatable {
+extension Dictionary: JSONDictionaryCreatable {
     public init(dictionary: [String: AnyObject]) {
         self.init()
         dictionary.forEach {
@@ -53,7 +53,7 @@ extension String: JSONLeafCreatable {
     }
 }
 
-// MARK: Number Structs
+// MARK: Numeric Structs
 
 extension Int: JSONLeafCreatable {
     public init?(jsonValue: JSONLeafValue) {

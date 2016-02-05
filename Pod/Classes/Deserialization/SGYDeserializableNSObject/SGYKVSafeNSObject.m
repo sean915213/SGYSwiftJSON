@@ -1,5 +1,5 @@
 //
-//  SGYDeserializableNSObject.m
+//  JSONCreatableObject.m
 //  SGYSwiftJSON
 //
 //  Created by Sean Young on 9/17/15.

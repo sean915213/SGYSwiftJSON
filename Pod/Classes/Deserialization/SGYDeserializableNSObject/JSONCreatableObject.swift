@@ -1,5 +1,5 @@
 //
-//  SGYJSONSerializableNSObject.swift
+//  JSONCreatableObject.swift
 //  SGYSwiftJSON
 //
 //  Created by Sean Young on 9/17/15.
@@ -10,8 +10,8 @@ import UIKit
 
 // Cannot blindly extend NSObject for its setValue function because that affects NSDictionary, NSArray, etc.  Instead it is much simpler inherit for this functionality.
 
-/// A class provided for simple implementation of SGYKeyValueCreatable via inheritence.
-public class SGYDeserializableNSObject: NSObject, SGYKeyValueCreatable {
+/// A class provided for simple implementation of JSONKeyValueCreatable via inheritence.
+public class JSONCreatableObject: NSObject, JSONKeyValueCreatable {
     
     public enum Error: ErrorType { case InvalidSetValueObject }
     
