@@ -8,7 +8,7 @@ SGYSwiftJSON is a library that seeks to dramatically simplify serialization and 
 The majority of models written with JSON serialization in mind are already supported.  Any object graph that conforms to the following should work out-of-the-box:
 * All collections are the  `Array`, `Set`, `NSArray`, or `NSMutableArray` types with an element type that adheres to this collection of rules.
 * All dictionaries have a `String` or `NSString` key type and a value type which adheres to this collection of rules.
-* All complex types conform to `SGYKeyValueCreatable`.  This is most easily achieved by using `SGYDeserializableNSObject` as the base class.
+* All complex types conform to `JSONKeyValueCreatable`.  This is most easily achieved by using `JSONCreatableObject` as the base class.
 * All numeric types are `NSNumber`, `NSDecimalNumber` or can be bridged to `NSNumber` and are not declared optional.
 
 If you do not wish to have to adhere to the above limitations then it is possible to extend most other types using the defined protocols. Details on these protocols and how they're evaluated during serialization and deserialization can be found below.
@@ -33,16 +33,16 @@ Serialization is supported via protocols and the use of Swift's `Mirror`. Any ob
 ### Deserialization
 Deserialization is considerably more difficult than serialization as it requires all types have a parameterless initializer, can assign arbitrary values, and are able to report the types they contain.  Upon deserialization of an `NSArray` or `NSDictionary` (the only objects produced by `NSJSONSerialization`) the following logic is performed:
  1. The type arguments are determined by the protocol that the object being deserialized into conforms:
-  *  If the object conforms to `SGYKeyValueCreatable` the object's properties and type values are determined using `Mirror`.  The object produced by `NSJSONSerialization` must be an `NSDictionary`or an error is thrown.
-  *  If the object conforms to `SGYDictionaryCreatable` the object's key and value type are retrieved using the protocol's *keyValueTypes* property. The object produced by `NSJSONSerialization` must be an `NSDictionary`or an error is thrown.
-  *  If the object conforms to `SGYCollectionCreatable` the object's element type is retrieved using the protocol's *elementType* property. The object produced by `NSJSONSerialization` must be an `NSArray`or an error is thrown.
+  *  If the object conforms to `JSONKeyValueCreatable` the object's properties and type values are determined using `Mirror`.  The object produced by `NSJSONSerialization` must be an `NSDictionary`or an error is thrown.
+  *  If the object conforms to `JSONDictionaryCreatable` the object's key and value type are retrieved using the protocol's *keyValueTypes* property. The object produced by `NSJSONSerialization` must be an `NSDictionary`or an error is thrown.
+  *  If the object conforms to `JSONCollectionCreatable` the object's element type is retrieved using the protocol's *elementType* property. The object produced by `NSJSONSerialization` must be an `NSArray`or an error is thrown.
  2. If the value to be deserialized into is an array then all values will be converted to the array's containing `Element` type.  Similarly, dictionaries have the containing values converted to their `Value` type.  For complex objects the value is converted using its `Mirror` property representation.  This conversion is done using the following logic:
   1. If the declared type is `AnyObject` or the declared type matches the deserialized type then the deserialized type is assigned directly.
   2. If the deserialized value is a leaf value then the deserialized type must conform to `JSONLeafConvertable` and will be constructed using the leaf value and assigned.  Otherwise the deserialized value is skipped.
-  3. If the deserialized value is the `[AnyObject]` type and the declared type is `SGYCollectionCreatable` an array will be initialized and returned using the array conversion logic.  Otherwise the deserialized value is skipped.
-  4. If the deserialized value is the `[String: AnyObject]` type and the declared type is `SGYDictionaryCreatable` an array will be initialized and returned using the dictionary conversion logic.  Otherwise the deserialized value is skipped.
+  3. If the deserialized value is the `[AnyObject]` type and the declared type is `JSONCollectionCreatable` an array will be initialized and returned using the array conversion logic.  Otherwise the deserialized value is skipped.
+  4. If the deserialized value is the `[String: AnyObject]` type and the declared type is `JSONDictionaryCreatable` an array will be initialized and returned using the dictionary conversion logic.  Otherwise the deserialized value is skipped.
  
 ### Common Deserialization Problems
-* Inheriting from `SGYDeserializableNSObject` and assigning value types (ie. `CGSize`, `Int`, etc) - Using `SGYDeserializableNSObject` as an `SGYKeyValueCreatable` base class greatly simplifies implementing the protocol.  But since it utilizes `NSObject`'s *setValue:forKey:* method it is vulnerable to the same limitations- the inability to assign values that do not inherit from `NSObject`. There are two strategies for dealing with this limitation:
+* Inheriting from `JSONCreatableObject` and assigning value types (ie. `CGSize`, `Int`, etc) - Using `JSONCreatableObject` as a `JSONKeyValueCreatable` base class greatly simplifies implementing the protocol.  But since it utilizes `NSObject`'s *setValue:forKey:* method it is vulnerable to the same limitations- the inability to assign values that do not inherit from `NSObject`. There are two strategies for dealing with this limitation:
  * If the value can be automatically bridged to an `NSObject` subtype (ie. `Int` to `NSNumber`) then it will be bridged.  **However** the property cannot be defined as optional or an error is still thrown.  Instead a variable with a default value should be defined.
  * For more complicated value types the only safe alternative is overriding *setValue:property:* and assigning the value directly.
