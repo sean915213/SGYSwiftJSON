@@ -11,4 +11,4 @@ podfile: Example/Podfile
 # - pod install --project-directory=Example
 script:
 - set -o pipefail && xcodebuild test -workspace Example/SGYSwiftJSON.xcworkspace -scheme SGYSwiftJSON-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.1' | xcpretty
-- pod lib lint --no-clean
+- pod lib lint --verbose
