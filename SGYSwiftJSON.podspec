@@ -31,6 +31,5 @@ Pod::Spec.new do |s|
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-# s.dependency 'SGYKVCSafeNSObject', :git => 'https://github.com/sean915213/SGYKVCSafeNSObject.git'
   s.dependency 'SGYKVCSafeNSObject', '~> 1.0'
 end
