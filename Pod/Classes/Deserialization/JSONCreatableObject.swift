@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SGYKVCSafeNSObject
 
 // Cannot blindly extend NSObject for its setValue function because that affects NSDictionary, NSArray, etc.  Instead it is much simpler inherit for this functionality.
 
@@ -22,7 +23,7 @@ public class JSONCreatableObject: NSObject, JSONKeyValueCreatable {
         // Since we're utilizing our category on NSObject we can only accept AnyObject
         guard let objectValue = value as? AnyObject else { throw Error.InvalidSetValueObject }
         var error: NSError?
-//        trySetValue(objectValue, forKey: property, error: &error)
+        setValue(objectValue, forKey: property, error: &error)
         // Throw error if populated
         if let e = error { throw e }
     }

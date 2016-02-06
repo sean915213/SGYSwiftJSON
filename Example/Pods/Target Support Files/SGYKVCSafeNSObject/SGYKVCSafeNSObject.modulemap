@@ -1,0 +1,6 @@
+framework module SGYKVCSafeNSObject {
+  umbrella header "SGYKVCSafeNSObject-umbrella.h"
+
+  export *
+  module * { export * }
+}
