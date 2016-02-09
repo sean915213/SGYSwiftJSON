@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "SGYSwiftJSON"
-  s.version          = "0.1.4"
+  s.version          = "1.0.0"
   s.summary          = "A library seeking to provide an automatic and type-safe approach to converting Swift models to and from JSON."
 
 # This description is used to generate tags and improve search results.
@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.homepage         = "https://github.com/sean915213/SGYSwiftJSON"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
-  s.author           = { "Sean G Young" => "sean.g.young@gmail.com" }
+  s.author           = { "Sean G. Young" => "sean.g.young@gmail.com" }
   s.source           = { :git => "https://github.com/sean915213/SGYSwiftJSON.git", :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
