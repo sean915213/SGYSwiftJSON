@@ -5,8 +5,13 @@ This change log adheres to the suggested [keep-a-change-log](https://github.com/
 
 ## [Unreleased]
 
+## [1.0.1] - 2016-09-06
+### Documentation Changes
+- Made code documentation additions and changes.
+
 ## 1.0.0 - 2016-09-06
 ### Initial Release
 - Checked in and published initial tested version of library.
 
-[Unreleased]: https://github.com/sean915213/SGYSwiftJSON/compare/1.0.0...HEAD
+[Unreleased]: https://github.com/sean915213/SGYSwiftJSON/compare/1.0.1...HEAD
+[1.0.1]: https://github.com/sean915213/SGYSwiftJSON/compare/1.0.0...1.0.1
