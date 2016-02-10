@@ -11,6 +11,13 @@ import Foundation
 // MARK: JSONCollectionCreatable Conformance -
 
 extension RangeReplaceableCollectionType where Self: JSONCollectionCreatable {
+    /**
+     Extends `RangeReplaceableCollectionType` types that implement `JSONCollectionCreatable`. Provides an automatic initializer that attempts casting the provided `AnyObject` collection to the type's `Generator.Element`.
+     
+     - parameter array: An array typed as `[AnyObject]` but intended to contain instances that can be cast to the type's `Generator.Element`.
+     
+     - returns: An initialized collection.
+     */
     public init(array: [AnyObject]) {
         self.init()
         array.forEach { if let e = $0 as? Generator.Element { append(e) } }
@@ -21,6 +28,13 @@ extension RangeReplaceableCollectionType where Self: JSONCollectionCreatable {
 extension Array: JSONCollectionCreatable { }
 
 extension Set: JSONCollectionCreatable {
+    /**
+     An initializer that extends `Set` to conform to `JSONCollectionCreatable`.
+     
+     - parameter array: An array typed as `[AnyObject]` but intended to contain instances that can be cast to `Generator.Element`.
+     
+     - returns: An initialized set.
+     */
     public init(array: [AnyObject]) {
         self.init()
         array.forEach { if let e = $0 as? Generator.Element { insert(e) } }
@@ -32,6 +46,13 @@ extension Set: JSONCollectionCreatable {
 // MARK: JSONDictionaryCreatable Conformance -
 
 extension Dictionary: JSONDictionaryCreatable {
+    /**
+     An initializer that extends `Dictionary` to conform to `JSONDictionaryCreatable`.
+     
+     - parameter dictionary: A dictionary typed as `[String: AnyObject]` but intended to contain values that can be cast to `Value`.
+     
+     - returns: An initialized dictionary.
+     */
     public init(dictionary: [String: AnyObject]) {
         self.init()
         dictionary.forEach {
@@ -44,6 +65,13 @@ extension Dictionary: JSONDictionaryCreatable {
 // MARK: String
 
 extension String: JSONLeafCreatable {
+    /**
+     Extends `String` to conform to `JSONLeafCreatable`. Fails only on the `Null` case.
+     
+     - parameter jsonValue: A `JSONLeafCreatable` enum case.
+     
+     - returns: An initialized `String` value or `nil`.
+     */
     public init?(jsonValue: JSONLeafValue) {
         switch jsonValue {
         case .String(let string as String): self = string
@@ -56,6 +84,13 @@ extension String: JSONLeafCreatable {
 // MARK: Numeric Structs
 
 extension Int: JSONLeafCreatable {
+    /**
+     Extends `Int` to conform to `JSONLeafCreatable`. Fails conditionally on the `String` case and always on the `Null` case.
+     
+     - parameter jsonValue: A `JSONLeafCreatable` enum case.
+     
+     - returns: An initialized `Int` value or `nil`.
+     */
     public init?(jsonValue: JSONLeafValue) {
         switch jsonValue {
         case .String(let string as String):
@@ -70,6 +105,13 @@ extension Int: JSONLeafCreatable {
 }
 
 extension UInt: JSONLeafCreatable {
+    /**
+     Extends `UInt` to conform to `JSONLeafCreatable`. Fails conditionally on the `String` case and always on the `Null` case.
+     
+     - parameter jsonValue: A `JSONLeafCreatable` enum case.
+     
+     - returns: An initialized `UInt` value or `nil`.
+     */
     public init?(jsonValue: JSONLeafValue) {
         switch jsonValue {
         case .String(let string as String):
@@ -84,6 +126,13 @@ extension UInt: JSONLeafCreatable {
 }
 
 extension Float: JSONLeafCreatable {
+    /**
+     Extends `Float` to conform to `JSONLeafCreatable`. Fails conditionally on the `String` case and always on the `Null` case.
+     
+     - parameter jsonValue: A `JSONLeafCreatable` enum case.
+     
+     - returns: An initialized `Float` value or `nil`.
+     */
     public init?(jsonValue: JSONLeafValue) {
         switch jsonValue {
         case .String(let string as String):
@@ -98,6 +147,13 @@ extension Float: JSONLeafCreatable {
 }
 
 extension Double: JSONLeafCreatable {
+    /**
+     Extends `Double` to conform to `JSONLeafCreatable`. Fails conditionally on the `String` case and always on the `Null` case.
+     
+     - parameter jsonValue: A `JSONLeafCreatable` enum case.
+     
+     - returns: An initialized `Double` value or `nil`.
+     */
     public init?(jsonValue: JSONLeafValue) {
         switch jsonValue {
         case .String(let string as String):
@@ -112,6 +168,13 @@ extension Double: JSONLeafCreatable {
 }
 
 extension Bool: JSONLeafCreatable {
+    /**
+     Extends `Bool` to conform to `JSONLeafCreatable`. Fails conditionally on the `String` case and always on the `Null` case.
+     
+     - parameter jsonValue: A `JSONLeafCreatable` enum case.
+     
+     - returns: An initialized `Bool` value or `nil`.
+     */
     public init?(jsonValue: JSONLeafValue) {
         // Use Int's conversion
         guard let int = Int(jsonValue: jsonValue) else { return nil }

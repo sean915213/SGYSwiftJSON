@@ -12,6 +12,7 @@ import Foundation
 *  Defined to allow unwrapping and assigning the contained type of a collection type.
 */
 public protocol SGYCollectionReflection {
+    /// The type that this collection contains.
     static var elementType: Any.Type { get }
 }
 
@@ -19,6 +20,7 @@ public protocol SGYCollectionReflection {
 *  Defined to allow unwrapping and assigning the contained types of a generic dictionary.
 */
 public protocol SGYDictionaryReflection {
+    /// A tuple containing this dictionary's key and value types.
     static var keyValueTypes: (key: Any.Type, value: Any.Type) { get }
 }
 

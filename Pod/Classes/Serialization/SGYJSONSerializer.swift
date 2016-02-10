@@ -16,17 +16,32 @@ public class SGYJSONSerializer {
      - NSJSONSerializationError(`NSError`): An error occurred seralizing the resulting (supposedly safe) object graph.  This should probably be considered a bug.
      */
     public enum Error: ErrorType {
+        /**
+         Indicates a dictionary key encountered could not be cast to `String` and does not implement the `CustomStringConvertible` protocol.
+         
+         - returns: An `InvalidDictionaryKeyType` case initialized with the offending type.
+         */
         case InvalidDictionaryKeyType(Any.Type),
+        /**
+        Indicates an error occurred seralizing the resulting (supposedly safe) object graph.  This should probably be considered a bug.
+        
+        - returns: An `NSJSONSerializationError` case initialized with the caught `NSError`.
+        */
         NSJSONSerializationError(NSError)
     }
 
     // MARK: - Initialization
     
+    /**
+    Initializes a new instance.
+    
+    - returns: An `SGYJSONSerializer` instance.
+    */
     public init() { }
     
     // MARK: - Properties
     
-    /// Determines whether InvalidDictionaryKeyType errors are thrown.
+    /// Determines whether `InvalidDictionaryKeyType` errors are thrown.
     public var strictMode = true
     /// The writing options used during serialization.
     public var writingOptions = NSJSONWritingOptions()
@@ -37,13 +52,13 @@ public class SGYJSONSerializer {
     // MARK: Public
 
     /**
-    Attempts serializing all the elements within a collection implementing SGYCollectionReflection.
+    Attempts serializing all the elements within a collection implementing `SGYCollectionReflection`.
     
     - parameter collection: An object implementing SGYCollectionReflection.
     
-    - throws: All SGYJSONSerializer.Error types.
+    - throws: All S`GYJSONSerializer.Error` types.
     
-    - returns: Serialized JSON as NSData.
+    - returns: Serialized collection JSON as `NSData`.
     */
     public func serialize(collection: SGYCollectionReflection) throws -> NSData {
         let array = try convertToValidCollection(collection)
@@ -51,13 +66,13 @@ public class SGYJSONSerializer {
     }
     
     /**
-     Attempts serializing all the elements within a dictionary implementing SGYDictionaryReflection.
+     Attempts serializing all the elements within a dictionary implementing `SGYDictionaryReflection`.
      
-     - parameter dictionary: An object implementing SGYDictionaryReflection.
+     - parameter dictionary: An object implementing `SGYDictionaryReflection`.
      
-     - throws: All SGYJSONSerializer.Error types.
+     - throws: All `SGYJSONSerializer.Error` types.
      
-     - returns: Serialized JSON as NSData.
+     - returns: Serialized dictionary JSON as `NSData`.
      */
     public func serialize(dictionary: SGYDictionaryReflection) throws -> NSData {
         let dictionary = try convertToValidDictionary(dictionary)
@@ -65,13 +80,13 @@ public class SGYJSONSerializer {
     }
     
     /**
-     Attempts serializing an instance of AnyObject.
+     Attempts serializing an instance of `AnyObject`.
      
-     - parameter object: An instance of AnyObject.
+     - parameter object: An instance of `AnyObject`.
      
-     - throws: All SGYJSONSerializer.Error types.
+     - throws: All `SGYJSONSerializer.Error` types.
      
-     - returns: Serialized JSON as NSData.
+     - returns: Serialized object JSON as `NSData`.
      */
     public func serialize(object: Any) throws -> NSData {
         // Attempt converting object to dictionary

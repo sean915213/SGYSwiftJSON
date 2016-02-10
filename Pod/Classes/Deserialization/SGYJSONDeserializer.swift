@@ -22,13 +22,35 @@ public class SGYJSONDeserializer {
      - NSJSONDeserializationError(`NSError`): An error was thrown when deserializing the initial data.
      */
     public enum Error: ErrorType {
+        /**
+         Indicates the provided data deserialized into an object incompatible with the type argument.
+         
+         - returns: An `Error` case.
+         */
         case InvalidDeserializedObject,
+        
+        /**
+        An error was thrown calling `setValue:property:` on the deserialized object.
+        
+        - returns: An `Error` case.
+        */
         KeyValueError(String, AnyObject, NSError),
+        
+        /**
+        An error was thrown when deserializing the initial data.
+        
+        - returns: An `Error` case.
+        */
         NSJSONDeserializationError(NSError)
     }
     
     // MARK: - Initialization
     
+    /**
+    Initializes a new instance.
+    
+    - returns: An `SGYJSONDeserializer` instance.
+    */
     public init() { }
 
     // MARK: - Properties
