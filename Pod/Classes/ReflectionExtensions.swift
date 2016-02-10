@@ -23,7 +23,7 @@ extension Optional: SGYOptionalReflection {
 
 // Extending SequenceType requires this to auto-implement the property.  Cannot do simple extension on SequenceType.
 extension SequenceType where Self: SGYCollectionReflection {
-    // Auto-implementation of protocol for all SequenceTypes
+    /// Extends `SequenceType` types that implement `SGYCollectionReflection` to provide their `Generator.Element`'s type.
     public static var elementType: Any.Type { return Generator.Element.self }
 }
 
@@ -36,10 +36,12 @@ extension Set: SGYCollectionReflection { }
 // MARK: - Dictionary Extensions
 
 extension Dictionary: SGYDictionaryReflection {
+    /// Conforms to `SGYDictionaryReflection` by providing a tuple containing this type's specific `Key` and `Value` type.
     public static var keyValueTypes: (key: Any.Type, value: Any.Type) { return (key: Key.self, value: Value.self) }
 }
 
 extension NSDictionary: SGYDictionaryReflection  {
+    /// Conforms to `SGYDictionaryReflection` by providing a tuple containing this type's specific `Key` and `Value` type.
     public static var keyValueTypes: (key: Any.Type, value: Any.Type) { return (key: Key.self, value: Value.self) }
 }
 

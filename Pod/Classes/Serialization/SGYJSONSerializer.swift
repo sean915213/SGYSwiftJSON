@@ -45,7 +45,7 @@ public class SGYJSONSerializer {
     public var strictMode = true
     /// The writing options used during serialization.
     public var writingOptions = NSJSONWritingOptions()
-    /// The block this instance will call in order to convert NSDate values to a valid JSON leaf value.
+    /// The block this instance will call in order to convert `NSDate` values to a valid JSON leaf value.
     public var dateConversionBlock: ((date: NSDate) -> JSONLeafValue?)?
     
     // MARK: - Methods
@@ -54,9 +54,9 @@ public class SGYJSONSerializer {
     /**
     Attempts serializing all the elements within a collection implementing `SGYCollectionReflection`.
     
-    - parameter collection: An object implementing SGYCollectionReflection.
+    - parameter collection: An object implementing `SGYCollectionReflection`.
     
-    - throws: All S`GYJSONSerializer.Error` types.
+    - throws: All `SGYJSONSerializer.Error` types.
     
     - returns: Serialized collection JSON as `NSData`.
     */

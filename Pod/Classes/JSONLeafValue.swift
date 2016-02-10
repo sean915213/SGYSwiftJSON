@@ -37,7 +37,7 @@ public enum JSONLeafValue {
     public init(_ null: NSNull) { self = Null(null) }
     
     /**
-     Attempts initializing the enum with an `NSNumber` value. This number's *doubleValue* cannot be NaN or Infinite. In these cases `Nil` is returned.
+     Attempts initializing the enum with an `NSNumber` value. The number's `doubleValue` cannot be NaN or infinite. In these cases `nil` is returned.
      
      - parameter number: An `NSNumber` value.
      
