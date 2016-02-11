@@ -76,7 +76,7 @@ class Person {
 }
 ```
 #### Serialization
-This class can nearly be serialized as is.  The first requirement is giving `Color` a `rawValue` that can be represented in JSON and then extending it to conform to `JSONLeafRepresentable`:
+This class can nearly be serialized as is.  The first requirement is giving `Color` a `rawValue` that can be represented in JSON, thus allowing it to conform to `JSONLeafRepresentable`:
 ```swift
 enum Color: Int, JSONLeafRepresentable {
  case Red, Blue, Green, Yellow
@@ -85,15 +85,15 @@ enum Color: Int, JSONLeafRepresentable {
 ```
 The final requirement is to create a block that converts `NSDate` to `JSONLeafValue`:
 ```swift
-let formatter = NSDateFormatter()
+let formatter = NSDateFormatter() // Assume whatever consumes the JSON expects the default date format
 let dateBlock = { (date: NSDate) -> JSONLeafValue in
  return JSONLeafValue(formatter.stringFromDate(date))
 }
 ```
 Then serialize. Assume `personObject` is some instance of `Person` filled with arbitrary values:
 ```swift
-let serializer = SGYJSONSerializer()
-serializer.dateConversionBlock = dateBlock
+let serializer = SGYJSONSerializer() // Create instance for our specific date conversion block
+serializer.dateConversionBlock = dateBlock // Assign the date block
 do {
  let jsonData = try serializer.serialize(personObject)
 } catch err as NSError {
