@@ -4,6 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This change log adheres to the suggested [keep-a-change-log](https://github.com/olivierlacan/keep-a-changelog) standards.
 
 ## [Unreleased]
+- Made code documentation additions and changes.
 
 ## [1.0.1] - 2016-09-06
 ### Documentation Changes
