@@ -19,9 +19,9 @@ public class JSONCreatableObject: NSObject, JSONKeyValueCreatable {
      */
     public enum Error: ErrorType {
         /**
-         Indicates that the *value* passed to *setValue:property* could not be converted to `AnyObject`.  This is a requirement for this class.
+         Indicates that the `value` passed to `setValue:property` could not be converted to `AnyObject`.  This is a requirement for this class.
          
-         - returns: An `Error` case.
+         - returns: An `InvalidSetValueObject` case.
          */
         case InvalidSetValueObject
     }
@@ -31,10 +31,12 @@ public class JSONCreatableObject: NSObject, JSONKeyValueCreatable {
      
      - returns: An initialized instance.
      */
-    public required override init() { super.init() }
+    public required override init() {
+        super.init()
+    }
     
     /**
-     Implement's `JSONKeyValueCreatable`'s method for setting deserialized values. The *value* passed must be castable to `AnyObject` or an error is thrown.
+     Implement's `JSONKeyValueCreatable`'s method for setting deserialized values. The `value` passed must be castable to `AnyObject` or an `Error` case is thrown.
      
      - parameter value:    The deserialized value.
      - parameter property: The name of the property.

@@ -1,6 +1,6 @@
 //
 //  JSONLeafValue.swift
-//  Pods
+//  SGYSwiftJSON
 //
 //  Created by Sean G Young on 1/28/16.
 //
@@ -11,37 +11,46 @@ import Foundation
 /**
  Describes the possible leaf values that `NSJSONSerialization` will serialize or deserialize.
  
- - String:              An `NSString` value.
- - Number:              An `NSNumber' value.
- - Null:                An `NSNull` value.
+ - String:              A JSON String. Represented as an `NSString` value.
+ - Number:              A JSON Number. Represented as an `NSNumber` value.
+ - Null:                A JSON null. Represented as an `NSNull` value.
  */
 public enum JSONLeafValue {
-    case String(NSString), Number(NSNumber), Null(NSNull)
+    /// Represents a JSON String leaf value.  Wraps an `NSString` value.
+    case String(NSString),
+    /// Represents a JSON Number leaf value.  Wraps an `NSNumber` value.
+    Number(NSNumber),
+    /// Represents a JSON null leaf value.  Wraps an `NSNull` value.
+    Null(NSNull)
     
     /**
-     Initializes the enum with an `NSString` value.
+     Initializes a `String` case with an `NSString` value.
      
      - parameter string: An `NSString`.
      
-     - returns: An initialized enum.
+     - returns: A `String` case containing an `NSString` value.
      */
-    public init(_ string: NSString) { self = String(string) }
+    public init(_ string: NSString) {
+        self = String(string)
+    }
     
     /**
-     Initializes the enum with an `NSNull` value.
+     Initializes a `Null` case with an `NSNull` value.
      
      - parameter string: An `NSNull`.
      
-     - returns: An initialized enum.
+     - returns: A `Null` case containing an `NSNull` value.
      */
-    public init(_ null: NSNull) { self = Null(null) }
+    public init(_ null: NSNull) {
+        self = Null(null)
+    }
     
     /**
-     Attempts initializing the enum with an `NSNumber` value. The number's `doubleValue` cannot be NaN or infinite. In these cases `nil` is returned.
+     Attempts initializing a `Number` case with an `NSNumber` value. The number's `doubleValue` cannot be NaN or infinite. In these cases `nil` is returned.
      
      - parameter number: An `NSNumber` value.
      
-     - returns: An initialized enum or `Nil` if the number did not meet requirements.
+     - returns: A `Number` case containing an `NSNumber` value, or `nil` if `number` did not meet requirements.
      */
     public init?(_ number: NSNumber) {
         // Per documentation NSJSONSerialization will fail on NaN and infinite numbers

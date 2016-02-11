@@ -66,13 +66,13 @@ public class SGYJSONDeserializer {
     // MARK: Public
     
     /**
-    Creates an instance of the provided JSONKeyValueCreatable type and attempts assigning its properties using the provided JSON data.
+    Creates an instance of the provided `JSONKeyValueCreatable` type and attempts assigning its properties using the provided JSON data.
     
     - parameter jsonData: JSON data.
     
-    - throws: All SGYJSONDeserializer.Error types.
+    - throws: All `SGYJSONDeserializer.Error` cases.
     
-    - returns: An instance of the provided JSONKeyValueCreatable type with the associated deserialized properties assigned.
+    - returns: An instance of the provided `JSONKeyValueCreatable` type with the associated deserialized properties assigned.
     */
     public func deserialize<T: JSONKeyValueCreatable>(jsonData: NSData) throws -> T {
         // Create an instance
@@ -83,12 +83,12 @@ public class SGYJSONDeserializer {
     }
     
     /**
-     Attempts assigning properties to the provided JSONKeyValueCreatable instance using the provided JSON data.
+     Attempts assigning properties to the provided `JSONKeyValueCreatable` instance using the provided JSON data.
      
      - parameter jsonData: JSON data.
-     - parameter instance: An object instance conforming to JSONKeyValueCreatable.
+     - parameter instance: An object instance conforming to `JSONKeyValueCreatable`.
      
-     - throws: All SGYJSONDeserializer.Error types.
+     - throws: All `SGYJSONDeserializer.Error` types.
      */
     public func deserialize(jsonData: NSData, intoInstance instance: JSONKeyValueCreatable) throws {
         // Deserialize data
@@ -100,13 +100,13 @@ public class SGYJSONDeserializer {
     }
     
     /**
-     Creates an instance of the provided JSONCollectionCreatable type and attempts assigning its elements using the provided JSON data.
+     Creates an instance of the provided `JSONCollectionCreatable` type and attempts assigning its elements using the provided JSON data.
      
      - parameter jsonData: JSON data.
      
-     - throws: All SGYJSONDeserializer.Error types.
+     - throws: All `SGYJSONDeserializer.Error` types.
      
-     - returns: An instance of the provided JSONCollectionCreatable type with the associated deserialized elements assigned.
+     - returns: An instance of the provided `JSONCollectionCreatable` type with the associated deserialized elements assigned.
      */
     public func deserialize<T: JSONCollectionCreatable>(jsonData: NSData) throws -> T {
         // Deserialize data
@@ -118,13 +118,13 @@ public class SGYJSONDeserializer {
     }
     
     /**
-     Creates an instance of the provided JSONDictionaryCreatable type and attempts assigning its key-value pairs using the provided JSON data.
+     Creates an instance of the provided `JSONDictionaryCreatable` type and attempts assigning its key-value pairs using the provided JSON data.
      
      - parameter jsonData: JSON data.
      
-     - throws: All SGYJSONDeserializer.Error types.
+     - throws: All `SGYJSONDeserializer.Error` types.
      
-     - returns: An instance of the provided JSONDictionaryCreatable type with the associated key-value pairs assigned.
+     - returns: An instance of the provided `JSONDictionaryCreatable` type with the associated key-value pairs assigned.
      */
     public func deserialize<T: JSONDictionaryCreatable>(jsonData: NSData) throws -> T {
         // Deserialize data
