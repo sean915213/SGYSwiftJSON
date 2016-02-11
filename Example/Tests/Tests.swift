@@ -8,6 +8,10 @@ enum Color: Int, JSONLeafEnum, JSONLeafRepresentable, JSONLeafCreatable {
     case Red, Blue, Green, Yellow
 }
 
+enum Shape: String, JSONLeafEnum, JSONLeafRepresentable, JSONLeafCreatable {
+    case Square = "square", Circle = "circle", Oval = "oval"
+}
+
 class ComplexObject: JSONCreatableObject {
     
     convenience init(number: NSNumber) {
@@ -18,6 +22,7 @@ class ComplexObject: JSONCreatableObject {
     var number: NSNumber?
     var string: String?
     var color: Color?
+    var shape: Shape?
     
     var complexObj: ComplexObject?
     var complexArr: [ComplexObject]?
@@ -25,6 +30,7 @@ class ComplexObject: JSONCreatableObject {
     
     override func setValue(value: Any, property: String) throws {
         if property == "color" { color = value as? Color }
+        else if property == "shape" { shape = value as? Shape }
         else { try super.setValue(value, property: property) }
     }
     
@@ -41,6 +47,7 @@ class ComplexObjectConversionSpec: QuickSpec {
                 object.number = 10
                 object.string = "string val"
                 object.color = .Green
+                object.shape = .Oval
                 object.complexObj = object
                 
                 object.complexObj = ComplexObject(number: 2)
@@ -53,6 +60,7 @@ class ComplexObjectConversionSpec: QuickSpec {
                 expect(jsonDict["number"]) == NSNumber(int: 10)
                 expect(jsonDict["string"]) == "string val"
                 expect(jsonDict["color"]) == Color.Green.rawValue
+                expect(jsonDict["shape"]) == Shape.Oval.rawValue
                 
                 expect(jsonDict["complexObj"]??["number"]) == NSNumber(int: 2)
                 
@@ -72,6 +80,7 @@ class ComplexObjectConversionSpec: QuickSpec {
                     expect(object.number) == 10
                     expect(object.string) == "string val"
                     expect(object.color) == .Green
+                    expect(object.shape) == .Oval
                     expect(object.complexObj?.number) == 2
                     expect(object.complexArr?[0].number) == 3
                     expect(object.complexArr?[1].number) == 4
@@ -83,6 +92,8 @@ class ComplexObjectConversionSpec: QuickSpec {
                     let dictionary: [String: AnyObject] = try! deserializer.deserialize(jsonData)
                     expect(dictionary["number"] as? NSNumber) == NSNumber(int: 10)
                     expect(dictionary["string"] as? String) == "string val"
+                    expect(dictionary["color"] as? NSNumber) == NSNumber(integer: Color.Green.rawValue)
+                    expect(dictionary["shape"] as? String) == "oval"
                     expect(dictionary["complexObj"]?["number"]) == NSNumber(int: 2)
                     
                     expect(dictionary["complexArr"]?[0]["number"]) == NSNumber(int: 3)
