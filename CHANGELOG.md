@@ -11,6 +11,9 @@ This change log adheres to the suggested [keep-a-change-log](https://github.com/
 - Code documentation additions and changes.
 - README changes.
 
+### Code Changes
+- Added `JSONLeafEnum` protocol and associated extensions.
+
 ## [1.0.1] - 2016-09-06
 ### Documentation Changes
 - Made code documentation additions and changes.
