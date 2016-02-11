@@ -4,6 +4,24 @@ import Quick
 import Nimble
 import SGYSwiftJSON
 
+enum Color: Int, JSONLeafRepresentable, JSONLeafCreatable {
+    case Red, Blue, Green, Yellow
+    
+    init?(jsonValue: JSONLeafValue) {
+        switch jsonValue {
+        case .Number(let number):
+            self.init(rawValue: number.integerValue)
+        case .String(let string):
+            guard let int = Int(string as String) else { return nil }
+            self.init(rawValue: int)
+        case .Null(_):
+            return nil
+        }
+    }
+    
+    var jsonLeafValue: JSONLeafValue? { return JSONLeafValue(self.rawValue) } // Bridges our Int value to NSNumber
+}
+
 class ComplexObject: JSONCreatableObject {
     
     convenience init(number: NSNumber) {
@@ -13,10 +31,19 @@ class ComplexObject: JSONCreatableObject {
     
     var number: NSNumber?
     var string: String?
+    var color: Color?
     
     var complexObj: ComplexObject?
     var complexArr: [ComplexObject]?
     var complexDict: [String: ComplexObject]?
+    
+    override func setValue(value: Any, property: String) throws {
+        if property == "color" {
+            color = value as? Color
+        } else {
+            try super.setValue(value, property: property)
+        }
+    }
     
 }
 
@@ -30,6 +57,7 @@ class ComplexObjectConversionSpec: QuickSpec {
                 let object = ComplexObject()
                 object.number = 10
                 object.string = "string val"
+                object.color = .Green
                 object.complexObj = object
                 
                 object.complexObj = ComplexObject(number: 2)
@@ -41,6 +69,7 @@ class ComplexObjectConversionSpec: QuickSpec {
                 let jsonDict = try! NSJSONSerialization.JSONObjectWithData(jsonData, options: [])
                 expect(jsonDict["number"]) == NSNumber(int: 10)
                 expect(jsonDict["string"]) == "string val"
+                expect(jsonDict["color"]) == Color.Green.rawValue
                 
                 expect(jsonDict["complexObj"]??["number"]) == NSNumber(int: 2)
                 
@@ -59,6 +88,7 @@ class ComplexObjectConversionSpec: QuickSpec {
                     let object: ComplexObject = try! deserializer.deserialize(jsonData)
                     expect(object.number) == 10
                     expect(object.string) == "string val"
+                    expect(object.color) == .Green
                     expect(object.complexObj?.number) == 2
                     expect(object.complexArr?[0].number) == 3
                     expect(object.complexArr?[1].number) == 4
