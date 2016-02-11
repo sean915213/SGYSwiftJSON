@@ -1,10 +1,12 @@
 # SGYSwiftJSON
 A library seeking to provide an automatic and type-safe approach to converting Swift types to and from JSON.
 
+[Quick Start](#quick-start)
+
 ## Summary
 SGYSwiftJSON is a library that seeks to dramatically simplify serialization and deserialization of **Swift only** models. The primary goal of this library is to eliminate the majority of the code required to convert arbitrary objects into JSON and vice versa. This includes recursive conversion of types contained in collections, dictionaries, and complex objects. Out-of-the-box functionality includes support for the majority of common Foundation types and a ready to inherit base class for complex types (*not required, but easier*).  Protocols are provided which allow extending functionality to unusual objects.
 
-## Quick Start
+<a name="quick-start"></a>## Quick Start
 The majority of models written with JSON serialization in mind are already supported.  Any object graph that conforms to the following should work out-of-the-box:
 * All collections are the  `Array`, `Set`, `NSArray`, or `NSMutableArray` types with an element type that adheres to this collection of rules.
 * All dictionaries have a `String` or `NSString` key type and a value type which adheres to this collection of rules.
