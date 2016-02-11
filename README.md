@@ -17,7 +17,7 @@ If you do not wish to have to adhere to the above limitations then it is possibl
 
 ### Serialization
 Serialization is supported via protocols and the use of Swift's `Mirror`. Any object passed to be serialized is checked for the following conditions:
- 1. Conforms to `JSONProxyProvider` - The *jsonProxy* property of the object will be retrieved and passed through this same logic tree.
+ 1. Conforms to `JSONProxyProvider` - The `jsonProxy` property of the object will be retrieved and passed through this same logic tree.
  2. Conforms to `JSONLeafRepresentable` - Objects adhering to this protocol can be represented as a JSON leaf object.  I.e `NSString`, `NSNumber`, or `NSNull`.  Beyond the 3 leaf values accepted the structs `String`, `Bool`, `Int`, `Float`, and `Double` conform to this protocol.
  3. Is an `NSDate` -  If the object is an `NSDate` and does not conform to any of the above protocols then the *dateConversionBlock*, if provided, is used to convert to `JSONLeafRepresentable` or the property is skipped if no block exists.
  4. Conforms to `SGYDictionaryReflection` - The object will be converted to a dictionary of strings keys and object values. The generic `Dictionary` and `NSDictionary` both adhere to this protocol.
@@ -46,3 +46,45 @@ Deserialization is considerably more difficult than serialization as it requires
 * Inheriting from `JSONCreatableObject` and assigning value types (ie. `CGSize`, `Int`, etc) - Using `JSONCreatableObject` as a `JSONKeyValueCreatable` base class greatly simplifies implementing the protocol.  But since it utilizes `NSObject`'s *setValue:forKey:* method it is vulnerable to the same limitations- the inability to assign values that do not inherit from `NSObject`. There are two strategies for dealing with this limitation:
  * If the value can be automatically bridged to an `NSObject` subtype (ie. `Int` to `NSNumber`) then it will be bridged.  **However** the property cannot be defined as optional or an error is still thrown.  Instead a variable with a default value should be defined.
  * For more complicated value types the only safe alternative is overriding *setValue:property:* and assigning the value directly.
+
+## Examples
+For demonstration I'll consider a `Person` class using 'Swift type' properties.  The use of this class is irrelevant but contains many of the common properties used in web models.
+```swift
+enum Color { case Red, Blue, Green, Yellow }
+
+class Person {
+ var name: String?
+ var birthdate: NSDate?
+ var favoriteColor: Color?
+ var friends: [Person]?
+ var followersCount: Int?
+}
+```
+#### Serialization
+This class can nearly be serialized as is.  The first requirement is giving `Color` a `rawValue` that can be represented in JSON and then extending it to conform to `JSONLeafRepresentable`:
+```swift
+enum Color: Int, JSONLeafRepresentable {
+ case Red, Blue, Green, Yellow
+ public var jsonLeafValue: JSONLeafValue? { return JSONLeafValue(self.rawValue) } // Bridges our Int value to NSNumber
+}
+```
+The final requirement is to create a block that converts `NSDate` to `JSONLeafValue`:
+```swift
+let formatter = NSDateFormatter()
+let dateBlock = { (date: NSDate) -> JSONLeafValue in
+ return JSONLeafValue(formatter.stringFromDate(date))
+}
+```
+Then serialize. Assume `personObject` is some instance of `Person` filled with arbitrary values:
+```swift
+let serializer = SGYJSONSerializer()
+serializer.dateConversionBlock = dateBlock
+do {
+ let jsonData = try serializer.serialize(personObject)
+} catch err as NSError {
+ // Optionally catch specific thrown errors
+}
+```
+#### Deserialization
+ *In Progress*
+
