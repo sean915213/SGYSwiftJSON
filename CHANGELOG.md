@@ -6,6 +6,7 @@ This change log adheres to the suggested [keep-a-change-log](https://github.com/
 ## [Unreleased]
 ### Test Changes
 - Added a Swift enum property to complex object's serialization and deserialization tests.
+
 ### Documentation Changes
 - Code documentation additions and changes.
 - README changes.
