@@ -4,22 +4,8 @@ import Quick
 import Nimble
 import SGYSwiftJSON
 
-enum Color: Int, JSONLeafRepresentable, JSONLeafCreatable {
+enum Color: Int, JSONLeafEnum, JSONLeafRepresentable, JSONLeafCreatable {
     case Red, Blue, Green, Yellow
-    
-    init?(jsonValue: JSONLeafValue) {
-        switch jsonValue {
-        case .Number(let number):
-            self.init(rawValue: number.integerValue)
-        case .String(let string):
-            guard let int = Int(string as String) else { return nil }
-            self.init(rawValue: int)
-        case .Null(_):
-            return nil
-        }
-    }
-    
-    var jsonLeafValue: JSONLeafValue? { return JSONLeafValue(self.rawValue) } // Bridges our Int value to NSNumber
 }
 
 class ComplexObject: JSONCreatableObject {
@@ -38,11 +24,8 @@ class ComplexObject: JSONCreatableObject {
     var complexDict: [String: ComplexObject]?
     
     override func setValue(value: Any, property: String) throws {
-        if property == "color" {
-            color = value as? Color
-        } else {
-            try super.setValue(value, property: property)
-        }
+        if property == "color" { color = value as? Color }
+        else { try super.setValue(value, property: property) }
     }
     
 }

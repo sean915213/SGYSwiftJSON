@@ -76,6 +76,7 @@
 		BCE35F925FE42ABCD29EDE2CABC272ED /* SerializationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5136FC16EA630F9A2BC35E705FB864AA /* SerializationExtensions.swift */; };
 		C150157922BAEB1F93635508FB59E618 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E351727CD07BB90B2A3CAE2C2433F6C5 /* Foundation.framework */; };
 		C3F5C900935A8DB6EE1689D2F7CFEABD /* NSString+QCKSelectorName.h in Headers */ = {isa = PBXBuildFile; fileRef = 15AA7E8F1FC527E7514BAD80490C4DEF /* NSString+QCKSelectorName.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		C4FE4D731C6D4E0900D652AF /* EnumImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FE4D711C6D4DC300D652AF /* EnumImplementation.swift */; };
 		C63AB521EA514A811A167E507C0CF9AD /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F60150392781D7D318EFC7B753027A6 /* Expression.swift */; };
 		C71433A9935BCD9D68C631F3B780965D /* SuiteHooks.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01BED49B9B05B942A565BB447298733 /* SuiteHooks.swift */; };
 		C7404EBD836B065336BB4937804DF23A /* SGYJSONDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668D5E8BD6BD26F5B8701C40C927DBAE /* SGYJSONDeserializer.swift */; };
@@ -224,6 +225,7 @@
 		C02DBC55CB8FE48279FC0B8D3C062F1D /* RaisesException.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RaisesException.swift; path = Nimble/Matchers/RaisesException.swift; sourceTree = "<group>"; };
 		C2F1CABBD8F6A16D86604F5FF6ED2537 /* ReflectionExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReflectionExtensions.swift; sourceTree = "<group>"; };
 		C4B8877C525E9943D038B528237FCF46 /* SGYKVCSafeNSObject-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SGYKVCSafeNSObject-umbrella.h"; sourceTree = "<group>"; };
+		C4FE4D711C6D4DC300D652AF /* EnumImplementation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumImplementation.swift; sourceTree = "<group>"; };
 		C61FE58CF4502C242DB08EB1D35F8EB0 /* SGYKVCSafeNSObject.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SGYKVCSafeNSObject.m; path = Pod/Classes/SGYKVCSafeNSObject.m; sourceTree = "<group>"; };
 		C871ADD4D29E14F552CFAD2E875921AB /* Contain.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Contain.swift; path = Nimble/Matchers/Contain.swift; sourceTree = "<group>"; };
 		CA9E9AEE452C664FD8D8362F2CA04C35 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -412,6 +414,7 @@
 				9F674DAE70AF2BDF6D1413FD22407432 /* ReflectionProtocols.swift */,
 				DC33C2B2610ADFC2390DB7DA33701629 /* Deserialization */,
 				7A9C6B63A52A698F0537CC66F42681D7 /* Serialization */,
+				C4FE4D711C6D4DC300D652AF /* EnumImplementation.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -777,6 +780,7 @@
 				75E877637698B7E538564B314A995ADE /* SerializationProtocols.swift in Sources */,
 				C7404EBD836B065336BB4937804DF23A /* SGYJSONDeserializer.swift in Sources */,
 				46C32F4BE16777629C542C74F579A460 /* SGYJSONSerializer.swift in Sources */,
+				C4FE4D731C6D4E0900D652AF /* EnumImplementation.swift in Sources */,
 				25EA895B052E2F6E2ADAC1C108686F4D /* SGYSwiftJSON-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
