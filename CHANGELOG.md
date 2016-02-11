@@ -5,6 +5,7 @@ This change log adheres to the suggested [keep-a-change-log](https://github.com/
 
 ## [Unreleased]
 - Made code documentation additions and changes.
+- README changes.
 
 ## [1.0.1] - 2016-09-06
 ### Documentation Changes
