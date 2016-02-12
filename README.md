@@ -8,6 +8,10 @@ A library seeking to provide an automatic and type-safe approach to converting S
 - [Deserialization](#deserialization)
  - [Common Deserialization Problems](#deserialization-problems)
 - [Examples](#examples)
+ - [Basic](#examples-basic)
+ - [Swifty](#examples-swifty)
+ - [Swiftier](#examples-swiftier)
+ - [Date](#examples-date)
 
 <a name="summary"></a>
 ## Summary
@@ -63,107 +67,96 @@ Deserialization is considerably more difficult than serialization as it requires
 
 <a name="examples"></a>
 ## Examples
-For demonstration I'll consider a `Person` class using 'Swift type' properties.  The use of this class is irrelevant but contains many of the common properties used in web models.
-```swift
-enum Color { case Red, Blue, Green, Yellow }
+All the examples will expand upon an arbitrary `Person` class. We'll begin with a very basic class and modify/expand it to utilize more complicated/Swifty properties.
 
+<a name="examples-basic"></a>
+### Basic Example
+Let's begin with a model that requires nothing to convert:
+```swift
 class Person {
- var name: String?
- var birthdate: NSDate?
- var favoriteColor: Color?
- var friends: [Person]?
- var followersCount: Int?
+    var name: String?
+    var birthdate: String?
+    var favoriteColor: String?
+    var bestFriends: [Person]?
+    var categorizedFriends: [String: Person]?
+    var followersCount: NSNumber?
 }
 ```
-#### Serialization
-This class can nearly be serialized as is (the `Color` enum and `NSDate` are the only problem types). We must modify `Color` so that it can be associated with some JSON value: 
+Serialization is simple. Assume `someGuy` is an instance of `Person` with arbitrary values:
 ```swift
-enum Color: Int, JSONLeafRepresentable { // 1 & 2
- case Red, Blue, Green, Yellow
- public var jsonLeafValue: JSONLeafValue? { return JSONLeafValue(self.rawValue) } // 3
-}
-```
-In the block above we:
- 1. Gave `Color` a raw value type of `Int`.  This way we can convert `Color` to a JSON number and vice versa.
- 2. Made `Color` conform to `JSONLeafRepresentable`.  This tells the serializer the type has a JSON leaf value representation.
- 3. Completed the conformance to `JSONLeafRepresentable` by providing a property that returns a `JSONLeafValue` enum.
-
-Next serialize. Assume `personObject` is some instance of `Person` filled with arbitrary values:
-```swift
-let serializer = SGYJSONSerializer() // 1
-let formatter = NSDateFormatter() // 2
-serializer.dateConversionBlock = { (date: NSDate) -> JSONLeafValue in
- return JSONLeafValue(formatter.stringFromDate(date))
-}
+let serializer = SGYJSONSerializer()
 do {
- let jsonData = try serializer.serialize(personObject) // 3
-} catch err as NSError {
- // Optionally catch specific thrown errors // 4
-}
-```
-In the above block we:
- 1. Created a new `SGYJSONSerializer` instance.
- 2. Created an `NSDateFormatter` and assigned a `dateConversionBlock` to the serializer in order to convert our `NSDate` property.
- 3. Serialize `Person` instance into JSON data.
- 4. Caught the generic `NSError`.  Optionally you may catch the specific errors that serialization is documented to throw in order to get a better idea of the failure.
-
-#### Deserialization
-In order to deserialize the same `Person` class some more additions are required. We already modified our `Color` enum to provide a valid JSON leaf value.  Now we must modify it to be constructable from a JSON leaf value by adhering to `JSONLeafCreatable`:
-```swift
-enum Color: Int, JSONLeafRepresentable, JSONLeafCreatable {
- case Red, Blue, Green, Yellow
- 
- init?(jsonValue: JSONLeafValue) {
-    switch jsonValue {
-    case .Number(let number):
-        self.init(rawValue: number.integerValue) // Initialize with Int
-    case .String(let string):
-        guard let int = Int(string as String) else { return nil } // Attempt parsing Int from String
-        self.init(rawValue: int) // Initialize with parsed Int
-    case .Null(_):
-        return nil // Fail outright
-    }
- }
- 
- public var jsonLeafValue: JSONLeafValue? { return JSONLeafValue(self.rawValue) } // Bridges our Int value to NSNumber
-}
-```
-Next we must make a few additions to our `Person` class:
-```swift
-class Person: JSONCreatableObject { // 1
- var name: String?
- var birthdate: NSDate?
- var favoriteColor: Color?
- var friends: [Person]?
- var followersCount: Int?
- 
- override func setValue(value: Any, property: String) throws { // 2
-    if property == "favoriteColor" { color = value as? Color }
-    else { try super.setValue(value, property: property) }
- }
-}
-```
-We made two changes:
- 1. Inherited `Person` from `JSONCreatableObject`.  We need a way to conform to `JSONKeyValueCreatable` and this class does the majority of the work for us.
- 2. Since our `Color` enum conforms to `JSONLeafCreatable` it will be constructed from a JSON leaf value.  But enums cannot be assigned via key-value-coding (which `JSONCreatableObject` uses).  So instead we bypass KVC and assign the value directly.
-
-Finally we deserialize:
-```swift
-let deserializer = SGYJSONDeserializer() // 1
-let dateFormatter = NSDateFormatter() // 2
-deserializer.dateConversionBlock = { (jsonValue: AnyObject) -> NSDate? in
- guard let date = jsonValue as? NSDate else { return nil }
- return dateFormatter.dateFromString(date)
-}
-
-do {
- let deserializedPerson: Person = try deserializer.deserialize(jsonData) // 3
+    let jsonData = try serializer.serialize(someGuy)
 } catch let error as NSError {
-  // Optionally catch specific errors // 4
+    // Optionally catch specific errors
 }
 ```
-Here we:
- 1. Created a new instance of `SGYJSONDeserializer`.
- 2. Assigned the inverse of the `dateConversionBlock` we assigned during serialization.
- 3. Deserialize into a `Person` instance. Assume `jsonData` is some arbitrary JSON.
- 4. Caught the generic `NSError`.  Optionally you may catch the specific errors that deserialization is documented to throw in order to get a better idea of the failure.
+Deserialization requires one simple change.  We need a way to assign properties to the class.  The easiest way to do this is inheriting from `JSONCreatableObject` which implements `JSONKeyValueCreatable` via `NSObject`'s key value coding:
+```swift
+class Person: JSONCreatableObject
+```
+Then deserialize:
+```swift
+let deserializer = SGYJSONDeserializer()
+do {
+    let jsonGuy: Person = try deserializer.deserialize(jsonData)
+} catch let error as NSError {
+    // Optionally catch specific errors
+}
+```
+<a name="examples-swifty"></a>
+### More Swifty Example
+The above example is already way less effort than normal conversion. But we're still using that ObjC object `NSNumber` and that's annoying to unwrap.  Luckily for serialization the automatic Swift bridging does our work for us.  We can simply redefine `followersCount` to: 
+```swift
+    var followersCount: Int?
+```
+This will serialize fine.  But deserialization is a problem.  The property `followersCount` will be properly converted to an `Int`. But `JSONCreatableObject` uses key value coding so attempting to assign to `Int?` will throw an error. The solution is simple:
+```swift
+    var followersCount: Int = -1 // Sentinal value indicates it was never changed- ie nil
+```
+This will deserialize just fine.   If you're hell bent on using optional Foundation types then see the next section's info on overriding `setValue:forProperty`.
+<a name="examples-swiftier"></a>
+### Even Swiftier Example
+Now the model looks a bit closer to something we might actually design without de/serialization in mind.  But what about the `favoriteColor` property? That absolutely begs to be a Swift enum.  Serialization is, again, simpler to perform.  We define `Color` enum that conforms to a number of protocols that do the work:
+```swift
+enum Color: String, JSONLeafEnum, JSONLeafRepresentable, JSONLeafCreatable {
+    case Red = "Red", Green = "Green", Blue = "Blue", Yellow = "Yellow"
+}
+```
+Now modify the type on `Person`:
+```swift
+    var favoriteColor: Color?
+```
+This will serialize just fine and produce the associated `rawValue` as the JSON value.  Deserialization is more difficult for the same reasons as `Int`.  Except Swift enums cannot be assigned via KVC at all.  The only option is to override `setValue:property:`:
+```
+    override func setValue(value: Any, property: String) throws {
+        if property == "color" { color = value as? Color }
+        else { try super.setValue(value, property: property) }
+    }
+```
+Now the `Person` class will deserialize the JSON value into an optional Swift enum.
+<a name="examples-date"></a>
+### Dates
+Strictly a date is not a JSON value. But its use, and therefore need to convert, is constant.  Because there are so many ways to represent a date value the serializer and deserializer classes expose a `dateConversionBlock` property for the explicit purpose of conversion.
+First let's convert `birthdate` to an `NSDate` type:
+```swift
+    var birthdate: NSDate?
+```
+Since most JSON representations of a date are string or number types the date conversion block on `SGYJSONSerializer` is expected to return a `JSONLeafValue` enum.  Let's assume whatever consumes our JSON expects dates in `NSDateFormatter`'s `MediumStyle`.  Then the only addition to our serialization from before is the assignment of this block:
+```swift
+let formatter = NSDateFormatter()
+formatter.dateStyle = .MediumStyle
+serializer.dateConversionBlock = { (date) in formatter.stringFromDate(date) }
+// Continue serialization as before
+```
+Deserialization is similar.  The main difference is the `dateConversionBlock` on the deserializer accepts a more general argument of `AnyObject` in order to allow conversion to `NSDate` from any arbitrarily deserialized value:
+```swift
+let formatter = NSDateFormatter()
+formatter.dateStyle = .MediumStyle
+deserializer.dateConversionBlock = { (jsonValue) -> NSDate? in
+    guard let value = jsonValue as? String else { return nil }
+    return formatter.dateFromString(value)
+}
+// Continue deserialization as before
+```
+
