@@ -4,9 +4,7 @@ A library seeking to provide an automatic and type-safe approach to converting S
 - [Summary](#summary)
 - [Quick Start](#quick-start)
 - [Serialization](#serialization)
- - [Common Serialization Problems](#serialization-problems)
 - [Deserialization](#deserialization)
- - [Common Deserialization Problems](#deserialization-problems)
 - [Examples](#examples)
  - [Basic](#examples-basic)
  - [Swifty](#examples-swifty)
@@ -38,13 +36,6 @@ Serialization is supported via protocols and the use of Swift's `Mirror`. Any ob
  4. Conforms to `SGYDictionaryReflection` - The object will be converted to a dictionary of strings keys and object values. The generic `Dictionary` and `NSDictionary` both adhere to this protocol.
  5. Conforms to `SGYCollectionReflection` - The object's contained elements will be converted and put into an array. `Array`, `NSArray`, and `Set` adhere to this protocol.
  6. None of the above - The object's property's and values will be enumerated using `Mirror` and converted to a dictionary.
- 
-<a name="serialization-problems"></a>
-#### Common Serialization Problems
-* `Enum` - Enumerations are most appropriately handled by having the enumeration conform to `JSONLeafRepresentable` and return the `JSONLeafValue` struct initialized with their string or number *rawValue*.
-* `NSDate` - There are 2 strategies for handling `NSDate` based on the project:
- * If all dates are represented using the same format then extend `NSDate` to conform to `JSONLeafRepresentable` and construct `JSONLeafValue` using the specific string or numeric representation.
- * If dates use different formatting for different situations then instead initialize a separate `SGYJSONSerializer` instance for each format and assign an appropriate *dateConversionBlock*.
 
 <a name="deserialization"></a>
 ### Deserialization
@@ -55,15 +46,10 @@ Deserialization is considerably more difficult than serialization as it requires
   *  If the object conforms to `JSONCollectionCreatable` the object's element type is retrieved using the protocol's *elementType* property. The object produced by `NSJSONSerialization` must be an `NSArray`or an error is thrown.
  2. If the value to be deserialized into is an array then all values will be converted to the array's containing `Element` type.  Similarly, dictionaries have the containing values converted to their `Value` type.  For complex objects the value is converted using its `Mirror` property representation.  This conversion is done using the following logic:
   1. If the declared type is `AnyObject` or the declared type matches the deserialized type then the deserialized type is assigned directly.
-  2. If the deserialized value is a leaf value then the deserialized type must conform to `JSONLeafConvertable` and will be constructed using the leaf value and assigned.  Otherwise the deserialized value is skipped.
-  3. If the deserialized value is the `[AnyObject]` type and the declared type is `JSONCollectionCreatable` an array will be initialized and returned using the array conversion logic.  Otherwise the deserialized value is skipped.
-  4. If the deserialized value is the `[String: AnyObject]` type and the declared type is `JSONDictionaryCreatable` an array will be initialized and returned using the dictionary conversion logic.  Otherwise the deserialized value is skipped.
- 
-<a name="deserialization-problems"></a>
-### Common Deserialization Problems
-* Inheriting from `JSONCreatableObject` and assigning value types (ie. `CGSize`, `Int`, etc) - Using `JSONCreatableObject` as a `JSONKeyValueCreatable` base class greatly simplifies implementing the protocol.  But since it utilizes `NSObject`'s *setValue:forKey:* method it is vulnerable to the same limitations- the inability to assign values that do not inherit from `NSObject`. There are two strategies for dealing with this limitation:
- * If the value can be automatically bridged to an `NSObject` subtype (ie. `Int` to `NSNumber`) then it will be bridged.  **However** the property cannot be defined as optional or an error is still thrown.  Instead a variable with a default value should be defined.
- * For more complicated value types the only safe alternative is overriding *setValue:property:* and assigning the value directly.
+  2. If the declared type is `NSDate` then the `dateConversionBlock` is used to convert the deserialized `AnyObject` value to `NSDate`.  If the block is not declared or returns nil the property is not assigned.
+  2. If the deserialized value is a leaf value then the deserialized type must conform to `JSONLeafConvertable` and will be constructed using the leaf value and assigned.  Otherwise the deserialized value is not assigned.
+  3. If the deserialized value is the `[AnyObject]` type and the declared type is `JSONCollectionCreatable` an array will be initialized and returned using the array conversion logic.  Otherwise the deserialized value is not assigned.
+  4. If the deserialized value is the `[String: AnyObject]` type and the declared type is `JSONDictionaryCreatable` an array will be initialized and returned using the dictionary conversion logic.  Otherwise the deserialized value is not assigned.
 
 <a name="examples"></a>
 ## Examples
