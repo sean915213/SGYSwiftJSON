@@ -6,6 +6,11 @@ This change log adheres to the suggested [keep-a-change-log](https://github.com/
 ## [Unreleased]
 - No changes.
 
+## [1.1.1] - 2016-03-22
+#### Minor Updates for Xcode 7.3.
+- Fixed warnings introduced by Swift 2.2.
+- Updated Nimble version to 3.2 in order to fix a new compiler error.
+
 ## [1.1.0] - 2016-02-12
 #### Code Changes
 - Added `JSONLeafEnum` protocol and associated extensions.
@@ -25,6 +30,7 @@ This change log adheres to the suggested [keep-a-change-log](https://github.com/
 #### Initial Release
 - Checked in and published initial tested version of library.
 
-[Unreleased]: https://github.com/sean915213/SGYSwiftJSON/compare/1.1.0...HEAD
+[Unreleased]: https://github.com/sean915213/SGYSwiftJSON/compare/1.1.1...HEAD
+[1.1.1]: https://github.com/sean915213/SGYSwiftJSON/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/sean915213/SGYSwiftJSON/compare/1.0.1...1.1.0
 [1.0.1]: https://github.com/sean915213/SGYSwiftJSON/compare/1.0.0...1.0.1
