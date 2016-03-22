@@ -1,13 +1,14 @@
 PODS:
-  - Nimble (3.0.0)
+  - Nimble (3.2.0)
   - Quick (0.8.0)
   - SGYKVCSafeNSObject (1.0.0)
-  - SGYSwiftJSON (0.1.4)
+  - SGYSwiftJSON (1.1.0):
+    - SGYKVCSafeNSObject (~> 1.0)
 
 DEPENDENCIES:
-  - Nimble (= 3.0.0)
+  - Nimble (~> 3.2.0)
   - Quick (~> 0.8.0)
-  - SGYKVCSafeNSObject
+  - SGYKVCSafeNSObject (~> 1.0)
   - SGYSwiftJSON (from `../`)
 
 EXTERNAL SOURCES:
@@ -15,9 +16,9 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
+  Nimble: 703854335d181df169bbca9c97117b5cf8c47c1d
   Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
   SGYKVCSafeNSObject: 47a396afd514173da22b84259208060272ea9968
-  SGYSwiftJSON: b6404fda85e1abb78788081d19f5c51120845f14
+  SGYSwiftJSON: 49c4cb2a73b2aa7e3a7ed194866afe6f876885ee
 
 COCOAPODS: 0.39.0

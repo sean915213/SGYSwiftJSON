@@ -159,7 +159,8 @@ public class SGYJSONDeserializer {
         return type.init(dictionary: typedDictionary)
     }
 
-    private func convertValue(value: AnyObject, var toType type: Any.Type) throws -> Any? {
+    private func convertValue(value: AnyObject, toType: Any.Type) throws -> Any? {
+        var type = toType
         // Unwrap all optional nesting on the type
         type = unwrap(type)
         // If requested type is already AnyObject or both types are explicitly equal return raw value
