@@ -237,18 +237,23 @@ public class SGYJSONDeserializer {
     }
     
     private func assignInstanceProperties(instance: JSONKeyValueCreatable, dictionary: [String: AnyObject]) throws {
-        // Loop through the instance's property info
-        for property in Mirror(reflecting: instance).children {
-            // Check whether dictionary contains a value for this property
-            guard let name = property.label, propertyValue = dictionary[name] else { continue }
-            // Get the property's declared type
-            let propertyType: Any.Type = Mirror(reflecting: property.value).subjectType
-            
-            // Attempt converting the property's value
-            guard let converted = try convertValue(propertyValue, toType: propertyType) else { continue }
-            // Try setting the value
-            do { try instance.setValue(converted, property: name) }
-            catch let e as NSError { throw Error.KeyValueError(name, propertyValue, e) }
+        var instanceMirror: Mirror? = Mirror(reflecting: instance)
+        while let mirror = instanceMirror {
+            // Loop through the instance's property info
+            for property in mirror.children {
+                // Check whether dictionary contains a value for this property
+                guard let name = property.label, propertyValue = dictionary[name] else { continue }
+                // Get the property's declared type
+                let propertyType: Any.Type = Mirror(reflecting: property.value).subjectType
+                
+                // Attempt converting the property's value
+                guard let converted = try convertValue(propertyValue, toType: propertyType) else { continue }
+                // Try setting the value
+                do { try instance.setValue(converted, property: name) }
+                catch let e as NSError { throw Error.KeyValueError(name, propertyValue, e) }
+            }
+            // Delve into superclass mirror
+            instanceMirror = mirror.superclassMirror()
         }
     }
     

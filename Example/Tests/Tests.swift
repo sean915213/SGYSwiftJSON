@@ -12,7 +12,16 @@ enum Shape: String, JSONLeafEnum, JSONLeafRepresentable, JSONLeafCreatable {
     case Square = "square", Circle = "circle", Oval = "oval"
 }
 
-class ComplexObject: JSONCreatableObject {
+class BaseComplexObject: JSONCreatableObject {
+    
+    var complexObj: ComplexObject?
+    var complexArr: [ComplexObject]?
+    
+    var string: String?
+    var color: Color?
+}
+
+class ComplexObject: BaseComplexObject {
     
     convenience init(number: NSNumber) {
         self.init()
@@ -20,12 +29,8 @@ class ComplexObject: JSONCreatableObject {
     }
     
     var number: NSNumber?
-    var string: String?
-    var color: Color?
     var shape: Shape?
     
-    var complexObj: ComplexObject?
-    var complexArr: [ComplexObject]?
     var complexDict: [String: ComplexObject]?
     
     override func setValue(value: Any, property: String) throws {
