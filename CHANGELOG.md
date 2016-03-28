@@ -6,6 +6,13 @@ This change log adheres to the suggested [keep-a-change-log](https://github.com/
 ## [Unreleased]
 - No changes.
 
+## [1.1.2]
+#### Code Bug Fix
+- Fixed a bug when deserializing into a `JSONCreatableObject` that caused superclass properties to not be assigned.
+
+#### Test Changes
+- Added an inheritence hierarchy to the complex object tests.
+
 ## [1.1.1] - 2016-03-22
 #### Minor Updates for Xcode 7.3.
 - Fixed warnings introduced by Swift 2.2.
@@ -30,7 +37,8 @@ This change log adheres to the suggested [keep-a-change-log](https://github.com/
 #### Initial Release
 - Checked in and published initial tested version of library.
 
-[Unreleased]: https://github.com/sean915213/SGYSwiftJSON/compare/1.1.1...HEAD
+[Unreleased]: https://github.com/sean915213/SGYSwiftJSON/compare/1.1.2...HEAD
+[1.1.2]: https://github.com/sean915213/SGYSwiftJSON/compare/1.1.1...1.1.2
 [1.1.1]: https://github.com/sean915213/SGYSwiftJSON/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/sean915213/SGYSwiftJSON/compare/1.0.1...1.1.0
 [1.0.1]: https://github.com/sean915213/SGYSwiftJSON/compare/1.0.0...1.0.1
