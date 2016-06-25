@@ -157,25 +157,25 @@ class ArrayConversionSpec: QuickSpec {
                 expect(obj4!["number"] as? NSNumber) == NSNumber(int: 4)
             }
             
-            it("will deserialize int") {
+            context("int array") {
                 let jsonString = "[1, 2, 3]"
                 let jsonData = jsonString.dataUsingEncoding(NSUTF8StringEncoding)!
                 
-                context("into int array") {
+                it("deserializes into int array") {
                     let array: [Int] = try! deserializer.deserialize(jsonData)
                     expect(array[0]) == 1
                     expect(array[1]) == 2
                     expect(array[2]) == 3
                 }
                 
-                context("into string array") {
+                it("deserializes into string array") {
                     let array: [String] = try! deserializer.deserialize(jsonData)
                     expect(array[0]) == "1"
                     expect(array[1]) == "2"
                     expect(array[2]) == "3"
                 }
                 
-                context("into date array") {
+                it("deserializes into date array") {
                     deserializer.dateConversionBlock = { (jsonValue) -> NSDate? in
                         let unixInterval = (jsonValue as? NSNumber)?.doubleValue ?? 0
                         return NSDate(timeIntervalSince1970: unixInterval)
@@ -187,6 +187,37 @@ class ArrayConversionSpec: QuickSpec {
                     expect(array[2]) == NSDate(timeIntervalSince1970: 3)
                 }
             }
+            
+//            it("will deserialize int") {
+//                let jsonString = "[1, 2, 3]"
+//                let jsonData = jsonString.dataUsingEncoding(NSUTF8StringEncoding)!
+//                
+//                context("into int array") {
+//                    let array: [Int] = try! deserializer.deserialize(jsonData)
+//                    expect(array[0]) == 1
+//                    expect(array[1]) == 2
+//                    expect(array[2]) == 3
+//                }
+//                
+//                context("into string array") {
+//                    let array: [String] = try! deserializer.deserialize(jsonData)
+//                    expect(array[0]) == "1"
+//                    expect(array[1]) == "2"
+//                    expect(array[2]) == "3"
+//                }
+//                
+//                context("into date array") {
+//                    deserializer.dateConversionBlock = { (jsonValue) -> NSDate? in
+//                        let unixInterval = (jsonValue as? NSNumber)?.doubleValue ?? 0
+//                        return NSDate(timeIntervalSince1970: unixInterval)
+//                    }
+//                    
+//                    let array: [NSDate] = try! deserializer.deserialize(jsonData)
+//                    expect(array[0]) == NSDate(timeIntervalSince1970: 1)
+//                    expect(array[1]) == NSDate(timeIntervalSince1970: 2)
+//                    expect(array[2]) == NSDate(timeIntervalSince1970: 3)
+//                }
+//            }
             
             it("will deserialize complex objects") {
                 let objPath = NSBundle(forClass: self.dynamicType).pathForResource("ArrayObject", ofType: "json")!

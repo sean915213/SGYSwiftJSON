@@ -2,7 +2,8 @@ use_frameworks!
 target 'SGYSwiftJSON_Tests' do
     pod 'SGYSwiftJSON', :path => '../'
     
-    pod 'Quick', '~> 0.8'
+#    pod 'Quick', '~> 0.8'
+    pod 'Quick'
 #    pod 'Nimble', '~> 3.2.0'
     pod 'Nimble'
 end
