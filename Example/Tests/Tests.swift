@@ -188,7 +188,7 @@ class ArrayConversionSpec: QuickSpec {
                 }
             }
             
-            it("will deserialize complex objects") {
+            it("will deserialize into complex objects") {
                 let objPath = NSBundle(forClass: self.dynamicType).pathForResource("ArrayObject", ofType: "json")!
                 let jsonData = NSData(contentsOfURL: NSURL(fileURLWithPath: objPath))!
                 
