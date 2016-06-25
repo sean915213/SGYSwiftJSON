@@ -4,6 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This change log adheres to the suggested [keep-a-change-log](https://github.com/olivierlacan/keep-a-changelog) standards.
 
 ## [1.1.3]
+### Cocoapods 1.0 Update
 - Updated Podfile to Cocoapods 1.0 syntax.
 - Updated testing syntax.
 
