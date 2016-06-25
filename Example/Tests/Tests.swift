@@ -76,11 +76,11 @@ class ComplexObjectConversionSpec: QuickSpec {
                 expect(jsonDict["complexDict"]??["6"]??["number"]) == NSNumber(int: 6)
             }
             
-            it("will deserialize") {
+            context("deserialize") {
                 let objPath = NSBundle(forClass: self.dynamicType).pathForResource("ComplexObject", ofType: "json")!
                 let jsonData = NSData(contentsOfURL: NSURL(fileURLWithPath: objPath))!
                 
-                context("into complex object") {
+                it("deserializes into complex object") {
                     let object: ComplexObject = try! deserializer.deserialize(jsonData)
                     expect(object.number) == 10
                     expect(object.string) == "string val"
@@ -93,7 +93,7 @@ class ComplexObjectConversionSpec: QuickSpec {
                     expect(object.complexDict?["6"]?.number) == 6
                 }
                 
-                context("into a dictionary") {
+                it("deserializes into a dictionary") {
                     let dictionary: [String: AnyObject] = try! deserializer.deserialize(jsonData)
                     expect(dictionary["number"] as? NSNumber) == NSNumber(int: 10)
                     expect(dictionary["string"] as? String) == "string val"
@@ -187,37 +187,6 @@ class ArrayConversionSpec: QuickSpec {
                     expect(array[2]) == NSDate(timeIntervalSince1970: 3)
                 }
             }
-            
-//            it("will deserialize int") {
-//                let jsonString = "[1, 2, 3]"
-//                let jsonData = jsonString.dataUsingEncoding(NSUTF8StringEncoding)!
-//                
-//                context("into int array") {
-//                    let array: [Int] = try! deserializer.deserialize(jsonData)
-//                    expect(array[0]) == 1
-//                    expect(array[1]) == 2
-//                    expect(array[2]) == 3
-//                }
-//                
-//                context("into string array") {
-//                    let array: [String] = try! deserializer.deserialize(jsonData)
-//                    expect(array[0]) == "1"
-//                    expect(array[1]) == "2"
-//                    expect(array[2]) == "3"
-//                }
-//                
-//                context("into date array") {
-//                    deserializer.dateConversionBlock = { (jsonValue) -> NSDate? in
-//                        let unixInterval = (jsonValue as? NSNumber)?.doubleValue ?? 0
-//                        return NSDate(timeIntervalSince1970: unixInterval)
-//                    }
-//                    
-//                    let array: [NSDate] = try! deserializer.deserialize(jsonData)
-//                    expect(array[0]) == NSDate(timeIntervalSince1970: 1)
-//                    expect(array[1]) == NSDate(timeIntervalSince1970: 2)
-//                    expect(array[2]) == NSDate(timeIntervalSince1970: 3)
-//                }
-//            }
             
             it("will deserialize complex objects") {
                 let objPath = NSBundle(forClass: self.dynamicType).pathForResource("ArrayObject", ofType: "json")!
