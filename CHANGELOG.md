@@ -3,8 +3,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 This change log adheres to the suggested [keep-a-change-log](https://github.com/olivierlacan/keep-a-changelog) standards.
 
-## [Unreleased]
-- No changes.
+## [1.1.3]
+- Updated Podfile to Cocoapods 1.0 syntax.
+- Updated testing syntax.
 
 ## [1.1.2]
 #### Code Bug Fix
@@ -37,7 +38,7 @@ This change log adheres to the suggested [keep-a-change-log](https://github.com/
 #### Initial Release
 - Checked in and published initial tested version of library.
 
-[Unreleased]: https://github.com/sean915213/SGYSwiftJSON/compare/1.1.2...HEAD
+[1.1.3]: https://github.com/sean915213/SGYSwiftJSON/compare/1.1.2...1.1.3
 [1.1.2]: https://github.com/sean915213/SGYSwiftJSON/compare/1.1.1...1.1.2
 [1.1.1]: https://github.com/sean915213/SGYSwiftJSON/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/sean915213/SGYSwiftJSON/compare/1.0.1...1.1.0
