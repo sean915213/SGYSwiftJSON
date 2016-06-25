@@ -1,1 +1,0 @@
-../../../SGYKVCSafeNSObject/Pod/Classes/SGYKVCSafeNSObject.h

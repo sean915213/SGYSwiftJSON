@@ -1,6 +1,6 @@
 {
   "name": "SGYSwiftJSON",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "summary": "A library seeking to provide an automatic and type-safe approach to converting Swift models to and from JSON.",
   "description": "SGYSwiftJSON seeks to dramatically simplify serialization and deserialization of Swift model to and from JSON. While serialization is fully supported, the primary goal is to go beyond simple key-value coding to provide a system for creating properly typed object graphs from JSON. This includes recursive conversion of types contained in collections, dictionaries, and complex objects. Out-of-the-box functionality includes support for the majority of common Foundation types and a ready to inherit base class for complex types (not required, but easier). Protocols are provided which allow extending functionality to unusual objects.",
   "homepage": "https://github.com/sean915213/SGYSwiftJSON",
@@ -10,7 +10,7 @@
   },
   "source": {
     "git": "https://github.com/sean915213/SGYSwiftJSON.git",
-    "tag": "1.1.0"
+    "tag": "1.1.2"
   },
   "platforms": {
     "ios": "8.0"

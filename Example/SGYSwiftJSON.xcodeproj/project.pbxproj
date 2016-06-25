@@ -7,26 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5A98ED71A24A93BD77A543AE /* Pods_SGYSwiftJSON_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C82B2085DCF1F777CCC5EFF9 /* Pods_SGYSwiftJSON_Tests.framework */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
+		9CF0CDEC7DAF8B17EC4F2065 /* Pods_SGYSwiftJSON_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4013BADBD09AC1C9B4C11C35 /* Pods_SGYSwiftJSON_Tests.framework */; };
 		C4B4110C1C66A04300AA3DA3 /* ComplexObject.json in Resources */ = {isa = PBXBuildFile; fileRef = C4B4110B1C66A04300AA3DA3 /* ComplexObject.json */; };
 		C4B411101C69595E00AA3DA3 /* DictionaryObject.json in Resources */ = {isa = PBXBuildFile; fileRef = C4B4110F1C69595E00AA3DA3 /* DictionaryObject.json */; };
 		C4B411121C69611500AA3DA3 /* ArrayObject.json in Resources */ = {isa = PBXBuildFile; fileRef = C4B411111C69611500AA3DA3 /* ArrayObject.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		23CDFEFEA5ECA4531CB8B196 /* Pods-SGYSwiftJSON_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SGYSwiftJSON_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SGYSwiftJSON_Tests/Pods-SGYSwiftJSON_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		4013BADBD09AC1C9B4C11C35 /* Pods_SGYSwiftJSON_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SGYSwiftJSON_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		56C0BD6D3A91B37D769AD674 /* Pods-SGYSwiftJSON_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SGYSwiftJSON_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SGYSwiftJSON_Tests/Pods-SGYSwiftJSON_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		5C0F06F8C29E365CF9A70627 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* SGYSwiftJSON_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SGYSwiftJSON_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		9EBC2C583E58363698E593E0 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		AF75094C23FC6458A19D5950 /* Pods-SGYSwiftJSON_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SGYSwiftJSON_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SGYSwiftJSON_Tests/Pods-SGYSwiftJSON_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		C4B4110B1C66A04300AA3DA3 /* ComplexObject.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ComplexObject.json; sourceTree = "<group>"; };
 		C4B4110F1C69595E00AA3DA3 /* DictionaryObject.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DictionaryObject.json; sourceTree = "<group>"; };
 		C4B411111C69611500AA3DA3 /* ArrayObject.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ArrayObject.json; sourceTree = "<group>"; };
-		C82B2085DCF1F777CCC5EFF9 /* Pods_SGYSwiftJSON_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SGYSwiftJSON_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6266550DF05EFC83F7264BC /* SGYSwiftJSON.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SGYSwiftJSON.podspec; path = ../SGYSwiftJSON.podspec; sourceTree = "<group>"; };
-		FFEF8301FED0E5F5BB694170 /* Pods-SGYSwiftJSON_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SGYSwiftJSON_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SGYSwiftJSON_Tests/Pods-SGYSwiftJSON_Tests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,30 +34,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A98ED71A24A93BD77A543AE /* Pods_SGYSwiftJSON_Tests.framework in Frameworks */,
+				9CF0CDEC7DAF8B17EC4F2065 /* Pods_SGYSwiftJSON_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3816A978AE03387BFF9244DB /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				23CDFEFEA5ECA4531CB8B196 /* Pods-SGYSwiftJSON_Tests.debug.xcconfig */,
-				FFEF8301FED0E5F5BB694170 /* Pods-SGYSwiftJSON_Tests.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACE81AFB9204008FA782 /* Tests */,
 				607FACD11AFB9204008FA782 /* Products */,
-				3816A978AE03387BFF9244DB /* Pods */,
-				77169F8F95F2BAEE2DEFA425 /* Frameworks */,
+				7BA947F0B2DB6E5408647AEE /* Pods */,
+				E9BA442D84FC6A1E4F2732AA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,10 +90,19 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
-		77169F8F95F2BAEE2DEFA425 /* Frameworks */ = {
+		7BA947F0B2DB6E5408647AEE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				C82B2085DCF1F777CCC5EFF9 /* Pods_SGYSwiftJSON_Tests.framework */,
+				AF75094C23FC6458A19D5950 /* Pods-SGYSwiftJSON_Tests.debug.xcconfig */,
+				56C0BD6D3A91B37D769AD674 /* Pods-SGYSwiftJSON_Tests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		E9BA442D84FC6A1E4F2732AA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4013BADBD09AC1C9B4C11C35 /* Pods_SGYSwiftJSON_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -114,12 +114,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "SGYSwiftJSON_Tests" */;
 			buildPhases = (
-				17171C332D0060AD378BFE9B /* Check Pods Manifest.lock */,
+				253A4567DA8B0DE94C88F058 /* [CP] Check Pods Manifest.lock */,
 				607FACE11AFB9204008FA782 /* Sources */,
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
-				8EC87870742B8C5E750F6016 /* Embed Pods Frameworks */,
-				93AE47613859C9F29F1BDD72 /* Copy Pods Resources */,
+				C1FD2F8237A8663B1A5BDF25 /* [CP] Embed Pods Frameworks */,
+				165048894F37E92AFD0E33FD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -178,14 +178,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		17171C332D0060AD378BFE9B /* Check Pods Manifest.lock */ = {
+		165048894F37E92AFD0E33FD /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SGYSwiftJSON_Tests/Pods-SGYSwiftJSON_Tests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		253A4567DA8B0DE94C88F058 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -193,34 +208,19 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		8EC87870742B8C5E750F6016 /* Embed Pods Frameworks */ = {
+		C1FD2F8237A8663B1A5BDF25 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SGYSwiftJSON_Tests/Pods-SGYSwiftJSON_Tests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		93AE47613859C9F29F1BDD72 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SGYSwiftJSON_Tests/Pods-SGYSwiftJSON_Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -321,7 +321,7 @@
 		};
 		607FACF31AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 23CDFEFEA5ECA4531CB8B196 /* Pods-SGYSwiftJSON_Tests.debug.xcconfig */;
+			baseConfigurationReference = AF75094C23FC6458A19D5950 /* Pods-SGYSwiftJSON_Tests.debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -341,7 +341,7 @@
 		};
 		607FACF41AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FFEF8301FED0E5F5BB694170 /* Pods-SGYSwiftJSON_Tests.release.xcconfig */;
+			baseConfigurationReference = 56C0BD6D3A91B37D769AD674 /* Pods-SGYSwiftJSON_Tests.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
