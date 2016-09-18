@@ -56,9 +56,9 @@ open class SGYJSONSerializer {
     
     - parameter collection: An object implementing `SGYCollectionReflection`.
     
-    - throws: All `SGYJSONSerializer.Error` types.
+    - throws: All `SGYJSONSerializer.SerializeError` types.
     
-    - returns: Serialized collection JSON as `NSData`.
+    - returns: Serialized collection JSON as `Data`.
     */
     open func serialize(_ collection: SGYCollectionReflection) throws -> Data {
         let array = try convertToValidCollection(collection)
@@ -80,13 +80,13 @@ open class SGYJSONSerializer {
     }
     
     /**
-     Attempts serializing an instance of `AnyObject`.
+     Attempts serializing an instance of `Any`.
      
-     - parameter object: An instance of `AnyObject`.
+     - parameter object: An instance of `Any`.
      
-     - throws: All `SGYJSONSerializer.Error` types.
+     - throws: All `SGYJSONSerializer.SerializeError` types.
      
-     - returns: Serialized object JSON as `NSData`.
+     - returns: Serialized object JSON as `Data`.
      */
     open func serialize(_ object: Any) throws -> Data {
         // Attempt converting object to dictionary
@@ -187,8 +187,6 @@ open class SGYJSONSerializer {
             // Skip empty dictionaries
             if validDict.isEmpty { return nil }
             return validDict
-            
-//            return validDict.isEmpty ? nil : validDict
         }
         
         // Collection
