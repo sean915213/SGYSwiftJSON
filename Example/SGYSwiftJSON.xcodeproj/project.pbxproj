@@ -8,25 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
-		9CF0CDEC7DAF8B17EC4F2065 /* Pods_SGYSwiftJSON_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4013BADBD09AC1C9B4C11C35 /* Pods_SGYSwiftJSON_Tests.framework */; };
-		C4B4110C1C66A04300AA3DA3 /* ComplexObject.json in Resources */ = {isa = PBXBuildFile; fileRef = C4B4110B1C66A04300AA3DA3 /* ComplexObject.json */; };
-		C4B411101C69595E00AA3DA3 /* DictionaryObject.json in Resources */ = {isa = PBXBuildFile; fileRef = C4B4110F1C69595E00AA3DA3 /* DictionaryObject.json */; };
-		C4B411121C69611500AA3DA3 /* ArrayObject.json in Resources */ = {isa = PBXBuildFile; fileRef = C4B411111C69611500AA3DA3 /* ArrayObject.json */; };
+		C43ECD1F1D8F3A830095A2AF /* OldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43ECD1E1D8F3A830095A2AF /* OldTests.swift */; };
+		F5B214FC9CFEDA9E84D0BA72 /* Pods_SGYSwiftJSON_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A56D6A9D83791C67CF115FED /* Pods_SGYSwiftJSON_Tests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4013BADBD09AC1C9B4C11C35 /* Pods_SGYSwiftJSON_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SGYSwiftJSON_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		56C0BD6D3A91B37D769AD674 /* Pods-SGYSwiftJSON_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SGYSwiftJSON_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SGYSwiftJSON_Tests/Pods-SGYSwiftJSON_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		5C0F06F8C29E365CF9A70627 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* SGYSwiftJSON_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SGYSwiftJSON_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		9EBC2C583E58363698E593E0 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		AF75094C23FC6458A19D5950 /* Pods-SGYSwiftJSON_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SGYSwiftJSON_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SGYSwiftJSON_Tests/Pods-SGYSwiftJSON_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		C4B4110B1C66A04300AA3DA3 /* ComplexObject.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ComplexObject.json; sourceTree = "<group>"; };
-		C4B4110F1C69595E00AA3DA3 /* DictionaryObject.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DictionaryObject.json; sourceTree = "<group>"; };
-		C4B411111C69611500AA3DA3 /* ArrayObject.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ArrayObject.json; sourceTree = "<group>"; };
-		E6266550DF05EFC83F7264BC /* SGYSwiftJSON.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SGYSwiftJSON.podspec; path = ../SGYSwiftJSON.podspec; sourceTree = "<group>"; };
+		6BBAA1475B1FE0CB80A62305 /* SGYSwiftJSON.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SGYSwiftJSON.podspec; path = ../SGYSwiftJSON.podspec; sourceTree = "<group>"; };
+		79AD0CEAD3CE5D9EA82A08E0 /* Pods-SGYSwiftJSON_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SGYSwiftJSON_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SGYSwiftJSON_Tests/Pods-SGYSwiftJSON_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		8D29E02B19E022B0D85316F7 /* Pods-SGYSwiftJSON_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SGYSwiftJSON_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SGYSwiftJSON_Tests/Pods-SGYSwiftJSON_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		A56D6A9D83791C67CF115FED /* Pods_SGYSwiftJSON_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SGYSwiftJSON_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC3EC0D203A1A703C33512E7 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		C43ECD1E1D8F3A830095A2AF /* OldTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OldTests.swift; sourceTree = "<group>"; };
+		C4EA59F2644C67F6A9153A08 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,21 +30,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9CF0CDEC7DAF8B17EC4F2065 /* Pods_SGYSwiftJSON_Tests.framework in Frameworks */,
+				F5B214FC9CFEDA9E84D0BA72 /* Pods_SGYSwiftJSON_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00ECE0C8CEACBEA757BC9704 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				79AD0CEAD3CE5D9EA82A08E0 /* Pods-SGYSwiftJSON_Tests.debug.xcconfig */,
+				8D29E02B19E022B0D85316F7 /* Pods-SGYSwiftJSON_Tests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACE81AFB9204008FA782 /* Tests */,
 				607FACD11AFB9204008FA782 /* Products */,
-				7BA947F0B2DB6E5408647AEE /* Pods */,
-				E9BA442D84FC6A1E4F2732AA /* Frameworks */,
+				00ECE0C8CEACBEA757BC9704 /* Pods */,
+				7520C2B78041243F129963A7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -65,9 +70,7 @@
 			children = (
 				607FACEB1AFB9204008FA782 /* Tests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
-				C4B4110B1C66A04300AA3DA3 /* ComplexObject.json */,
-				C4B4110F1C69595E00AA3DA3 /* DictionaryObject.json */,
-				C4B411111C69611500AA3DA3 /* ArrayObject.json */,
+				C43ECD1E1D8F3A830095A2AF /* OldTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -83,26 +86,17 @@
 		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				E6266550DF05EFC83F7264BC /* SGYSwiftJSON.podspec */,
-				5C0F06F8C29E365CF9A70627 /* README.md */,
-				9EBC2C583E58363698E593E0 /* LICENSE */,
+				6BBAA1475B1FE0CB80A62305 /* SGYSwiftJSON.podspec */,
+				C4EA59F2644C67F6A9153A08 /* README.md */,
+				AC3EC0D203A1A703C33512E7 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
-		7BA947F0B2DB6E5408647AEE /* Pods */ = {
+		7520C2B78041243F129963A7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AF75094C23FC6458A19D5950 /* Pods-SGYSwiftJSON_Tests.debug.xcconfig */,
-				56C0BD6D3A91B37D769AD674 /* Pods-SGYSwiftJSON_Tests.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		E9BA442D84FC6A1E4F2732AA /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				4013BADBD09AC1C9B4C11C35 /* Pods_SGYSwiftJSON_Tests.framework */,
+				A56D6A9D83791C67CF115FED /* Pods_SGYSwiftJSON_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -114,12 +108,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "SGYSwiftJSON_Tests" */;
 			buildPhases = (
-				253A4567DA8B0DE94C88F058 /* [CP] Check Pods Manifest.lock */,
+				D2FD66E97FEEE7E336DC5A11 /* [CP] Check Pods Manifest.lock */,
 				607FACE11AFB9204008FA782 /* Sources */,
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
-				C1FD2F8237A8663B1A5BDF25 /* [CP] Embed Pods Frameworks */,
-				165048894F37E92AFD0E33FD /* [CP] Copy Pods Resources */,
+				F46428DB89ED409615975B02 /* [CP] Embed Pods Frameworks */,
+				BB38C3772FCA974CF0A5A0D4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -137,11 +131,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						LastSwiftMigration = 0800;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
 				};
@@ -169,16 +164,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4B411101C69595E00AA3DA3 /* DictionaryObject.json in Resources */,
-				C4B411121C69611500AA3DA3 /* ArrayObject.json in Resources */,
-				C4B4110C1C66A04300AA3DA3 /* ComplexObject.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		165048894F37E92AFD0E33FD /* [CP] Copy Pods Resources */ = {
+		BB38C3772FCA974CF0A5A0D4 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -193,7 +185,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SGYSwiftJSON_Tests/Pods-SGYSwiftJSON_Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		253A4567DA8B0DE94C88F058 /* [CP] Check Pods Manifest.lock */ = {
+		D2FD66E97FEEE7E336DC5A11 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -208,7 +200,7 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		C1FD2F8237A8663B1A5BDF25 /* [CP] Embed Pods Frameworks */ = {
+		F46428DB89ED409615975B02 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -231,6 +223,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
+				C43ECD1F1D8F3A830095A2AF /* OldTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,7 +267,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -312,7 +305,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -321,8 +314,9 @@
 		};
 		607FACF31AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AF75094C23FC6458A19D5950 /* Pods-SGYSwiftJSON_Tests.debug.xcconfig */;
+			baseConfigurationReference = 79AD0CEAD3CE5D9EA82A08E0 /* Pods-SGYSwiftJSON_Tests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -335,14 +329,15 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SGYSwiftJSON_Example.app/SGYSwiftJSON_Example";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		607FACF41AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 56C0BD6D3A91B37D769AD674 /* Pods-SGYSwiftJSON_Tests.release.xcconfig */;
+			baseConfigurationReference = 8D29E02B19E022B0D85316F7 /* Pods-SGYSwiftJSON_Tests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -351,7 +346,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SGYSwiftJSON_Example.app/SGYSwiftJSON_Example";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
