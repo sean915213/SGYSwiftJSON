@@ -9,7 +9,7 @@
 import Foundation
 
 /**
- Describes the possible leaf values that `NSJSONSerialization` will serialize or deserialize.
+ Describes the possible leaf values that `JSONSerialization` will serialize or deserialize.
  
  - String:              A JSON String. Represented as an `NSString` value.
  - Number:              A JSON Number. Represented as an `NSNumber` value.
@@ -53,7 +53,7 @@ public enum JSONLeafValue {
      - returns: A `Number` case containing an `NSNumber` value, or `nil` if `number` did not meet requirements.
      */
     public init?(_ number: NSNumber) {
-        // Per documentation NSJSONSerialization will fail on NaN and infinite numbers
+        // Per documentation JSONSerialization will fail on NaN and infinite numbers
         guard !number.doubleValue.isNaN && !number.doubleValue.isInfinite else { return nil }
         self = .number(number)
     }
