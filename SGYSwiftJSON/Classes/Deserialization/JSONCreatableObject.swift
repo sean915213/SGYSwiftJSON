@@ -46,6 +46,7 @@ open class JSONCreatableObject: NSObject, JSONKeyValueCreatable {
     open func setValue(_ value: Any, property: String) throws {
         // Since we're utilizing our category on NSObject we can only accept AnyObject
         guard let objectValue = value as? AnyObject else { throw KeyValueError.invalidSetValueObject }
+        
         var error: NSError?
         setValue(objectValue, forKey: property, error: &error)
         // Throw error if populated
