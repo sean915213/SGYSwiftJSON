@@ -1,6 +1,5 @@
 # SGYSwiftJSON
 
-[![CI Status](http://img.shields.io/travis/Sean G. Young/SGYSwiftJSON.svg?style=flat)](https://travis-ci.org/Sean G. Young/SGYSwiftJSON)
 [![Version](https://img.shields.io/cocoapods/v/SGYSwiftJSON.svg?style=flat)](http://cocoapods.org/pods/SGYSwiftJSON)
 [![License](https://img.shields.io/cocoapods/l/SGYSwiftJSON.svg?style=flat)](http://cocoapods.org/pods/SGYSwiftJSON)
 [![Platform](https://img.shields.io/cocoapods/p/SGYSwiftJSON.svg?style=flat)](http://cocoapods.org/pods/SGYSwiftJSON)
