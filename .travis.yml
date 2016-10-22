@@ -8,7 +8,7 @@ osx_image: xcode8
 podfile: Example/Podfile
 before_install:
  - gem install cocoapods # Since Travis is not always on latest version
- - pod repo update # Newly required by Cocoapods 1.0
+ - pod repo update --silent # Newly required by Cocoapods 1.0
  - pod install --project-directory=Example # Required in order to reference SGYKVOSafeNSObject during pod lib lint
 script:
 - set -o pipefail && xcodebuild test -workspace Example/SGYSwiftJSON.xcworkspace -scheme SGYSwiftJSON-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -destination 'platform=iOS Simulator,name=iPhone 6,OS=10.0' | xcpretty
