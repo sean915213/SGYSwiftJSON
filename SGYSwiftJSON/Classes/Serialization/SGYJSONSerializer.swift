@@ -13,7 +13,7 @@ open class SGYJSONSerializer {
      Errors thrown during serialization.
      
      - InvalidDictionaryKeyType(`Any.Type`): A dictionary key encountered could not be cast to `String` and does not implement the `CustomStringConvertible` protocol.
-     - NSJSONSerializationError(`NSError`): An error occurred seralizing the resulting (supposedly safe) object graph.  This should probably be considered a bug.
+     - JSONSerializationError(`NSError`): An error occurred seralizing the resulting (supposedly safe) object graph.  This should probably be considered a bug.
      */
     public enum SerializeError: Error {
         /**
@@ -25,9 +25,9 @@ open class SGYJSONSerializer {
         /**
         Indicates an error occurred seralizing the resulting (supposedly safe) object graph.  This should probably be considered a bug.
         
-        - returns: An `NSJSONSerializationError` case initialized with the caught `NSError`.
+        - returns: An `JSONSerializationError` case initialized with the caught `NSError`.
         */
-        nsjsonSerializationError(NSError)
+        jsonSerializationError(NSError)
     }
 
     // MARK: - Initialization
@@ -45,7 +45,7 @@ open class SGYJSONSerializer {
     open var strictMode = true
     /// The writing options used during serialization.
     open var writingOptions = JSONSerialization.WritingOptions()
-    /// The block this instance will call in order to convert `NSDate` values to a valid JSON leaf value.
+    /// The block this instance will call in order to convert `Date` values to a valid JSON leaf value.
     open var dateConversionBlock: ((_ date: Date) -> JSONLeafValue?)?
     
     // MARK: - Methods
@@ -98,7 +98,7 @@ open class SGYJSONSerializer {
     
     fileprivate func serializeObject(_ object: AnyObject) throws -> Data {
         do { return try JSONSerialization.data(withJSONObject: object, options: writingOptions) }
-        catch let e as NSError { throw SerializeError.nsjsonSerializationError(e) }
+        catch let e as NSError { throw SerializeError.jsonSerializationError(e) }
     }
     
     fileprivate func convertToValidDictionary(_ object: Any) throws -> [String: Any] {

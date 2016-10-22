@@ -55,7 +55,7 @@ public class SGYJSONDeserializer {
 
     // MARK: - Properties
     
-    /// If an NSDate property is encountered during deserialization this block is used to convert the deserialized value.
+    /// If a `Date` property is encountered during deserialization this block is used to convert the deserialized value.
     public var dateConversionBlock: SGYJSONDateConversionBlock?
     /// The reading options used during deserialization.
     public var readingOptions = JSONSerialization.ReadingOptions()
@@ -166,8 +166,8 @@ public class SGYJSONDeserializer {
         // If requested type is already AnyObject or both types are explicitly equal return raw value
         guard type != AnyObject.self && type != type(of: value) else { return value }
         
-        // Since NSDate conversion is supplied via a block check for this property type first and pass to block.
-        // 99% of the time a JSON date is a number or string, but checking this first is trivial performance-wise and allows conversions to date with all types produced by NSJSONSerialization.
+        // Since Date conversion is supplied via a block check for this property type first and pass to block.
+        // 99% of the time a JSON date is a number or string, but checking this first is trivial performance-wise and allows conversions to date with all types produced by JSONSerialization.
         if type is Date.Type { return dateConversionBlock?(value) }
         
         // Check where value is a leaf value
@@ -186,7 +186,7 @@ public class SGYJSONDeserializer {
         // Block that logs this conversion as invalid
         let unsupportedConversion = { self.unsupportedConversionBlock?(value, type) }
         
-        // ARRAY. Check whether the returned value is an NSArray (always the case from NSJSONSerialization for any collection type)
+        // ARRAY. Check whether the returned value is an NSArray (always the case from JSONSerialization for any collection type)
         if let arrayValue = value as? [AnyObject] {
             // Limited backwards compatibility
             if type is NSArray.Type {
@@ -205,7 +205,7 @@ public class SGYJSONDeserializer {
             }
         }
         
-        // DICTIONARY. Check whether the returned value is an NSDictionary (always the case from NSJSONSerialization for any dictionary/complex type).
+        // DICTIONARY. Check whether the returned value is an NSDictionary (always the case from JSONSerialization for any dictionary/complex type).
         if let dictionaryValue = value as? [String: AnyObject] {
             // Limited backwards compatibility
             if type is NSDictionary.Type {
