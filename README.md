@@ -45,11 +45,11 @@ Serialization is supported via protocols and the use of Swift's `Mirror`. Any ob
 
 <a name="deserialization"></a>
 ### Deserialization
-Deserialization is considerably more difficult than serialization as it requires all types have a parameterless initializer, can assign arbitrary values, and are able to report the types they contain.  Upon deserialization of an `NSArray` or `NSDictionary` (the only objects produced by `NSJSONSerialization`) the following logic is performed:
+Deserialization is considerably more difficult than serialization as it requires all types have a parameterless initializer, can assign arbitrary values, and are able to report the types they contain.  Upon deserialization of an `NSArray` or `NSDictionary` (the only objects produced by `JSONSerialization`) the following logic is performed:
  1. The type arguments are determined by the protocol that the object being deserialized into conforms:
-  *  If the object conforms to `JSONKeyValueCreatable` the object's properties and type values are determined using `Mirror`.  The object produced by `NSJSONSerialization` must be an `NSDictionary`or an error is thrown.
-  *  If the object conforms to `JSONDictionaryCreatable` the object's key and value type are retrieved using the protocol's *keyValueTypes* property. The object produced by `NSJSONSerialization` must be an `NSDictionary`or an error is thrown.
-  *  If the object conforms to `JSONCollectionCreatable` the object's element type is retrieved using the protocol's *elementType* property. The object produced by `NSJSONSerialization` must be an `NSArray`or an error is thrown.
+  *  If the object conforms to `JSONKeyValueCreatable` the object's properties and type values are determined using `Mirror`.  The object produced by `JSONSerialization` must be an `NSDictionary`or an error is thrown.
+  *  If the object conforms to `JSONDictionaryCreatable` the object's key and value type are retrieved using the protocol's *keyValueTypes* property. The object produced by `JSONSerialization` must be an `NSDictionary`or an error is thrown.
+  *  If the object conforms to `JSONCollectionCreatable` the object's element type is retrieved using the protocol's *elementType* property. The object produced by `JSONSerialization` must be an `NSArray`or an error is thrown.
  2. If the value to be deserialized into is an array then all values will be converted to the array's containing `Element` type.  Similarly, dictionaries have the containing values converted to their `Value` type.  For complex objects the value is converted using its `Mirror` property representation.  This conversion is done using the following logic:
   1. If the declared type is `AnyObject` or the declared type matches the deserialized type then the deserialized type is assigned directly.
   2. If the declared type is `Date` then the `dateConversionBlock` is used to convert the deserialized `AnyObject` value to `Date`.  If the block is not declared or returns nil the property is not assigned.

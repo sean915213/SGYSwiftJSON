@@ -11,9 +11,9 @@ import Foundation
 /**
  Describes the possible leaf values that `JSONSerialization` will serialize or deserialize.
  
- - String:              A JSON String. Represented as an `NSString` value.
- - Number:              A JSON Number. Represented as an `NSNumber` value.
- - Null:                A JSON null. Represented as an `NSNull` value.
+ - string:              A JSON String. Represented as an `NSString` value.
+ - number:              A JSON Number. Represented as an `NSNumber` value.
+ - null:                A JSON null. Represented as an `NSNull` value.
  */
 public enum JSONLeafValue {
     /// Represents a JSON String leaf value.  Wraps an `NSString` value.
@@ -24,33 +24,33 @@ public enum JSONLeafValue {
     null(NSNull)
     
     /**
-     Initializes a `String` case with an `NSString` value.
+     Initializes a `string` case with an `NSString` value.
      
      - parameter string: An `NSString`.
      
-     - returns: A `String` case containing an `NSString` value.
+     - returns: A `string` case containing an `NSString` value.
      */
     public init(_ string: NSString) {
         self = .string(string)
     }
     
     /**
-     Initializes a `Null` case with an `NSNull` value.
+     Initializes a `null` case with an `NSNull` value.
      
      - parameter string: An `NSNull`.
      
-     - returns: A `Null` case containing an `NSNull` value.
+     - returns: A `null` case containing an `NSNull` value.
      */
     public init(_ null: NSNull) {
         self = .null(null)
     }
     
     /**
-     Attempts initializing a `Number` case with an `NSNumber` value. The number's `doubleValue` cannot be NaN or infinite. In these cases `nil` is returned.
+     Attempts initializing a `number` case with an `NSNumber` value. The number's `doubleValue` cannot be NaN or infinite. In these cases `nil` is returned.
      
      - parameter number: An `NSNumber` value.
      
-     - returns: A `Number` case containing an `NSNumber` value, or `nil` if `number` did not meet requirements.
+     - returns: A `number` case containing an `NSNumber` value, or `nil` if `number` parameter did not meet requirements.
      */
     public init?(_ number: NSNumber) {
         // Per documentation JSONSerialization will fail on NaN and infinite numbers
