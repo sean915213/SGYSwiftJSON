@@ -15,18 +15,6 @@ import SGYKVCSafeNSObject
 open class JSONCreatableObject: NSObject, JSONKeyValueCreatable {
     
     /**
-     Errors thrown by this class.
-     */
-    public enum KeyValueError: Error {
-        /**
-         Indicates that the `value` passed to `setValue:property` could not be converted to `AnyObject`.  This is a requirement for this class.
-         
-         - returns: An `InvalidSetValueObject` case.
-         */
-        case invalidSetValueObject
-    }
-    
-    /**
      A required parameterless initializer in order to conform to `JSONKeyValueCreatable`.
      
      - returns: An initialized instance.
@@ -36,19 +24,17 @@ open class JSONCreatableObject: NSObject, JSONKeyValueCreatable {
     }
     
     /**
-     Implement's `JSONKeyValueCreatable`'s method for setting deserialized values. The `value` passed must be castable to `AnyObject` or an `Error` case is thrown.
+     Implement's `JSONKeyValueCreatable`'s method for setting deserialized values.
      
      - parameter value:    The deserialized value.
      - parameter property: The name of the property.
      
-     - throws: An `JSONCreatableObject.Error` case or exceptions thrown by `NSObject`.
+     - throws: Exceptions produced by `NSObject`.
      */
     open func setValue(_ value: Any, property: String) throws {
-        // Since we're utilizing our category on NSObject we can only accept AnyObject
-        guard let objectValue = value as? AnyObject else { throw KeyValueError.invalidSetValueObject }
-        
+        // Attempt setting value via KVC
         var error: NSError?
-        setValue(objectValue, forKey: property, error: &error)
+        setValue(value, forKey: property, error: &error)
         // Throw error if populated
         if let e = error { throw e }
     }

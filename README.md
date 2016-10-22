@@ -51,11 +51,11 @@ Deserialization is considerably more difficult than serialization as it requires
   *  If the object conforms to `JSONDictionaryCreatable` the object's key and value type are retrieved using the protocol's *keyValueTypes* property. The object produced by `JSONSerialization` must be an `NSDictionary`or an error is thrown.
   *  If the object conforms to `JSONCollectionCreatable` the object's element type is retrieved using the protocol's *elementType* property. The object produced by `JSONSerialization` must be an `NSArray`or an error is thrown.
  2. If the value to be deserialized into is an array then all values will be converted to the array's containing `Element` type.  Similarly, dictionaries have the containing values converted to their `Value` type.  For complex objects the value is converted using its `Mirror` property representation.  This conversion is done using the following logic:
-  1. If the declared type is `AnyObject` or the declared type matches the deserialized type then the deserialized type is assigned directly.
-  2. If the declared type is `Date` then the `dateConversionBlock` is used to convert the deserialized `AnyObject` value to `Date`.  If the block is not declared or returns nil the property is not assigned.
+  1. If the declared type is `Any`, `AnyObject` or the declared type matches the deserialized type then the deserialized type is assigned directly.
+  2. If the declared type is `Date` then the `dateConversionBlock` is used to convert the deserialized `Any` value to `Date`.  If the block is not declared or returns nil the property is not assigned.
   2. If the deserialized value is a leaf value then the deserialized type must conform to `JSONLeafConvertable` and will be constructed using the leaf value and assigned.  Otherwise the deserialized value is not assigned.
-  3. If the deserialized value is the `[AnyObject]` type and the declared type is `JSONCollectionCreatable` an array will be initialized and returned using the array conversion logic.  Otherwise the deserialized value is not assigned.
-  4. If the deserialized value is the `[String: AnyObject]` type and the declared type is `JSONDictionaryCreatable` an array will be initialized and returned using the dictionary conversion logic.  Otherwise the deserialized value is not assigned.
+  3. If the deserialized value is the `[Any]` type and the declared type is `JSONCollectionCreatable` an array will be initialized and returned using the array conversion logic.  Otherwise the deserialized value is not assigned.
+  4. If the deserialized value is the `[String: Any]` type and the declared type is `JSONDictionaryCreatable` an array will be initialized and returned using the dictionary conversion logic.  Otherwise the deserialized value is not assigned.
 
 <a name="examples"></a>
 ## Examples
@@ -112,7 +112,7 @@ This will deserialize just fine.   If you're hell bent on using optional Foundat
 Now the model looks a bit closer to something we might actually design without de/serialization in mind.  But what about the `favoriteColor` property? That absolutely begs to be a Swift enum.  Serialization is, again, simpler to perform.  We define `Color` enum that conforms to a compound protocol:
 ```swift
 enum Color: String, JSONLeafEnum {
-    case Red = "Red", Green = "Green", Blue = "Blue", Yellow = "Yellow"
+    case red = "Red", green = "Green", blue = "Blue", yellow = "Yellow"
 }
 ```
 Now modify the type on `Person`:
@@ -141,10 +141,10 @@ formatter.dateStyle = .MediumStyle
 serializer.dateConversionBlock = { (date) in formatter.stringFromDate(date) }
 // Continue serialization as before
 ```
-Deserialization is similar.  The main difference is the `dateConversionBlock` on the deserializer accepts a more general argument of `AnyObject` in order to allow conversion to `Date` from any arbitrarily deserialized value:
+Deserialization is similar.  The main difference is the `dateConversionBlock` on the deserializer accepts a more general argument of `Any` in order to allow conversion to `Date` from any arbitrarily deserialized value:
 ```swift
 let formatter = DateFormatter()
-formatter.dateStyle = .MediumStyle
+formatter.dateStyle = .mediumStyle
 deserializer.dateConversionBlock = { (jsonValue) -> Date? in
     guard let value = jsonValue as? String else { return nil }
     return formatter.dateFromString(value)

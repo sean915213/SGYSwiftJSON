@@ -26,6 +26,8 @@ class BaseComplexObject: JSONCreatableObject {
     var color: Color?
     var date: Date?
     
+    var intArray: [Int]?
+    
     override func setValue(_ value: Any, property: String) throws {
         if property == "color" { color = value as? Color }
         else { try super.setValue(value, property: property) }
@@ -41,6 +43,7 @@ class ComplexObject: BaseComplexObject {
     
     var number: NSNumber?
     var shape: Shape?
+    var double: Double = 0
     
     var complexDict: [String: ComplexObject]?
     

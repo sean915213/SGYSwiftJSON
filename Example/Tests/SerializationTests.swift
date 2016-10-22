@@ -32,6 +32,19 @@ class SerializationTests: XCTestCase {
         super.tearDown()
     }
     
+    func testArraySerialization() {
+        let testArray = [1.0, 50.0, 100, 45.0]
+        // Serialize
+        let arrayData = try? serializer.serialize(testArray)
+        XCTAssertNotNil(arrayData)
+        
+        // Foundation deserialize
+        let jsonArray = try? JSONSerialization.jsonObject(with: arrayData!, options: []) as? [Double]
+        XCTAssertNotNil(jsonArray)
+        
+        XCTAssertEqual(jsonArray!!, testArray)
+    }
+    
     func testComplexObjectSerialization() {
         // Test properties
         let testInt = NSNumber(integerLiteral: 45)
@@ -39,6 +52,8 @@ class SerializationTests: XCTestCase {
         let testColor = Color.yellow
         let testShape = Shape.circle
         let testDate = Date(timeIntervalSince1970: 10000)
+        let testDouble = 33.3
+        let testArray = [0, 1, 2, 3, 4]
         
         // Create test object
         let complexObj = ComplexObject(number: testInt)
@@ -46,6 +61,8 @@ class SerializationTests: XCTestCase {
         complexObj.color = testColor
         complexObj.shape = testShape
         complexObj.date = testDate
+        complexObj.double = testDouble
+        complexObj.intArray = testArray
         // - Nested dictionary
         complexObj.complexDict = [:]
         for i in 1...5 {
@@ -54,7 +71,7 @@ class SerializationTests: XCTestCase {
         
         // Serialize
         let objData = try? serializer.serialize(complexObj)
-        XCTAssertNotNil(objData, "Complex object should serialize.")
+        XCTAssertNotNil(objData)
         
         /**
         let jsonString = String(data: objData!, encoding: String.Encoding.utf8)!
@@ -65,7 +82,7 @@ class SerializationTests: XCTestCase {
         
         // Foundation deserialize
         let jsonObj = try? JSONSerialization.jsonObject(with: objData!, options: []) as? [String: Any]
-        XCTAssertNotNil(jsonObj, "Resulting json should deserialize.")
+        XCTAssertNotNil(jsonObj)
         
         // Property checks
         XCTAssertEqual(jsonObj??["string"] as? String, testString)
@@ -73,12 +90,24 @@ class SerializationTests: XCTestCase {
         XCTAssertEqual(jsonObj??["number"] as? NSNumber, testInt)
         XCTAssertEqual(jsonObj??["shape"] as? String, testShape.rawValue)
         XCTAssertEqual(jsonObj??["date"] as? TimeInterval, testDate.timeIntervalSince1970)
+        XCTAssertEqual(jsonObj??["double"] as? Double, 33.3)
         // Nested dictionary
         let dict = jsonObj??["complexDict"] as? [String: [String: Any]]
-        XCTAssertNotNil(dict, "Should deserialize complex object dictionary.")
+        XCTAssertNotNil(dict)
         for i in 1...5 {
             XCTAssertEqual(dict?["\(i)"]?["number"] as? NSNumber, NSNumber(integerLiteral: i))
         }
+        // Array
+        let array = jsonObj??["intArray"] as? [Int]
+        XCTAssertNotNil(array)
+        XCTAssertEqual(array!, testArray)
+        
+        /**
+        XCTAssertNotNil(array)
+        for i in 0...4 {
+            XCTAssertEqual(array![i], i)
+        }
+ **/
     }
     
 }

@@ -43,7 +43,7 @@ public protocol JSONCollectionCreatable: SGYCollectionReflection {
      
      - returns: A type initialized from the collection.
      */
-    init(array: [AnyObject])
+    init(array: [Any])
 }
 
 /**
@@ -57,7 +57,7 @@ public protocol JSONDictionaryCreatable: SGYDictionaryReflection {
      
      - returns: A type initialized from the dictionary.
      */
-    init(dictionary: [String: AnyObject])
+    init(dictionary: [String: Any])
 }
 
 /**

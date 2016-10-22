@@ -12,13 +12,13 @@ import Foundation
 
 extension RangeReplaceableCollection where Self: JSONCollectionCreatable {
     /**
-     Extends `RangeReplaceableCollectionType` types that implement `JSONCollectionCreatable`. Provides an automatic initializer that attempts casting the provided `AnyObject` collection to the type's `Generator.Element`.
+     Extends `RangeReplaceableCollectionType` types that implement `JSONCollectionCreatable`. Provides an automatic initializer that attempts casting the provided `Any` collection to the type's `Iterator.Element`.
      
-     - parameter array: An array typed as `[AnyObject]` but intended to contain instances that can be cast to the type's `Generator.Element`.
+     - parameter array: An array typed as `[Any]` but intended to contain instances that can be cast to the type's `Iterator.Element`.
      
      - returns: An initialized collection.
      */
-    public init(array: [AnyObject]) {
+    public init(array: [Any]) {
         self.init()
         array.forEach { if let e = $0 as? Iterator.Element { append(e) } }
         
@@ -31,11 +31,11 @@ extension Set: JSONCollectionCreatable {
     /**
      An initializer that extends `Set` to conform to `JSONCollectionCreatable`.
      
-     - parameter array: An array typed as `[AnyObject]` but intended to contain instances that can be cast to `Generator.Element`.
+     - parameter array: An array typed as `[Any]` but intended to contain instances that can be cast to `Iterator.Element`.
      
      - returns: An initialized set.
      */
-    public init(array: [AnyObject]) {
+    public init(array: [Any]) {
         self.init()
         array.forEach { if let e = $0 as? Iterator.Element { insert(e) } }
         
@@ -49,11 +49,11 @@ extension Dictionary: JSONDictionaryCreatable {
     /**
      An initializer that extends `Dictionary` to conform to `JSONDictionaryCreatable`.
      
-     - parameter dictionary: A dictionary typed as `[String: AnyObject]` but intended to contain values that can be cast to `Value`.
+     - parameter dictionary: A dictionary typed as `[String: Any]` but intended to contain values that can be cast to `Value`.
      
      - returns: An initialized dictionary.
      */
-    public init(dictionary: [String: AnyObject]) {
+    public init(dictionary: [String: Any]) {
         self.init()
         dictionary.forEach {
             if let k = $0 as? Key, let v = $1 as? Value { self[k] = v }

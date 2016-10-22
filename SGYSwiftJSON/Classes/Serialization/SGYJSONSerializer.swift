@@ -62,7 +62,7 @@ open class SGYJSONSerializer {
     */
     open func serialize(_ collection: SGYCollectionReflection) throws -> Data {
         let array = try convertToValidCollection(collection)
-        return try serializeObject(array as AnyObject)
+        return try serializeObject(array)
     }
     
     /**
@@ -76,7 +76,7 @@ open class SGYJSONSerializer {
      */
     open func serialize(_ dictionary: SGYDictionaryReflection) throws -> Data {
         let dictionary = try convertToValidDictionary(dictionary)
-        return try serializeObject(dictionary as AnyObject)
+        return try serializeObject(dictionary)
     }
     
     /**
@@ -91,12 +91,12 @@ open class SGYJSONSerializer {
     open func serialize(_ object: Any) throws -> Data {
         // Attempt converting object to dictionary
         let dictionary = try convertToValidDictionary(object)
-        return try serializeObject(dictionary as AnyObject)
+        return try serializeObject(dictionary)
     }
     
     // MARK: Private
     
-    fileprivate func serializeObject(_ object: AnyObject) throws -> Data {
+    fileprivate func serializeObject(_ object: Any) throws -> Data {
         do { return try JSONSerialization.data(withJSONObject: object, options: writingOptions) }
         catch let e as NSError { throw SerializeError.jsonSerializationError(e) }
     }

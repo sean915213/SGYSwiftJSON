@@ -8,8 +8,8 @@
 
 import Foundation
 
-public typealias SGYJSONDateConversionBlock = (AnyObject) -> Date?
-public typealias SGYJSONUnsupportedConversionBlock = (AnyObject, Any.Type) -> Void
+public typealias SGYJSONDateConversionBlock = (Any) -> Date?
+public typealias SGYJSONUnsupportedConversionBlock = (Any, Any.Type) -> Void
 
 /// A JSON deserializer.
 public class SGYJSONDeserializer {
@@ -18,7 +18,7 @@ public class SGYJSONDeserializer {
      Errors thrown during deserialization.
      
      - InvalidDeserializedObject: The provided data deserialized into an object incompatible with the type argument.
-     - KeyValueError(`String`, `AnyObject`, `NSError`): An error was thrown calling `setValue:property:` on the deserialized object.
+     - KeyValueError(`String`, `Any`, `NSError`): An error was thrown calling `setValue:property:` on the deserialized object.
      - NSJSONDeserializationError(`NSError`): An error was thrown when deserializing the initial data.
      */
     public enum DeserializeError: Error {
@@ -34,14 +34,14 @@ public class SGYJSONDeserializer {
         
         - returns: An `Error` case.
         */
-        keyValueError(String, AnyObject, NSError),
+        keyValueError(String, Any, NSError),
         
         /**
         An error was thrown when deserializing the initial data.
         
         - returns: An `Error` case.
         */
-        nsjsonDeserializationError(NSError)
+        jsonDeserializationError(NSError)
     }
     
     // MARK: - Initialization
@@ -94,7 +94,7 @@ public class SGYJSONDeserializer {
         // Deserialize data
         let jsonObject = try deserializeData(jsonData)
         // Result can only be a dictionary or an array, and we only expect a dictionary in this scenario
-        guard let dictionary = jsonObject as? [String: AnyObject] else { throw DeserializeError.invalidDeserializedObject }
+        guard let dictionary = jsonObject as? [String: Any] else { throw DeserializeError.invalidDeserializedObject }
         // Assign properties from dictionary and return
         try assignInstanceProperties(instance, dictionary: dictionary)
     }
@@ -112,7 +112,7 @@ public class SGYJSONDeserializer {
         // Deserialize data
         let jsonObject = try deserializeData(jsonData)
         // Result can only be a dictionary or an array, and we only expect an array in this scenario
-        guard let array = jsonObject as? [AnyObject] else { throw DeserializeError.invalidDeserializedObject }
+        guard let array = jsonObject as? [Any] else { throw DeserializeError.invalidDeserializedObject }
         // Return converted collection
         return try convertCollection(array, toCollectionType: T.self) as! T
     }
@@ -130,41 +130,41 @@ public class SGYJSONDeserializer {
         // Deserialize data
         let jsonObject = try deserializeData(jsonData)
         // Result can only be a dictionary or an array, and we only expect a dictionary in this scenario
-        guard let dictionary = jsonObject as? [String: AnyObject] else { throw DeserializeError.invalidDeserializedObject }
+        guard let dictionary = jsonObject as? [String: Any] else { throw DeserializeError.invalidDeserializedObject }
         return try convertDictionary(dictionary, toDictionaryType: T.self) as! T
     }
     
     // MARK: Private
     
-    private func deserializeData(_ data: Data) throws -> AnyObject {
-        do { return try JSONSerialization.jsonObject(with: data, options: readingOptions) as AnyObject }
-        catch let e as NSError { throw DeserializeError.nsjsonDeserializationError(e) }
+    private func deserializeData(_ data: Data) throws -> Any {
+        do { return try JSONSerialization.jsonObject(with: data, options: readingOptions) }
+        catch let e as NSError { throw DeserializeError.jsonDeserializationError(e) }
     }
     
-    private func convertCollection(_ values: [AnyObject], toCollectionType type: JSONCollectionCreatable.Type) throws -> JSONCollectionCreatable {
-        // First collect all converted values.  MUST collect into an array typed of [AnyObject] because in the end that's what we must return from this function.  Returning [Any] completely breaks the ability to assign the resultant objects.
-        let convertedValues: [AnyObject?] = try values.map { try self.convertValue($0, toType: type.elementType) as? AnyObject }
+    private func convertCollection(_ values: [Any], toCollectionType type: JSONCollectionCreatable.Type) throws -> JSONCollectionCreatable {
+        // First collect all converted values.
+        let convertedValues = try values.map { try self.convertValue($0, toType: type.elementType) }
         // Create a filtered list of non-nil, unwrapped values
         let realValues = (convertedValues.filter { $0 != nil }).map { $0! }
         // Return a type instance initialized with the contents
         return type.init(array: realValues)
     }
     
-    private func convertDictionary(_ dictionary: [String: AnyObject], toDictionaryType type: JSONDictionaryCreatable.Type) throws -> JSONDictionaryCreatable {
-        var typedDictionary = [String: AnyObject]()
+    private func convertDictionary(_ dictionary: [String: Any], toDictionaryType type: JSONDictionaryCreatable.Type) throws -> JSONDictionaryCreatable {
+        var typedDictionary = [String: Any]()
         for (key, value) in dictionary {
-            if let typedValue = try convertValue(value, toType: type.keyValueTypes.value) as? AnyObject { typedDictionary[key] = typedValue }
+            if let typedValue = try convertValue(value, toType: type.keyValueTypes.value) { typedDictionary[key] = typedValue }
         }
         // Return a type instance initialized with the contents
         return type.init(dictionary: typedDictionary)
     }
 
-    private func convertValue(_ value: AnyObject, toType: Any.Type) throws -> Any? {
+    private func convertValue(_ value: Any, toType: Any.Type) throws -> Any? {
         var type = toType
         // Unwrap all optional nesting on the type
         type = unwrap(type)
-        // If requested type is already AnyObject or both types are explicitly equal return raw value
-        guard type != AnyObject.self && type != type(of: value) else { return value }
+        // If requested type is already Any, AnyObject or both types are explicitly equal return raw value
+        guard type != Any.self && type != AnyObject.self && type != type(of: value) else { return value }
         
         // Since Date conversion is supplied via a block check for this property type first and pass to block.
         // 99% of the time a JSON date is a number or string, but checking this first is trivial performance-wise and allows conversions to date with all types produced by JSONSerialization.
@@ -187,7 +187,7 @@ public class SGYJSONDeserializer {
         let unsupportedConversion = { self.unsupportedConversionBlock?(value, type) }
         
         // ARRAY. Check whether the returned value is an NSArray (always the case from JSONSerialization for any collection type)
-        if let arrayValue = value as? [AnyObject] {
+        if let arrayValue = value as? [Any] {
             // Limited backwards compatibility
             if type is NSArray.Type {
                 if type is NSMutableArray.Type { return (arrayValue as NSArray).mutableCopy() }
@@ -206,7 +206,7 @@ public class SGYJSONDeserializer {
         }
         
         // DICTIONARY. Check whether the returned value is an NSDictionary (always the case from JSONSerialization for any dictionary/complex type).
-        if let dictionaryValue = value as? [String: AnyObject] {
+        if let dictionaryValue = value as? [String: Any] {
             // Limited backwards compatibility
             if type is NSDictionary.Type {
                 if type is NSMutableDictionary.Type { return (dictionaryValue as NSDictionary).mutableCopy() }
@@ -236,7 +236,7 @@ public class SGYJSONDeserializer {
         return nil
     }
     
-    private func assignInstanceProperties(_ instance: JSONKeyValueCreatable, dictionary: [String: AnyObject]) throws {
+    private func assignInstanceProperties(_ instance: JSONKeyValueCreatable, dictionary: [String: Any]) throws {
         var instanceMirror: Mirror? = Mirror(reflecting: instance)
         while let mirror = instanceMirror {
             // Loop through the instance's property info
