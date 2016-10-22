@@ -26,7 +26,8 @@ The majority of models written with JSON serialization in mind are already suppo
 * All collections are the  `Array`, `Set`, `NSArray`, or `NSMutableArray` types with an element type that adheres to this collection of rules.
 * All dictionaries have a `String` or `NSString` key type and a value type which adheres to this collection of rules.
 * All complex types conform to `JSONKeyValueCreatable`.  This is most easily achieved by using `JSONCreatableObject` as the base class.
-* All numeric types are `NSNumber`, `NSDecimalNumber` or can be bridged to `NSNumber` and are not declared optional.
+* All numeric types are `NSNumber`, `NSDecimalNumber` (may be declared optional) or can be bridged to `NSNumber` (cannot be declared optional).
+
 
 If you do not wish to have to adhere to the above limitations then it is possible to extend most other types using the defined protocols. Details on these protocols and how they're evaluated during serialization and deserialization can be found below.
 
