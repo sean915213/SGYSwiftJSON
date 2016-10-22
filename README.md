@@ -5,7 +5,6 @@
 [![License](https://img.shields.io/cocoapods/l/SGYSwiftJSON.svg?style=flat)](http://cocoapods.org/pods/SGYSwiftJSON)
 [![Platform](https://img.shields.io/cocoapods/p/SGYSwiftJSON.svg?style=flat)](http://cocoapods.org/pods/SGYSwiftJSON)
 
-# SGYSwiftJSON
 A library seeking to provide an automatic and type-safe approach to converting Swift types to and from JSON.
 
 - [Summary](#summary)
@@ -39,7 +38,7 @@ If you do not wish to have to adhere to the above limitations then it is possibl
 Serialization is supported via protocols and the use of Swift's `Mirror`. Any object passed to be serialized is checked for the following conditions:
  1. Conforms to `JSONProxyProvider` - The `jsonProxy` property of the object will be retrieved and passed through this same logic tree.
  2. Conforms to `JSONLeafRepresentable` - Objects adhering to this protocol can be represented as a JSON leaf object.  I.e `NSString`, `NSNumber`, or `NSNull`.  Beyond the 3 leaf values accepted the structs `String`, `Bool`, `Int`, `Float`, and `Double` conform to this protocol.
- 3. Is an `NSDate` -  If the object is an `NSDate` and does not conform to any of the above protocols then the *dateConversionBlock*, if provided, is used to convert to `JSONLeafRepresentable` or the property is skipped if no block exists.
+ 3. Is a `Date` -  If the object is an `Date` and does not conform to any of the above protocols then the *dateConversionBlock*, if provided, is used to convert to `JSONLeaf` or the property is skipped if no block exists.
  4. Conforms to `SGYDictionaryReflection` - The object will be converted to a dictionary of strings keys and object values. The generic `Dictionary` and `NSDictionary` both adhere to this protocol.
  5. Conforms to `SGYCollectionReflection` - The object's contained elements will be converted and put into an array. `Array`, `NSArray`, and `Set` adhere to this protocol.
  6. None of the above - The object's property's and values will be enumerated using `Mirror` and converted to a dictionary.
@@ -53,7 +52,7 @@ Deserialization is considerably more difficult than serialization as it requires
   *  If the object conforms to `JSONCollectionCreatable` the object's element type is retrieved using the protocol's *elementType* property. The object produced by `NSJSONSerialization` must be an `NSArray`or an error is thrown.
  2. If the value to be deserialized into is an array then all values will be converted to the array's containing `Element` type.  Similarly, dictionaries have the containing values converted to their `Value` type.  For complex objects the value is converted using its `Mirror` property representation.  This conversion is done using the following logic:
   1. If the declared type is `AnyObject` or the declared type matches the deserialized type then the deserialized type is assigned directly.
-  2. If the declared type is `NSDate` then the `dateConversionBlock` is used to convert the deserialized `AnyObject` value to `NSDate`.  If the block is not declared or returns nil the property is not assigned.
+  2. If the declared type is `Date` then the `dateConversionBlock` is used to convert the deserialized `AnyObject` value to `Date`.  If the block is not declared or returns nil the property is not assigned.
   2. If the deserialized value is a leaf value then the deserialized type must conform to `JSONLeafConvertable` and will be constructed using the leaf value and assigned.  Otherwise the deserialized value is not assigned.
   3. If the deserialized value is the `[AnyObject]` type and the declared type is `JSONCollectionCreatable` an array will be initialized and returned using the array conversion logic.  Otherwise the deserialized value is not assigned.
   4. If the deserialized value is the `[String: AnyObject]` type and the declared type is `JSONDictionaryCreatable` an array will be initialized and returned using the dictionary conversion logic.  Otherwise the deserialized value is not assigned.
@@ -105,14 +104,14 @@ The above example is already way less effort than normal conversion. But we're s
 ```
 This will serialize fine.  But deserialization is a problem.  The property `followersCount` will be properly converted to an `Int`. But `JSONCreatableObject` uses key value coding so attempting to assign to `Int?` will throw an error. The solution is simple:
 ```swift
-    var followersCount: Int = -1 // Sentinal value indicates it was never changed- ie nil
+    var followersCount: Int = 0 // No reason to be nil anyway.  If value doesn't exist 0 is reasonable.
 ```
 This will deserialize just fine.   If you're hell bent on using optional Foundation types then see the next section's info on overriding `setValue:forProperty`.
 <a name="examples-swiftier"></a>
 ### Even Swiftier Example
-Now the model looks a bit closer to something we might actually design without de/serialization in mind.  But what about the `favoriteColor` property? That absolutely begs to be a Swift enum.  Serialization is, again, simpler to perform.  We define `Color` enum that conforms to a number of protocols that do the work:
+Now the model looks a bit closer to something we might actually design without de/serialization in mind.  But what about the `favoriteColor` property? That absolutely begs to be a Swift enum.  Serialization is, again, simpler to perform.  We define `Color` enum that conforms to a compound protocol:
 ```swift
-enum Color: String, JSONLeafEnum, JSONLeafRepresentable, JSONLeafCreatable {
+enum Color: String, JSONLeafEnum {
     case Red = "Red", Green = "Green", Blue = "Blue", Yellow = "Yellow"
 }
 ```
@@ -131,22 +130,22 @@ Now the `Person` class will deserialize the JSON value into an optional Swift en
 <a name="examples-date"></a>
 ### Dates
 Strictly a date is not a JSON value. But its use, and therefore need to convert, is constant.  Because there are so many ways to represent a date value the serializer and deserializer classes expose a `dateConversionBlock` property for the explicit purpose of conversion.
-First let's convert `birthdate` to an `NSDate` type:
+First let's convert `birthdate` to a `Date` type:
 ```swift
-    var birthdate: NSDate?
+    var birthdate: Date?
 ```
-Since most JSON representations of a date are string or number types the date conversion block on `SGYJSONSerializer` is expected to return a `JSONLeafValue` enum.  Let's assume whatever consumes our JSON expects dates in `NSDateFormatter`'s `MediumStyle`.  Then the only addition to our serialization from before is the assignment of this block:
+Since most JSON representations of a date are string or number types the date conversion block on `SGYJSONSerializer` is expected to return a `JSONLeafValue` enum.  Let's assume whatever consumes our JSON expects dates in `DateFormatter`'s `MediumStyle`.  Then the only addition to our serialization from before is the assignment of this block:
 ```swift
-let formatter = NSDateFormatter()
+let formatter = DateFormatter()
 formatter.dateStyle = .MediumStyle
 serializer.dateConversionBlock = { (date) in formatter.stringFromDate(date) }
 // Continue serialization as before
 ```
-Deserialization is similar.  The main difference is the `dateConversionBlock` on the deserializer accepts a more general argument of `AnyObject` in order to allow conversion to `NSDate` from any arbitrarily deserialized value:
+Deserialization is similar.  The main difference is the `dateConversionBlock` on the deserializer accepts a more general argument of `AnyObject` in order to allow conversion to `Date` from any arbitrarily deserialized value:
 ```swift
-let formatter = NSDateFormatter()
+let formatter = DateFormatter()
 formatter.dateStyle = .MediumStyle
-deserializer.dateConversionBlock = { (jsonValue) -> NSDate? in
+deserializer.dateConversionBlock = { (jsonValue) -> Date? in
     guard let value = jsonValue as? String else { return nil }
     return formatter.dateFromString(value)
 }
