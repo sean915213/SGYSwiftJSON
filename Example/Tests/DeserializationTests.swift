@@ -26,9 +26,18 @@ class DeserializationTests: XCTestCase {
     func testComplexObjectDeserialization() {
         let jsonData = readJSONData(fromFile: "ComplexObject")
         
-        // Serialize
-        let obj: ComplexObject! = try? deserializer.deserialize(jsonData)
-        XCTAssertNotNil(obj)
+        // NOTE: Not sure why but cannot assign to implicitly unwrapped veriable inside do loop unless doing type switching below
+        var obj: ComplexObject!
+        do {
+            let result: (ComplexObject, [SGYJSONDeserializer.Warning]?) = try deserializer.deserialize(jsonData)
+            obj = result.0
+            // Assert that a single warning exists for KVO error on optional int
+            XCTAssert(result.1?.count == 1)
+            
+        } catch let err {
+            XCTFail("Deserialize threw error: \(err).")
+            return
+        }
         
         // Properties
         XCTAssertEqual(obj.color, Color.yellow)
@@ -37,6 +46,7 @@ class DeserializationTests: XCTestCase {
         XCTAssertEqual(obj.string, "test string value")
         XCTAssertEqual(obj.date, Date(timeIntervalSince1970: 10000))
         XCTAssertEqual(obj.double, 33.3)
+        
         // Dictionary
         for i in 1...5 {
             XCTAssertEqual(obj.complexDict?["\(i)"]?.number, NSNumber(integerLiteral: i))
@@ -48,12 +58,28 @@ class DeserializationTests: XCTestCase {
     }
     
     func testArrayDeserialization() {
-        let doubleArray = [1.0, 50.0, 100, 45.0]
-        let jsonData = try! JSONSerialization.data(withJSONObject: doubleArray, options: [])
+        let testArray = [1, 50, 100, 45]
+        let jsonData = try! JSONSerialization.data(withJSONObject: testArray, options: [])
         
-        let array: [Double]! = try? deserializer.deserialize(jsonData)
-        XCTAssertNotNil(array)
-        XCTAssertEqual(array, doubleArray)
+        // Deserialize into int
+        arrayCheck(jsonData, againstArray: testArray)
+        // Deserialize into double
+        arrayCheck(jsonData, againstArray: testArray.map { Double($0) })
+        // Deserialize into dates
+        arrayCheck(jsonData, againstArray: testArray.map { Date(timeIntervalSince1970: TimeInterval($0)) })
+    }
+    
+    private func arrayCheck<T>(_ jsonData: Data, againstArray: [T]) where T: Equatable {
+        // Deserialize into int
+        let testArray: [T]? = try? deserializer.deserialize(jsonData)
+        XCTAssertNotNil(testArray)
+        XCTAssertEqual(testArray!, againstArray)
+        
+        /**
+        let intResult: ([T], [SGYJSONDeserializer.Warning]?)? = try? deserializer.deserialize(jsonData)
+        XCTAssertNotNil(intResult?.0)
+        XCTAssertEqual(intResult!.0, againstArray)
+ **/
     }
     
     private func readJSONData(fromFile file: String) -> Data {

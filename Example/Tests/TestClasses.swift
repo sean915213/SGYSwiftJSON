@@ -45,6 +45,8 @@ class ComplexObject: BaseComplexObject {
     var shape: Shape?
     var double: Double = 0
     
+    var optionalInt: Int?
+    
     var complexDict: [String: ComplexObject]?
     
     override func setValue(_ value: Any, property: String) throws {

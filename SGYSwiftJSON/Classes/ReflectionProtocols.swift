@@ -20,6 +20,9 @@ public protocol SGYCollectionReflection {
 *  Defined to allow unwrapping and assigning the contained types of a generic dictionary.
 */
 public protocol SGYDictionaryReflection {
+    //associatedtype Key
+    //associatedtype Value
+    
     /// A tuple containing this dictionary's `Key` and `Value` types.
     static var keyValueTypes: (key: Any.Type, value: Any.Type) { get }
 }

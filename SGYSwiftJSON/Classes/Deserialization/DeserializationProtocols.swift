@@ -50,6 +50,9 @@ public protocol JSONCollectionCreatable: SGYCollectionReflection {
 *  Defined to allow attempting the assignment of a deserialized dictionary.
 */
 public protocol JSONDictionaryCreatable: SGYDictionaryReflection {
+    
+    //associatedtype Key: String
+    
     /**
      Initializes the type from a deserialized dictionary.
      

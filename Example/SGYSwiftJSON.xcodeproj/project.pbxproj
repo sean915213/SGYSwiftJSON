@@ -75,7 +75,6 @@
 				607FACEB1AFB9204008FA782 /* DeserializationTests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 				C46315571DBBD88B004B9DF1 /* SerializationTests.swift */,
-				C46315591DBBD8A2004B9DF1 /* TestClasses.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -83,6 +82,7 @@
 		607FACE91AFB9204008FA782 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C46315591DBBD8A2004B9DF1 /* TestClasses.swift */,
 				607FACEA1AFB9204008FA782 /* Info.plist */,
 				C40FD7B81DB58C2F0028EF7E /* ComplexObject.json */,
 			);
