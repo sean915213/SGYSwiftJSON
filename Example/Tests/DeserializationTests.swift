@@ -74,12 +74,6 @@ class DeserializationTests: XCTestCase {
         let testArray: [T]? = try? deserializer.deserialize(jsonData)
         XCTAssertNotNil(testArray)
         XCTAssertEqual(testArray!, againstArray)
-        
-        /**
-        let intResult: ([T], [SGYJSONDeserializer.Warning]?)? = try? deserializer.deserialize(jsonData)
-        XCTAssertNotNil(intResult?.0)
-        XCTAssertEqual(intResult!.0, againstArray)
- **/
     }
     
     private func readJSONData(fromFile file: String) -> Data {

@@ -38,9 +38,9 @@ public class SGYJSONDeserializer {
     
     - parameter jsonData: JSON data.
     
-    - throws: All `SGYJSONDeserializer.Error` cases.
+    - throws: All `SGYJSONDeserializer.DeserializeError` cases.
     
-    - returns: An instance of the provided `JSONKeyValueCreatable` type with the associated deserialized properties assigned.
+    - returns: A tuple containing an instance of the provided `JSONKeyValueCreatable` type with the associated deserialized properties assigned and a list of `SGYJSONSerializer.Warning` cases if any were encountered.
     */
     public func deserialize<T: JSONKeyValueCreatable>(_ jsonData: Data) throws -> (T, [Warning]?) {
         // Create an instance
@@ -55,7 +55,9 @@ public class SGYJSONDeserializer {
      - parameter jsonData: JSON data.
      - parameter instance: An object instance conforming to `JSONKeyValueCreatable`.
      
-     - throws: All `SGYJSONDeserializer.Error` types.
+     - throws: All `SGYJSONDeserializer.DeserializeError` types.
+     
+     - returns: A list of `SGYJSONSerializer.Warning` cases if any were encountered.
      */
     @discardableResult
     public func deserialize(_ jsonData: Data, intoInstance instance: JSONKeyValueCreatable) throws -> [Warning]? {
@@ -72,9 +74,9 @@ public class SGYJSONDeserializer {
      
      - parameter jsonData: JSON data.
      
-     - throws: All `SGYJSONDeserializer.Error` types.
+     - throws: All `SGYJSONDeserializer.DeserializeError` types.
      
-     - returns: An instance of the provided `JSONCollectionCreatable` type with the associated deserialized elements assigned.
+     - returns: A tuple containing an instance of the provided `JSONCollectionCreatable` type with the associated deserialized elements assigned and a list of `SGYJSONSerializer.Warning` cases if any were encountered.
      */
     public func deserialize<T: JSONCollectionCreatable>(_ jsonData: Data) throws -> (T, [Warning]?) {
         // Deserialize data
@@ -91,9 +93,9 @@ public class SGYJSONDeserializer {
      
      - parameter jsonData: JSON data.
      
-     - throws: All `SGYJSONDeserializer.Error` types.
+     - throws: All `SGYJSONDeserializer.DeserializeError` types.
      
-     - returns: An instance of the provided `JSONDictionaryCreatable` type with the associated key-value pairs assigned.
+     - returns: A tuple containing an instance of the provided `JSONDictionaryCreatable` type with the associated key-value pairs assigned and a list of `SGYJSONSerializer.Warning` cases if any were encountered.
      */
     public func deserialize<T: JSONDictionaryCreatable>(_ jsonData: Data) throws -> (T, [Warning]?) {
         // Deserialize data
@@ -130,14 +132,6 @@ public class SGYJSONDeserializer {
         }
         // Return a type instance initialized with the contents
         return (type.init(array: convertedValues), allWarnings.isEmpty ? nil : allWarnings)
-        
-        /**
-        let convertedValues = try values.map { try self.convertValue($0, toType: type.elementType) }
-        // Create a filtered list of non-nil, unwrapped values
-        let realValues = (convertedValues.filter { $0 != nil }).map { $0! }
-        // Return a type instance initialized with the contents
-        return type.init(array: realValues)
- **/
     }
     
     private func convertDictionary(_ dictionary: [String: Any], toDictionaryType type: JSONDictionaryCreatable.Type) -> (JSONDictionaryCreatable?, [Warning]?) {
@@ -152,9 +146,6 @@ public class SGYJSONDeserializer {
                 let assignWarning = Warning.assignment(key, warnings)
                 allWarnings.append(assignWarning)
             }
-            
-            
-            //if let typedValue = try convertValue(value, toType: type.keyValueTypes.value) { typedDictionary[key] = typedValue }
         }
         // Return a type instance initialized with the contents
         return (type.init(dictionary: typedDictionary), allWarnings.isEmpty ? nil : allWarnings)
@@ -290,7 +281,7 @@ extension SGYJSONDeserializer {
     /**
      Errors thrown during deserialization.
      
-     - invalidDeserializedObject(`AnyClass`, `AnyClass`): The provided data deserialized into an object incompatible with the type argument.
+     - invalidDeserializedObject(`Any.Type`, `Any.Type`): The provided data deserialized into an object incompatible with the type argument.
      - keyValueError(`String`, `Any`, `NSError`): An error was thrown calling `setValue:property:` on the deserialized object.
      - jsonDeserializationError(`NSError`): An error was thrown when deserializing the initial data.
      */
@@ -317,22 +308,76 @@ extension SGYJSONDeserializer {
         case jsonDeserializationError(NSError)
     }
     
-    
+    /**
+     Warnings recorded during deserialization.
+     
+     - unsupportedConversion(`Any.Type`, `Any.Type`): The resulting JSON type could not be converted into the native type.
+     - assignment(`String`, `[Warning]`): There was a problem deserializing and assigning a specific property.
+     - unsupportedDictionaryKeyType(`Any.Type`): A dictionary was encountered with an invalid type of key.
+     - keyValueError(`String`, `Any`, `NSError`): An error was thrown using KVC to assign a property to an object.
+     */
     public enum Warning {
+        /**
+         The resulting JSON type could not be converted into the native type.
+         
+         - returns: A `Warning` case.
+         */
         case unsupportedConversion(Any.Type, Any.Type)
+        /**
+         There was a problem deserializing and assigning a specific property.
+         
+         - returns: A `Warning` case.
+         */
         indirect case assignment(String, [Warning])
+        /**
+         A dictionary was encountered with an invalid type of key.
+         
+         - returns: A `Warning` case.
+         */
         case unsupportedDictionaryKeyType(Any.Type)
+        /**
+         An error was thrown using KVC to assign a property to an object.
+         
+         - returns: A `Warning` case.
+         */
         case keyValueError(String, Any, NSError)
     }
     
+    /**
+     Creates an instance of the provided `JSONKeyValueCreatable` type and attempts assigning its properties using the provided JSON data.
+     
+     - parameter jsonData: JSON data.
+     
+     - throws: All `SGYJSONDeserializer.DeserializeError` cases.
+     
+     - returns: An instance of the provided `JSONKeyValueCreatable` type with the associated deserialized properties assigned.
+     */
     public func deserialize<T: JSONKeyValueCreatable>(_ jsonData: Data) throws -> T {
         return try deserialize(jsonData).0
     }
     
+    /**
+     Creates an instance of the provided `JSONCollectionCreatable` type and attempts assigning its elements using the provided JSON data.
+     
+     - parameter jsonData: JSON data.
+     
+     - throws: All `SGYJSONDeserializer.DeserializeError` types.
+     
+     - returns: An instance of the provided `JSONCollectionCreatable` type with the associated deserialized elements assigned.
+     */
     public func deserialize<T: JSONCollectionCreatable>(_ jsonData: Data) throws -> T {
         return try deserialize(jsonData).0
     }
     
+    /**
+     Creates an instance of the provided `JSONDictionaryCreatable` type and attempts assigning its key-value pairs using the provided JSON data.
+     
+     - parameter jsonData: JSON data.
+     
+     - throws: All `SGYJSONDeserializer.DeserializeError` types.
+     
+     - returns: An instance of the provided `JSONDictionaryCreatable` type with the associated key-value pairs assigned.
+     */
     public func deserialize<T: JSONDictionaryCreatable>(_ jsonData: Data) throws -> T {
         return try deserialize(jsonData).0
     }
