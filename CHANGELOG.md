@@ -1,10 +1,19 @@
 # Change Log
 All notable changes to this project will be documented in this file.
-This project adheres to [Semantic Versioning](http://semver.org/).
 This change log adheres to the suggested [keep-a-change-log](https://github.com/olivierlacan/keep-a-changelog) standards.
 
+## [2.0.0]
+#### Swift Refactoring
+- Refactored entire code base for Swift 3.0.
+- Rewrote several method signatures to adhere to new Swift API standards.
+- Nested most enums per new API standards.
+#### Code Changes
+- Removed serializaton and deserialization protocols related to enums.  The related functionality now uses the `RawValueType` protocol to adhere to `JSONLeafCreatable` and `JSONLeafRepresentable`. The protocol `JSONLeafEnum` is now used to expose an enum type to serialization / deserialization.
+- Removed the `unsupportedConversionBlock` property used to log deserialization problems.  All deserialization methods now have an overload return that provides an array of `SGYJSONDeserializer.Warning` cases to help track unsupported conversions.
+- Due to the above change the deserializer will now create a warning and continue instead of throwing for most conversion errors.
+
 ## [1.1.3]
-### Cocoapods 1.0 Update
+#### Cocoapods 1.0 Update
 - Updated Podfile to Cocoapods 1.0 syntax.
 - Updated testing syntax.
 
@@ -39,6 +48,7 @@ This change log adheres to the suggested [keep-a-change-log](https://github.com/
 #### Initial Release
 - Checked in and published initial tested version of library.
 
+[2.0.0]: https://github.com/sean915213/SGYSwiftJSON/compare/1.1.3...2.0.0
 [1.1.3]: https://github.com/sean915213/SGYSwiftJSON/compare/1.1.2...1.1.3
 [1.1.2]: https://github.com/sean915213/SGYSwiftJSON/compare/1.1.1...1.1.2
 [1.1.1]: https://github.com/sean915213/SGYSwiftJSON/compare/1.1.0...1.1.1
