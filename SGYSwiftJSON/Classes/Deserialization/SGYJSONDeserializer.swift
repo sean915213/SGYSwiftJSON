@@ -320,25 +320,25 @@ extension SGYJSONDeserializer {
         /**
          The resulting JSON type could not be converted into the native type.
          
-         - returns: A `Warning` case.
+         - returns: A `Warning` case containing the JSON type and the type that it could not be converted to.
          */
         case unsupportedConversion(Any.Type, Any.Type)
         /**
          There was a problem deserializing and assigning a specific property.
          
-         - returns: A `Warning` case.
+         - returns: A `Warning` case containing the name of the property or index that could not be assigned and any nested warnings that contibuted to the failure.
          */
         indirect case assignment(String, [Warning])
         /**
          A dictionary was encountered with an invalid type of key.
          
-         - returns: A `Warning` case.
+         - returns: A `Warning` case containing the offending type.
          */
         case unsupportedDictionaryKeyType(Any.Type)
         /**
          An error was thrown using KVC to assign a property to an object.
          
-         - returns: A `Warning` case.
+         - returns: A `Warning` case containing the name of the property, the value being assigned that raised the error, and the error itself.
          */
         case keyValueError(String, Any, NSError)
     }
