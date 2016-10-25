@@ -2,6 +2,16 @@ import UIKit
 import XCTest
 import SGYSwiftJSON
 
+
+class TestObserver: JSONWarningObserver {
+    
+    private(set) var warnings = [JSONWarning]()
+    
+    func observe(warning: JSONWarning) {
+        warnings.append(warning)
+    }
+}
+
 class DeserializationTests: XCTestCase {
     
     let deserializer: SGYJSONDeserializer = {
@@ -29,10 +39,12 @@ class DeserializationTests: XCTestCase {
         // NOTE: Not sure why but cannot assign to implicitly unwrapped veriable inside do loop unless doing type switching below
         var obj: ComplexObject!
         do {
-            let result: (ComplexObject, [SGYJSONDeserializer.Warning]?) = try deserializer.deserialize(jsonData)
-            obj = result.0
-            // Assert that a single warning exists for KVO error on optional int
-            XCTAssert(result.1?.count == 1)
+            // Create observer
+            let observer = TestObserver()
+            let result: ComplexObject = try deserializer.deserialize(jsonData, observer: observer)
+            obj = result
+            // Should have a warning for optional Int
+            XCTAssert(observer.warnings.count == 1)
             
         } catch let err {
             XCTFail("Deserialize threw error: \(err).")

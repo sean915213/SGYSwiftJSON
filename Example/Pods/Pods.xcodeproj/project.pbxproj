@@ -27,6 +27,7 @@
 		95ACB0F82EDF27BF111D1B349FA08FC0 /* EnumImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E2EF85D88E4E30F46214FE69554016 /* EnumImplementation.swift */; };
 		A9DCD4CBE5C3864B56874FA210E078F9 /* DeserializationProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401A0D99388D4465F6066CDF313BE37C /* DeserializationProtocols.swift */; };
 		ABFEC03481298D6CC3B62CA6B0C7BD8A /* SGYKVCSafeNSObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 9005B003A660327C4EB9F11D87C07379 /* SGYKVCSafeNSObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4BE7F611DBFE2E200B62B50 /* JSONWarnings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BE7F5F1DBFE1AD00B62B50 /* JSONWarnings.swift */; };
 		C66D89061EAB065579421D99DF498A06 /* JSONCreatableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421B34A65C2532EE3729A1174F338875 /* JSONCreatableObject.swift */; };
 		CC358C53563A70FBC7FDA10EBC8EA72C /* SGYJSONSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157F9B6E9ABE1402962DCCBD68B665A0 /* SGYJSONSerializer.swift */; };
 		D8AF1328CD4BBE879211C97BB5F7F770 /* Pods-SGYSwiftJSON_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C62BF55007FAD66D70C9D4497EB6DA /* Pods-SGYSwiftJSON_Tests-dummy.m */; };
@@ -90,6 +91,7 @@
 		B1430849C88B1DDC0CA81C46D781E8F2 /* SGYSwiftJSON-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SGYSwiftJSON-dummy.m"; sourceTree = "<group>"; };
 		B6F358CE170685F69B81042EFF3BDF5B /* Pods-SGYSwiftJSON_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SGYSwiftJSON_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		B75C9E1D10DED3BEDF233FBEB44A3C45 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C4BE7F5F1DBFE1AD00B62B50 /* JSONWarnings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONWarnings.swift; sourceTree = "<group>"; };
 		C9D01CA2C68122C2E3353C4C3A4D9FC1 /* SGYSwiftJSON.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SGYSwiftJSON.modulemap; sourceTree = "<group>"; };
 		CB88D200DC80E6521F031A0EE472080E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB8FCD2020E03B3971E108226E624243 /* Pods-SGYSwiftJSON_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SGYSwiftJSON_Tests-umbrella.h"; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				05521CBBE27C592E9DBD214BBD558B1D /* ReflectionProtocols.swift */,
 				1E7D83AD100CCE9E3EF4A23C041EF6ED /* Deserialization */,
 				25C8457E41D8AF62B740C1548D6346C3 /* Serialization */,
+				C4BE7F5F1DBFE1AD00B62B50 /* JSONWarnings.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -398,7 +401,7 @@
 						LastSwiftMigration = 0800;
 					};
 					F7FD701D0FDC8FA7910F355BEFB4F416 = {
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0810;
 					};
 				};
 			};
@@ -444,6 +447,7 @@
 				7CAECC339A0B5722C29F0F476ECA66B4 /* ReflectionProtocols.swift in Sources */,
 				22DD8C9009451D90E2C46D818879A86D /* SerializationExtensions.swift in Sources */,
 				2B7D65D8E055DB86402A57AEC66A81FD /* SerializationProtocols.swift in Sources */,
+				C4BE7F611DBFE2E200B62B50 /* JSONWarnings.swift in Sources */,
 				0484D5699FF87214043C98C5C1761492 /* SGYJSONDeserializer.swift in Sources */,
 				CC358C53563A70FBC7FDA10EBC8EA72C /* SGYJSONSerializer.swift in Sources */,
 				321802CA8105E39F9660C7F300731FA5 /* SGYSwiftJSON-dummy.m in Sources */,
@@ -585,6 +589,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 978B28D0412D74F07C05C94C1B4F4851 /* Pods-SGYSwiftJSON_Tests.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -648,6 +653,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8B8EB8F582855A8B4916572957C646A3 /* Pods-SGYSwiftJSON_Tests.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
