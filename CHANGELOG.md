@@ -7,6 +7,7 @@ This change log adheres to the suggested [keep-a-change-log](https://github.com/
 - Refactored entire code base for Swift 3.0.
 - Rewrote several method signatures to adhere to new Swift API standards.
 - Nested most enums per new API standards.
+
 #### Code Changes
 - Removed serializaton and deserialization protocols related to enums.  The related functionality now uses the `RawValueType` protocol to adhere to `JSONLeafCreatable` and `JSONLeafRepresentable`. The protocol `JSONLeafEnum` is now used to expose an enum type to serialization / deserialization.
 - Removed the `unsupportedConversionBlock` property used to log deserialization problems.  All deserialization methods now have an overload return that provides an array of `SGYJSONDeserializer.Warning` cases to help track unsupported conversions.
