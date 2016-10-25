@@ -40,7 +40,7 @@ class SerializationTests: XCTestCase {
         
         // Foundation deserialize
         let jsonArray = try? JSONSerialization.jsonObject(with: arrayData!, options: []) as? [Double]
-        XCTAssertNotNil(jsonArray)
+        XCTAssertNotNil(jsonArray as Any)
         
         XCTAssertEqual(jsonArray!!, testArray)
     }
@@ -82,7 +82,7 @@ class SerializationTests: XCTestCase {
         
         // Foundation deserialize
         let jsonObj = try? JSONSerialization.jsonObject(with: objData!, options: []) as? [String: Any]
-        XCTAssertNotNil(jsonObj)
+        XCTAssertNotNil(jsonObj as Any)
         
         // Property checks
         XCTAssertEqual(jsonObj??["string"] as? String, testString)
