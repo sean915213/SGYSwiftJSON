@@ -216,9 +216,9 @@ public class SGYJSONDeserializer {
             // Check whether property type adheres to our protocol
             if let assignableType = type as? JSONKeyValueCreatable.Type {
                 let instance = assignableType.init()
-                try assignInstanceProperties(instance, dictionary: dictionaryValue)
+                let warnings = assignInstanceProperties(instance, dictionary: dictionaryValue)
                 // Return instance
-                return clean(instance)
+                return (instance, warnings)
             } else if let dictionaryType = type as? JSONDictionaryCreatable.Type {
                 // Currently only capable of converting dictionaries with string keys
                 if dictionaryType.keyValueTypes.key != String.self {
