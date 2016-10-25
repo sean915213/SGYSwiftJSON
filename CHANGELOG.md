@@ -13,6 +13,9 @@ This change log adheres to the suggested [keep-a-change-log](https://github.com/
 - Removed the `unsupportedConversionBlock` property used to log deserialization problems.  All deserialization methods now have an overload return that provides an array of `SGYJSONDeserializer.Warning` cases to help track unsupported conversions.
 - Due to the above change the deserializer will now create a warning and continue instead of throwing for most conversion errors.
 
+### Testing Changes
+- Removed testing frameworks installed by Cocoapods and reverted to XCTest.
+
 ## [1.1.3]
 #### Cocoapods 1.0 Update
 - Updated Podfile to Cocoapods 1.0 syntax.
