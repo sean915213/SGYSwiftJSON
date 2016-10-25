@@ -10,8 +10,8 @@ This change log adheres to the suggested [keep-a-change-log](https://github.com/
 
 #### Code Changes
 - Removed serializaton and deserialization protocols related to enums.  The related functionality now uses the `RawValueType` protocol to adhere to `JSONLeafCreatable` and `JSONLeafRepresentable`. The protocol `JSONLeafEnum` is now used to expose an enum type to serialization / deserialization.
-- Removed the `unsupportedConversionBlock` property used to log deserialization problems.  All deserialization methods now have an overload return that provides an array of `SGYJSONDeserializer.Warning` cases to help track unsupported conversions.
-- Due to the above change the deserializer will now create a warning and continue instead of throwing for most conversion errors.
+- Removed the `unsupportedConversionBlock` property used to log deserialization problems.  All de/serialization methods now accept an optional `JSONWarningObserver` instance to log any non-fatal warnings during conversion.
+- Due to the above change all de/serialization methods will no longer throw and terminate during a warning.
 
 ### Testing Changes
 - Removed testing frameworks installed by Cocoapods and reverted to XCTest.
