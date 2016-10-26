@@ -13,7 +13,7 @@ This change log adheres to the suggested [keep-a-change-log](https://github.com/
 - Removed the `unsupportedConversionBlock` property used to log deserialization problems.  All de/serialization methods now accept an optional `JSONWarningObserver` instance to log any non-fatal warnings during conversion.
 - Due to the above change all de/serialization methods will no longer throw and terminate during a warning.
 
-### Testing Changes
+#### Testing Changes
 - Removed testing frameworks installed by Cocoapods and reverted to XCTest.
 
 ## [1.1.3]
